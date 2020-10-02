@@ -102,6 +102,7 @@ namespace RePag
       double& __vectorcall DOUBLE(_Out_ double& dZahl);
       COComma4* __vectorcall COMMA4(_Out_ COComma4* pk4Zahl);
       COComma4_80* __vectorcall COMMA4_80(_Out_ COComma4_80* pk4gZahl);
+      BIT128& __vectorcall BIT128fromGUID(BIT128& bit128Zahl);
       bool __vectorcall IsIntegralNumber(void);
       bool __vectorcall IsFloatingPointNumber(void);
       void __vectorcall Uppercase(void);
@@ -158,6 +159,7 @@ namespace RePag
 #pragma comment(linker, "/export:?DOUBLE@COStringA@System@RePag@@QAQAANAAN@Z")
 #pragma comment(linker, "/export:?COMMA4@COStringA@System@RePag@@QAQPAVCOComma4@23@PAV423@@Z")
 #pragma comment(linker, "/export:?COMMA4_80@COStringA@System@RePag@@QAQPAVCOComma4_80@23@PAV423@@Z")
+#pragma comment(linker, "/export:?BIT128fromGUID@COStringA@System@RePag@@QAQAAY0BA@EAAY0BA@E@Z")
 #pragma comment(linker, "/export:?IsIntegralNumber@COStringA@System@RePag@@QAQ_NXZ")
 #pragma comment(linker, "/export:?IsFloatingPointNumber@COStringA@System@RePag@@QAQ_NXZ")
 #pragma comment(linker, "/export:?Uppercase@COStringA@System@RePag@@QAQXXZ")

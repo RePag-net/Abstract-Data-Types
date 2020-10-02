@@ -116,7 +116,7 @@ s_c11NachKomma = 9
 s_ucNachKommaStellen = 8
 s_dwMXCSR = 4
 s_dwMXCSR_Alt = 0
-a_ucStellen = esp_Bytes + 20
+a_ucStellen = esp_Bytes + 16
 ?Comma4toCHAR@System@RePag@@YQPADQADPAVCOComma4@12@E@Z PROC ; Comma4toCHAR(pc20Number[20], pk4Number, ucPositions)
     push ebx
     push esi

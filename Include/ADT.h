@@ -1,4 +1,4 @@
-// up Fileversion 2.3.5.0
+// up Fileversion 2.3.5.1
 #ifndef ADTH
 #define ADTH
 #ifndef CompSysH
@@ -257,6 +257,7 @@ namespace RePag
       double& __vectorcall DOUBLE(_Out_ double& dNumber);
       COComma4* __vectorcall COMMA4(_Out_ COComma4* pk4Number);
       COComma4_80* __vectorcall COMMA4_80(_Out_ COComma4_80* pk4gNumber);
+      BIT128& __vectorcall BIT128fromGUID(BIT128& bit128Zahl);
       bool __vectorcall IsIntegralNumber(void);
       bool __vectorcall IsFloatingPointNumber(void);
       void __vectorcall Uppercase(void);
@@ -548,7 +549,7 @@ namespace RePag
     __declspec(dllimport) bool __vectorcall StrContainRight(_In_z_ const char* pcRefString, _In_z_ const char* pcCmpString);
     __declspec(dllimport) bool __vectorcall StrContainRight(_In_z_ const char* pcRefString, _In_ unsigned long ulRefLength, _In_z_ const char* pcCmpString, _In_ unsigned long ulCmpLength);
     __declspec(dllimport) char __vectorcall BIT128Compare(_In_ const BIT128 bit128Value_1, _In_ const BIT128 bit128Value_2);
-    //---------------------------------------------------------------------------
+    //---------------------------------------------------------------------------------------------------------------------------------------
     __declspec(dllimport) void __vectorcall StringAtoList(COList* plNumberList, COStringA& asNumberChain);
     __declspec(dllimport) COStringA* __vectorcall ListtoStringA(COList* plNumberList, COStringA* pasNumber);
     __declspec(dllimport) char* __vectorcall Comma4toCHAR(_Out_writes_z_(20) char pc20Number[20], _In_ COComma4* pk4Number, _In_ unsigned char ucPositions);
@@ -561,7 +562,8 @@ namespace RePag
     __declspec(dllimport) char* __vectorcall ULONGtoHexCHAR(_Out_writes_z_(10) char pc10HexNumber[10], _In_ unsigned long ulNumber);
     __declspec(dllimport) char* __vectorcall DOUBLE_B10toCHAR(_Out_writes_z_(28) char pc28Number[28], _In_ double dNumber, _In_ unsigned char ucPositions); // ucPosition = 15 - rounds from 16 to 15 positions not technically possible
     __declspec(dllimport) char* __vectorcall FLOAT_B10toCHAR(_Out_writes_z_(20) char pc20Number[20], _In_ float fNumber, _In_ unsigned char ucPositions);   // ucPosition = 7 -  rounds from 8 to 7 positions not technically possible
-    //------------------------------------------------------------------------------------------------------------------------------------------
+    __declspec(dllimport) char* __vectorcall BIT128toGUID(_Out_writes_z_(37) char pc37GUID[37], _In_ const BIT128 bit128Value);
+    //---------------------------------------------------------------------------------------------------------------------------------------
   }
 }
 #endif

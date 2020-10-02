@@ -1,32 +1,3 @@
-;/****************************************************************************
-;  OStringA_x86.asm
-;  For more information see https://github.com/RePag-net/Core
-;****************************************************************************/
-;
-;/****************************************************************************
-;  The MIT License(MIT)
-;
-;  Copyright(c) 2020 René Pagel
-;
-;  Permission is hereby granted, free of charge, to any person obtaining a copy
-;  of this softwareand associated documentation files(the "Software"), to deal
-;  in the Software without restriction, including without limitation the rights
-;  to use, copy, modify, merge, publish, distribute, sublicense, and /or sell
-;  copies of the Software, and to permit persons to whom the Software is
-;  furnished to do so, subject to the following conditions :
-;
-;  The above copyright noticeand this permission notice shall be included in all
-;  copies or substantial portions of the Software.
-;
-;  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-;  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-;  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.IN NO EVENT SHALL THE
-;  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-;  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-;  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-;  SOFTWARE.
-;******************************************************************************/
-
 .686P
 .XMM
 .MODEL FLAT
@@ -698,6 +669,8 @@ _Text ENDS
     call ?VMFrei@System@RePag@@YQXPBXPAX@Z ; VMFrei(vmSpeicher, vbAdresse)
 
 	Lange:
+		test esi, esi
+		je short Lange_Null
 		mov eax, dword ptr COStringA_ulLange_A[esi]
 		test eax, eax
 		je short Lange_Null
@@ -721,13 +694,6 @@ _Text ENDS
 		mov byte ptr [eax], dl
 		jmp short Gleichsetzen
 
-	Lange_Null:
-		xor eax, eax
-		mov dword ptr COStringA_ulLange[ebp], eax
-    mov dword ptr COStringA_vbInhalt[ebp], eax
-		mov dword ptr COStringA_ulLange_A[ebp], eax
-    mov dword ptr COStringA_vbInhalt_A[ebp], eax
-
 	Gleichsetzen:
 		mov eax, dword ptr COStringA_vbInhalt[esi]
 		cmp eax, dword ptr COStringA_vbInhalt_A[esi]
@@ -740,6 +706,13 @@ _Text ENDS
 		mov dword ptr COStringA_ulLange_A[esi], ecx
 		mov eax, dword ptr COStringA_vbInhalt[esi]
 		mov dword ptr COStringA_vbInhalt_A[esi], eax
+
+	Lange_Null:
+		xor eax, eax
+		mov dword ptr COStringA_ulLange[ebp], eax
+    mov dword ptr COStringA_vbInhalt[ebp], eax
+		mov dword ptr COStringA_ulLange_A[ebp], eax
+    mov dword ptr COStringA_vbInhalt_A[ebp], eax
 		
 	Ende:
 		pop esi
@@ -4704,6 +4677,104 @@ s_dwMXCSR = 0
 		ret
 ?COMMA4_80@COStringA@System@RePag@@QAQPAVCOComma4_80@23@PAV423@@Z ENDP
 _Text ENDS
+;----------------------------------------------------------------------------
+?BIT128fromGUID@COStringA@System@RePag@@QAQAAY0BA@EAAY0BA@E@Z PROC ;BIT128& __vectorcall BIT128fromGUID(BIT128& bit128Zahl)
+		push ebp
+		push esi
+		push edi
+		push ebx
+
+		mov ebp, ecx
+		mov esi, dword ptr COStringA_vbInhalt[ebp]
+		mov edi, edx
+
+		xorpd xmm0, xmm0
+		xorpd xmm1, xmm1
+		xorpd xmm2, xmm2
+		xor eax, eax
+		xor edx, edx
+		xor ecx, ecx
+		jmp short Fuss_Anfang
+
+  Trennung:
+		sub ch, 1
+
+	Nachste_Zeichen:
+		add esi, 1
+		add ch, 1
+
+	Fuss_Anfang:
+		mov al, byte ptr [esi]
+		cmp al, 2dh
+		je short Trennung
+
+		cmp al, 60h
+		jbe short Grossbuchstaben
+		sub al, 57h
+		jmp short Hexwert
+
+	Grossbuchstaben:
+	  cmp al, 40h
+		jbe short Zahlen
+		sub al, 37h
+		jmp short Hexwert
+
+	Zahlen:
+		sub al, 30h
+
+	Hexwert:
+		test cl, cl
+		jne short Copy_8bit
+
+		add cl, 1
+		shl eax, 12
+		jmp short Nachste_Zeichen
+
+	Copy_8bit:
+		add ah, al
+		mov bl, ah
+
+		cmp ch, 7
+		jae short Copy_32bit
+
+		shl ebx, 8
+		xor cl, cl
+		jmp short Nachste_Zeichen
+
+	Copy_32bit:
+		movd xmm1, ebx
+		paddd xmm2, xmm1
+
+		test dl, dl
+		je short Shift_32
+		xor dl, dl
+
+		test dh, dh
+		je short Copy_Quad
+		paddq xmm0, xmm2
+		jmp short Ende
+
+  Copy_Quad:
+		movlhps xmm0, xmm2
+		pxor xmm2, xmm2
+		add dh, 1
+		xor cx, cx
+		jmp short Nachste_Zeichen
+
+	Shift_32:
+		psllq xmm2, 32
+		add dl, 1
+		xor cx, cx
+		jmp short Nachste_Zeichen
+
+	Ende:
+		movdqu xmmword ptr [edi], xmm0
+		pop ebx
+		pop edi
+		pop esi
+		pop ebp
+		ret
+?BIT128fromGUID@COStringA@System@RePag@@QAQAAY0BA@EAAY0BA@E@Z ENDP
 ;----------------------------------------------------------------------------
 ?IsIntegralNumber@COStringA@System@RePag@@QAQ_NXZ PROC ; COStringA::IsIntegralNumber(void)
 		push ebx
