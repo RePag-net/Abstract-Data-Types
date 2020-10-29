@@ -62,7 +62,8 @@ s_this = 0
 		mov dword ptr s_this[esp], eax
 
 		pxor xmm7, xmm7
-		movdqu xmmword ptr COList_pstErster[eax], xmm7
+		movdqu xmmword ptr [eax], xmm7
+		movdqu xmmword ptr [eax + 28], xmm7
 		movzx ecx, byte ptr s_bThreadSicher[esp]
 		mov byte ptr COList_bThread[eax], cl
 		test cl, cl
@@ -97,7 +98,8 @@ s_this = 0
 		mov dword ptr s_this[esp], eax
 
 		pxor xmm7, xmm7
-		movdqu xmmword ptr COList_pstErster[eax], xmm7
+		movdqu xmmword ptr [eax], xmm7
+		movdqu xmmword ptr [eax + 28], xmm7
 		movzx ecx, byte ptr s_bThreadSicher[esp]
 		mov byte ptr COList_bThread[eax], cl
 		test cl, cl
@@ -200,13 +202,15 @@ _Text SEGMENT
 a_bTheardSicher = 4
 ??0COList@System@RePag@@QAE@_N@Z PROC ; COList::COList(bThreadSicher)
 		pxor xmm7, xmm7
-		movdqu xmmword ptr COList_pstErster[ecx], xmm7
+		movdqu xmmword ptr [eax], xmm7
+		movdqu xmmword ptr [eax + 28], xmm7
 		movzx edx, byte ptr a_bTheardSicher[esp]
 		mov byte ptr COList_bThread[ecx], dl
 		test dl, dl
 		je short Ende
 
-		push eax
+		xor edx, edx
+		push edx
 		lea edx, COList_csIterator[ecx]
 		push edx
 		call dword ptr __imp__InitializeCriticalSectionAndSpinCount@8 ; InitializeCriticalSectionAndSpinCount(&csIterator, ulSpinCount)
@@ -221,7 +225,8 @@ a_bThreadSicher = 4
 a_ulSpinCount = 8
 ??0COList@System@RePag@@QAE@_NK@Z PROC ; COList::COList(bThreadSicher, ulSpinCount)
 		pxor xmm7, xmm7
-		movdqu xmmword ptr COList_pstErster[ecx], xmm7
+		movdqu xmmword ptr [eax], xmm7
+		movdqu xmmword ptr [eax + 28], xmm7
 		movzx edx, byte ptr a_bThreadSicher[esp]
 		mov byte ptr COList_bThread[ecx], dl
 		test dl, dl
@@ -630,7 +635,7 @@ s_this = 0
 
 		mov edx, 8
     mov ecx, dword ptr COList_vmSpeicher[ecx]
-    call ?VMBlockS@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
+    call ?VMBlockS@System@RePag@@YQPADPBXK@Z ; VMBlockS(vmSpeicher, ulBytes)
 
 		;pop edx ; pvDaten
 		mov edx, dword ptr s_pvDaten[esp]
@@ -1483,7 +1488,7 @@ a_bDatenLoschen = esp_Bytes + 20
 		jmp short For_Anfang
 
 	Loschen:
-	mov eax, dword ptr a_bDatenLoschen[esp]
+	  mov eax, dword ptr a_bDatenLoschen[esp]
 		push dword ptr a_bDatenLoschen[esp]
 		push esi
 		mov ecx, ebp

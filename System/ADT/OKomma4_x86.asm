@@ -37,7 +37,7 @@ INCLUDELIB LIBCMTD
 INCLUDELIB OLDNAMES
 
 .DATA
-ucBY_COKOMMMA4 DB 16
+ucBY_COKOMMMA4 DB 24
 dHalbkreis DQ 180.0
 dZehn DQ 10.0
 dHundert DQ 100.0
@@ -76,26 +76,25 @@ CS_OKomma4 SEGMENT EXECUTE
 ;----------------------------------------------------------------------------
 _Text SEGMENT
 esp_Bytes = 16
-s_dZahl = 8
-s_dwMXCSR_Alt = 4
-s_dwMXCSR = 0
+sqd_Zahl = 8
+sdi_MXCSR_Alt = 4
+sdi_MXCSR = 0
 ?COComma4V@System@RePag@@YQPAVCOComma4@12@N@Z PROC ; COComma4V(dZahl)
     push ebx
     sub esp, esp_Bytes
 
-    movsd qword ptr s_dZahl[esp], xmm0
+    movsd qword ptr sqd_Zahl[esp], xmm0
 
     movzx edx, ucBY_COKOMMMA4
 		xor ecx, ecx
     call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 
-    stmxcsr dword ptr s_dwMXCSR_Alt[esp]
-    stmxcsr dword ptr s_dwMXCSR[esp]
-    btr dword ptr s_dwMXCSR[esp], 13
-    btr dword ptr s_dwMXCSR[esp], 14
-    ldmxcsr dword ptr s_dwMXCSR[esp]
+    stmxcsr dword ptr sdi_MXCSR_Alt[esp]
+    stmxcsr dword ptr sdi_MXCSR[esp]
+    or dword ptr sdi_MXCSR[esp], 6000h
+    ldmxcsr dword ptr sdi_MXCSR[esp]
 
-	  movsd	xmm0, qword ptr s_dZahl[esp]
+	  movsd	xmm0, qword ptr sqd_Zahl[esp]
     movsd xmm1, xmm0
     cvttsd2si ecx, xmm1
     cvtsi2sd xmm1, ecx
@@ -136,7 +135,7 @@ s_dwMXCSR = 0
     mov word ptr COComma4_sNachKomma[eax], dx
     mov word ptr COComma4_sNachKomma_A[eax], dx
 
-    ldmxcsr s_dwMXCSR_Alt[esp]
+    ldmxcsr dword ptr sdi_MXCSR_Alt[esp]
     add esp, esp_Bytes
     pop ebx
     ret 0
@@ -145,28 +144,27 @@ _Text ENDS
 ;----------------------------------------------------------------------------
 _Text SEGMENT
 esp_Bytes = 16
-s_dZahl = 8
-s_dwMXCSR_Alt = 4
-s_dwMXCSR = 0
+sqd_Zahl = 8
+sdi_MXCSR_Alt = 4
+sdi_MXCSR = 0
 ?COComma4V@System@RePag@@YQPAVCOComma4@12@QBXN@Z PROC ; COComma4V(vmSpeicher, dZahl)
     push ebx
     sub esp, esp_Bytes
 
     mov ebx, ecx
-    movsd qword ptr s_dZahl[esp], xmm0
+    movsd qword ptr sqd_Zahl[esp], xmm0
 
     movzx edx, ucBY_COKOMMMA4
     call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 
     mov dword ptr COComma4_vmSpeicher[eax], ebx
 
-    stmxcsr dword ptr s_dwMXCSR_Alt[esp]
-    stmxcsr dword ptr s_dwMXCSR[esp]
-    btr dword ptr s_dwMXCSR[esp], 13
-    btr dword ptr s_dwMXCSR[esp], 14
-    ldmxcsr dword ptr s_dwMXCSR[esp]
+    stmxcsr dword ptr sdi_MXCSR_Alt[esp]
+    stmxcsr dword ptr sdi_MXCSR[esp]
+    or dword ptr sdi_MXCSR[esp], 6000h
+    ldmxcsr dword ptr sdi_MXCSR[esp]
 
-	  movsd	xmm0, qword ptr s_dZahl[esp]
+	  movsd	xmm0, qword ptr sqd_Zahl[esp]
     movsd xmm1, xmm0
     cvttsd2si ecx, xmm1
     cvtsi2sd xmm1, ecx
@@ -205,7 +203,7 @@ s_dwMXCSR = 0
     mov word ptr COComma4_sNachKomma[eax], dx
     mov word ptr COComma4_sNachKomma_A[eax], dx
 
-    ldmxcsr s_dwMXCSR_Alt[esp]
+    ldmxcsr dword ptr sdi_MXCSR_Alt[esp]
     add esp, esp_Bytes
     pop ebx
     ret 0
@@ -299,26 +297,25 @@ _Text ENDS
 ;----------------------------------------------------------------------------
 _Text SEGMENT
 esp_Bytes = 16
-s_m128dZahl = 8
-s_dwMXCSR_Alt = 4
-s_dwMXCSR = 0
+sxd_m128dZahl = 8
+sdi_MXCSR_Alt = 4
+sdi_MXCSR = 0
 ?COComma4V@System@RePag@@YQPAVCOComma4@12@U__m128d@@@Z PROC ; COComma4V(m128dZahl)
     push ebx
     sub esp, esp_Bytes
 
-    movsd qword ptr s_m128dZahl[esp], xmm0
+    movsd qword ptr sxd_m128dZahl[esp], xmm0
 
     movzx edx, ucBY_COKOMMMA4
 		xor ecx, ecx
     call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 
-    stmxcsr dword ptr s_dwMXCSR_Alt[esp]
-    stmxcsr dword ptr s_dwMXCSR[esp]
-    btr dword ptr s_dwMXCSR[esp], 13
-    btr dword ptr s_dwMXCSR[esp], 14
-    ldmxcsr dword ptr s_dwMXCSR[esp]
+    stmxcsr dword ptr sdi_MXCSR_Alt[esp]
+    stmxcsr dword ptr sdi_MXCSR[esp]
+    or dword ptr sdi_MXCSR[esp], 6000h
+    ldmxcsr dword ptr sdi_MXCSR[esp]
 
-	  movsd	xmm0, qword ptr s_m128dZahl[esp]
+	  movsd	xmm0, qword ptr sxd_m128dZahl[esp]
     movsd xmm1, xmm0
     cvttsd2si ecx, xmm1
     cvtsi2sd xmm1, ecx
@@ -359,7 +356,7 @@ s_dwMXCSR = 0
     mov word ptr COComma4_sNachKomma[eax], dx
     mov word ptr COComma4_sNachKomma_A[eax], dx
 
-    ldmxcsr s_dwMXCSR_Alt[esp]
+    ldmxcsr dword ptr sdi_MXCSR_Alt[esp]
     add esp, esp_Bytes
     pop ebx
     ret 0
@@ -368,28 +365,27 @@ _Text ENDS
 ;----------------------------------------------------------------------------
 _Text SEGMENT
 esp_Bytes = 16
-s_m128dZahl = 8
-s_dwMXCSR_Alt = 4
-s_dwMXCSR = 0
+sxd_m128dZahl = 8
+sdi_MXCSR_Alt = 4
+sdi_MXCSR = 0
 ?COComma4V@System@RePag@@YQPAVCOComma4@12@QBXU__m128d@@@Z PROC ; COComma4V(vmSpeicher, m128dZahl)
     push ebx
     sub esp, esp_Bytes
 
     mov ebx, ecx
-    movsd qword ptr s_m128dZahl[esp], xmm0
+    movsd qword ptr sxd_m128dZahl[esp], xmm0
 
     movzx edx, ucBY_COKOMMMA4
     call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 
     mov dword ptr COComma4_vmSpeicher[eax], ebx
 
-    stmxcsr dword ptr s_dwMXCSR_Alt[esp]
-    stmxcsr dword ptr s_dwMXCSR[esp]
-    btr dword ptr s_dwMXCSR[esp], 13
-    btr dword ptr s_dwMXCSR[esp], 14
-    ldmxcsr dword ptr s_dwMXCSR[esp]
+    stmxcsr dword ptr sdi_MXCSR_Alt[esp]
+    stmxcsr dword ptr sdi_MXCSR[esp]
+    or dword ptr sdi_MXCSR[esp], 6000h
+    ldmxcsr dword ptr sdi_MXCSR[esp]
 
-	  movsd	xmm0, qword ptr s_m128dZahl[esp]
+	  movsd	xmm0, qword ptr sxd_m128dZahl[esp]
     movsd xmm1, xmm0
     cvttsd2si ecx, xmm1
     cvtsi2sd xmm1, ecx
@@ -428,7 +424,7 @@ s_dwMXCSR = 0
     mov word ptr COComma4_sNachKomma[eax], dx
     mov word ptr COComma4_sNachKomma_A[eax], dx
 
-    ldmxcsr s_dwMXCSR_Alt[esp]
+    ldmxcsr dword ptr sdi_MXCSR_Alt[esp]
     add esp, esp_Bytes
     pop ebx
     ret
@@ -526,17 +522,16 @@ _Text ENDS
 ;----------------------------------------------------------------------------
 _Text SEGMENT
 esp_Bytes = 8
-s_dwMXCSR_Alt = 4
-s_dwMXCSR = 0
+sdi_MXCSR_Alt = 4
+sdi_MXCSR = 0
 ??0COComma4@System@RePag@@QAE@N@Z PROC ; COComma4::COComma4(dZahl)
     push ebx
     sub esp, esp_Bytes
 
-    stmxcsr dword ptr s_dwMXCSR_Alt[esp]
-    stmxcsr dword ptr s_dwMXCSR[esp]
-    btr dword ptr s_dwMXCSR[esp], 13
-    btr dword ptr s_dwMXCSR[esp], 14
-    ldmxcsr dword ptr s_dwMXCSR[esp]
+    stmxcsr dword ptr sdi_MXCSR_Alt[esp]
+    stmxcsr dword ptr sdi_MXCSR[esp]
+    or dword ptr sdi_MXCSR[esp], 6000h
+    ldmxcsr dword ptr sdi_MXCSR[esp]
 
     movsd xmm1, xmm0
     cvttsd2si eax, xmm1
@@ -578,7 +573,7 @@ s_dwMXCSR = 0
     mov word ptr COComma4_sNachKomma[ecx], dx
     mov word ptr COComma4_sNachKomma_A[ecx], dx
 
-    ldmxcsr s_dwMXCSR_Alt[esp]
+    ldmxcsr dword ptr sdi_MXCSR_Alt[esp]
     add esp, esp_Bytes
     pop ebx
     ret 8
@@ -598,17 +593,16 @@ _Text ENDS
 ;----------------------------------------------------------------------------
 _Text SEGMENT
 esp_Bytes = 8
-s_dwMXCSR_Alt = 4
-s_dwMXCSR = 0
+sdi_MXCSR_Alt = 4
+sdi_MXCSR = 0
 ??0COComma4@System@RePag@@QAE@U__m128d@@@Z PROC ; COComma4::COComma4(m128dZahl)
     push ebx
     sub esp, esp_Bytes
 
-    stmxcsr dword ptr s_dwMXCSR_Alt[esp]
-    stmxcsr dword ptr s_dwMXCSR[esp]
-    btr dword ptr s_dwMXCSR[esp], 13
-    btr dword ptr s_dwMXCSR[esp], 14
-    ldmxcsr dword ptr s_dwMXCSR[esp]
+    stmxcsr dword ptr sdi_MXCSR_Alt[esp]
+    stmxcsr dword ptr sdi_MXCSR[esp]
+    or dword ptr sdi_MXCSR[esp], 6000h
+    ldmxcsr dword ptr sdi_MXCSR[esp]
 
     movsd xmm1, xmm0
     cvttsd2si eax, xmm1
@@ -650,7 +644,7 @@ s_dwMXCSR = 0
     mov word ptr COComma4_sNachKomma[ecx], dx
     mov word ptr COComma4_sNachKomma_A[ecx], dx
 
-    ldmxcsr s_dwMXCSR_Alt[esp]
+    ldmxcsr dword ptr sdi_MXCSR_Alt[esp]
     add esp, esp_Bytes
     pop ebx
     ret
@@ -659,17 +653,16 @@ _Text ENDS
 ;----------------------------------------------------------------------------
 _Text SEGMENT
 esp_Bytes = 8
-s_dwMXCSR_Alt = 4
-s_dwMXCSR = 0
+sdi_MXCSR_Alt = 4
+sdi_MXCSR = 0
 ??4COComma4@System@RePag@@QAQXN@Z PROC ; COComma4::operator=(dZahl)
     push ebx
     sub esp, esp_Bytes
 
-    stmxcsr dword ptr s_dwMXCSR_Alt[esp]
-    stmxcsr dword ptr s_dwMXCSR[esp]
-    btr dword ptr s_dwMXCSR[esp], 13
-    btr dword ptr s_dwMXCSR[esp], 14
-    ldmxcsr dword ptr s_dwMXCSR[esp]
+    stmxcsr dword ptr sdi_MXCSR_Alt[esp]
+    stmxcsr dword ptr sdi_MXCSR[esp]
+    or dword ptr sdi_MXCSR[esp], 6000h
+    ldmxcsr dword ptr sdi_MXCSR[esp]
 
     movsd xmm1, xmm0
     cvttsd2si eax, xmm1
@@ -709,7 +702,7 @@ s_dwMXCSR = 0
     mov word ptr COComma4_sNachKomma[ecx], dx
     mov word ptr COComma4_sNachKomma_A[ecx], dx
 
-    ldmxcsr s_dwMXCSR_Alt[esp]
+    ldmxcsr dword ptr sdi_MXCSR_Alt[esp]
     add esp, esp_Bytes
     pop ebx
     ret 0
@@ -757,17 +750,16 @@ _Text ENDS
 ;----------------------------------------------------------------------------
 _Text SEGMENT
 esp_Bytes = 8
-s_dwMXCSR_Alt = 4
-s_dwMXCSR = 0
+sdi_MXCSR_Alt = 4
+sdi_MXCSR = 0
 ??4COComma4@System@RePag@@QAQXU__m128d@@@Z PROC ; COComma4::operator=(m128dZahl)
     push ebx
     sub esp, esp_Bytes
 
-    stmxcsr dword ptr s_dwMXCSR_Alt[esp]
-    stmxcsr dword ptr s_dwMXCSR[esp]
-    btr dword ptr s_dwMXCSR[esp], 13
-    btr dword ptr s_dwMXCSR[esp], 14
-    ldmxcsr dword ptr s_dwMXCSR[esp]
+    stmxcsr dword ptr sdi_MXCSR_Alt[esp]
+    stmxcsr dword ptr sdi_MXCSR[esp]
+    or dword ptr sdi_MXCSR[esp], 6000h
+    ldmxcsr dword ptr sdi_MXCSR[esp]
 
     movsd xmm1, xmm0
     cvttsd2si eax, xmm1
@@ -807,7 +799,7 @@ s_dwMXCSR = 0
     mov word ptr COComma4_sNachKomma[ecx], dx
     mov word ptr COComma4_sNachKomma_A[ecx], dx
 
-    ldmxcsr s_dwMXCSR_Alt[esp]
+    ldmxcsr dword ptr sdi_MXCSR_Alt[esp]
     add esp, esp_Bytes
     pop ebx
     ret 0
@@ -1024,7 +1016,6 @@ _Text ENDS
     jl short NachKomma_Plus_Zweiter_Minus
     test eax, eax
     jge short Ende
-    ;imul bx, -1
 		sub bx, 10000
     add eax, 1
     jmp short Ende
@@ -1034,7 +1025,6 @@ _Text ENDS
     jge short NachKomma_Minus_Zweiter_Plus
     test eax, eax
     jle short Ende
-    ;imul bx, -1
 		add bx, 10000
     sub eax, 1
     jmp short Ende
@@ -1047,11 +1037,9 @@ _Text ENDS
     jmp short Ende
 
   NachKomma_Minus_Zweiter_Plus:
-    ;cmp bx, -10000
-		test eax, eax
-    jle short Ende
-    sub bx, -10000
-		;add bx, 10000
+    cmp bx, -10000
+    jg short Ende
+    add bx, 10000
     sub eax, 1  
 
   Ende:
@@ -1072,20 +1060,19 @@ _Text ENDS
 ;----------------------------------------------------------------------------
 _Text SEGMENT
 esp_Bytes = 20
-s_llVorKomma  = 12
-s_c2Runden_Alt = 10
-s_c2Runden = 8
-s_dwMXCSR_Alt = 4
-s_dwMXCSR = 0
+sqi_VorKomma  = 12
+swi_c2Runden_Alt = 10
+swi_c2Runden = 8
+sdi_MXCSR_Alt = 4
+sdi_MXCSR = 0
 ??XCOComma4@System@RePag@@QAQXABV012@@Z PROC ; COComma4::operator*=(&k4Zahl)
     push ebx
     sub esp, esp_Bytes
 
-    stmxcsr dword ptr s_dwMXCSR_Alt[esp]
-    stmxcsr dword ptr s_dwMXCSR[esp]
-    bts dword ptr s_dwMXCSR[esp], 13
-    bts dword ptr s_dwMXCSR[esp], 14
-    ldmxcsr dword ptr s_dwMXCSR[esp]
+    stmxcsr dword ptr sdi_MXCSR_Alt[esp]
+    stmxcsr dword ptr sdi_MXCSR[esp]
+    or dword ptr sdi_MXCSR[esp], 6000h
+    ldmxcsr dword ptr sdi_MXCSR[esp]
 
     mov eax, dword ptr COComma4_lVorKomma[ecx]
     cvtsi2sd xmm0, eax 
@@ -1099,9 +1086,8 @@ s_dwMXCSR = 0
     movsx ebx, word ptr COComma4_sNachKomma_A[edx]
     cvtsi2sd xmm3, ebx 
 
-    btr dword ptr s_dwMXCSR[esp], 13
-    btr dword ptr s_dwMXCSR[esp], 14
-    ldmxcsr dword ptr s_dwMXCSR[esp]
+    xor dword ptr sdi_MXCSR[esp], 6000h
+    ldmxcsr dword ptr sdi_MXCSR[esp]
 
 		mulsd xmm0, xmm3
 		divsd xmm0, dZehntausend
@@ -1115,24 +1101,24 @@ s_dwMXCSR = 0
 		divsd xmm2, dEinsNullAcht
 		addsd xmm4, xmm2
 
-		fstcw s_c2Runden_Alt[esp]
-		fstcw s_c2Runden[esp]
-    bts word ptr s_c2Runden[esp], 10
-    bts word ptr s_c2Runden[esp], 11
-    fldcw s_c2Runden[esp]
+		fstcw swi_Runden_Alt[esp]
+		fstcw swi_Runden[esp]
+    bts word ptr swi_Runden[esp], 10
+    bts word ptr swi_Runden[esp], 11
+    fldcw swi_Runden[esp]
     fclex
 
-		movsd qword ptr s_llVorKomma[esp], xmm4
-		fld qword ptr s_llVorKomma[esp]
-		fistp qword ptr s_llVorKomma[esp]
-		fild qword ptr s_llVorKomma[esp]
-		fst qword ptr s_llVorKomma[esp]
-		movsd xmm0, qword ptr s_llVorKomma[esp]
+		movsd qword ptr sqi_VorKomma[esp], xmm4
+		fld qword ptr sqi_VorKomma[esp]
+		fistp qword ptr sqi_VorKomma[esp]
+		fild qword ptr sqi_VorKomma[esp]
+		fst qword ptr sqi_VorKomma[esp]
+		movsd xmm0, qword ptr sqi_VorKomma[esp]
 		subsd xmm4, xmm0
 		mulsd xmm4, dZehntausend
 		cvtsd2si ebx, xmm4
-		fistp dword ptr s_llVorKomma[esp]
-		mov eax, dword ptr s_llVorKomma[esp]
+		fistp dword ptr sqi_VorKomma[esp]
+		mov eax, dword ptr sqi_VorKomma[esp]
 
     mov dword ptr COComma4_lVorKomma[ecx], eax
     mov dword ptr COComma4_lVorKomma_A[ecx], eax
@@ -1145,8 +1131,8 @@ s_dwMXCSR = 0
     movsx eax, word ptr COComma4_sNachKomma[edx]
     mov word ptr COComma4_sNachKomma_A[edx], ax
     
-    fldcw s_c2Runden_Alt[esp]
-    ldmxcsr dword ptr s_dwMXCSR_Alt[esp]
+    fldcw swi_Runden_Alt[esp]
+    ldmxcsr dword ptr sdi_MXCSR_Alt[esp]
     add esp, esp_Bytes
     pop ebx
     ret 0
@@ -1155,20 +1141,20 @@ _Text ENDS
 ;----------------------------------------------------------------------------
 _Text SEGMENT
 esp_Bytes = 20
-s_llVorKomma  = 12
-s_c2Runden_Alt = 10
-s_c2Runden = 8
-s_dwMXCSR_Alt = 4
-s_dwMXCSR = 0
+sqi_VorKomma  = 12
+swi_Runden_Alt = 10
+swi_Runden = 8
+sdi_MXCSR_Alt = 4
+sdi_MXCSR = 0
 ??DCOComma4@System@RePag@@QAQAAV012@ABV012@@Z PROC ; COComma4::operator*(&k4Zahl)
     push ebx
     sub esp, esp_Bytes
 
-    stmxcsr dword ptr s_dwMXCSR_Alt[esp]
-    stmxcsr dword ptr s_dwMXCSR[esp]
-    bts dword ptr s_dwMXCSR[esp], 13
-    bts dword ptr s_dwMXCSR[esp], 14
-    ldmxcsr dword ptr s_dwMXCSR[esp]
+    stmxcsr dword ptr sdi_MXCSR_Alt[esp]
+    stmxcsr dword ptr sdi_MXCSR[esp]
+    or dword ptr sdi_MXCSR[esp], 6000h
+    bts dword ptr sdi_MXCSR[esp], 14
+    ldmxcsr dword ptr sdi_MXCSR[esp]
 
     mov eax, dword ptr COComma4_lVorKomma_A[ecx]
     cvtsi2sd xmm0, eax 
@@ -1182,9 +1168,8 @@ s_dwMXCSR = 0
     movsx ebx, word ptr COComma4_sNachKomma_A[edx]
     cvtsi2sd xmm3, ebx 
 
-    btr dword ptr s_dwMXCSR[esp], 13
-    btr dword ptr s_dwMXCSR[esp], 14
-    ldmxcsr dword ptr s_dwMXCSR[esp]
+    xor dword ptr sdi_MXCSR[esp], 6000h
+    ldmxcsr dword ptr sdi_MXCSR[esp]
 
 		mulsd xmm0, xmm3
 		divsd xmm0, dZehntausend
@@ -1198,24 +1183,24 @@ s_dwMXCSR = 0
 		divsd xmm2, dEinsNullAcht
 		addsd xmm4, xmm2
 
-		fstcw s_c2Runden_Alt[esp]
-		fstcw s_c2Runden[esp]
-    bts word ptr s_c2Runden[esp], 10
-    bts word ptr s_c2Runden[esp], 11
-    fldcw s_c2Runden[esp]
+		fstcw swi_Runden_Alt[esp]
+		fstcw swi_Runden[esp]
+    bts word ptr swi_Runden[esp], 10
+    bts word ptr swi_Runden[esp], 11
+    fldcw swi_Runden[esp]
     fclex
 
-		movsd qword ptr s_llVorKomma[esp], xmm4
-		fld qword ptr s_llVorKomma[esp]
-		fistp qword ptr s_llVorKomma[esp]
-		fild qword ptr s_llVorKomma[esp]
-		fst qword ptr s_llVorKomma[esp]
-		movsd xmm0, qword ptr s_llVorKomma[esp]
+		movsd qword ptr sqi_VorKomma[esp], xmm4
+		fld qword ptr sqi_VorKomma[esp]
+		fistp qword ptr sqi_VorKomma[esp]
+		fild qword ptr sqi_VorKomma[esp]
+		fst qword ptr sqi_VorKomma[esp]
+		movsd xmm0, qword ptr sqi_VorKomma[esp]
 		subsd xmm4, xmm0
 		mulsd xmm4, dZehntausend
 		cvtsd2si ebx, xmm4
-		fistp dword ptr s_llVorKomma[esp]
-		mov eax, dword ptr s_llVorKomma[esp]
+		fistp dword ptr sqi_VorKomma[esp]
+		mov eax, dword ptr sqi_VorKomma[esp]
 
     mov dword ptr COComma4_lVorKomma_A[ecx], eax
     mov word ptr COComma4_sNachKomma_A[ecx], bx
@@ -1228,8 +1213,8 @@ s_dwMXCSR = 0
 
     mov eax, ecx
     
-    fldcw s_c2Runden_Alt[esp]
-    ldmxcsr dword ptr s_dwMXCSR_Alt[esp]
+    fldcw swi_Runden_Alt[esp]
+    ldmxcsr dword ptr sdi_MXCSR_Alt[esp]
     add esp, esp_Bytes
     pop ebx
     ret 0
@@ -1238,16 +1223,15 @@ _Text ENDS
 ;----------------------------------------------------------------------------
 _Text SEGMENT
 esp_Bytes = 8
-s_dwMXCSR_Alt = 4
-s_dwMXCSR = 0
+sdi_MXCSR_Alt = 4
+sdi_MXCSR = 0
 ??_0COComma4@System@RePag@@QAQXABV012@@Z PROC ; COComma4::operator/=(&k4Zahl)
     push ebx
     sub esp, esp_Bytes
-    stmxcsr dword ptr s_dwMXCSR_Alt[esp]
-    stmxcsr dword ptr s_dwMXCSR[esp]
-    bts dword ptr s_dwMXCSR[esp], 13
-    bts dword ptr s_dwMXCSR[esp], 14
-    ldmxcsr dword ptr s_dwMXCSR[esp]
+    stmxcsr dword ptr sdi_MXCSR_Alt[esp]
+    stmxcsr dword ptr sdi_MXCSR[esp]
+    or dword ptr sdi_MXCSR[esp], 6000h
+    ldmxcsr dword ptr sdi_MXCSR[esp]
 
     mov ebx, dword ptr COComma4_lVorKomma[ecx]
     cvtsi2sd xmm0, ebx 
@@ -1269,9 +1253,8 @@ s_dwMXCSR = 0
     cvtsi2sd xmm1, eax
     subsd xmm0, xmm1
 
-    btr dword ptr s_dwMXCSR[esp], 13
-    btr dword ptr s_dwMXCSR[esp], 14
-    ldmxcsr dword ptr s_dwMXCSR[esp]
+    xor dword ptr sdi_MXCSR[esp], 6000h
+    ldmxcsr dword ptr sdi_MXCSR[esp]
 
     mulsd xmm0, dZehntausend
     cvtsd2si ebx, xmm0
@@ -1287,7 +1270,7 @@ s_dwMXCSR = 0
     movsx eax, word ptr COComma4_sNachKomma[edx]
     mov word ptr COComma4_sNachKomma_A[edx], ax
     
-    ldmxcsr dword ptr s_dwMXCSR_Alt[esp]
+    ldmxcsr dword ptr sdi_MXCSR_Alt[esp]
     add esp, esp_Bytes
     pop ebx
     ret 0
@@ -1296,16 +1279,15 @@ _Text ENDS
 ;----------------------------------------------------------------------------
 _Text SEGMENT
 esp_Bytes = 8
-s_dwMXCSR_Alt = 4
-s_dwMXCSR = 0
+sdi_MXCSR_Alt = 4
+sdi_MXCSR = 0
 ??KCOComma4@System@RePag@@QAQAAV012@ABV012@@Z PROC ; COComma4::operator/(&k4Zahl)
     push ebx
     sub esp, esp_Bytes
-    stmxcsr dword ptr s_dwMXCSR_Alt[esp]
-    stmxcsr dword ptr s_dwMXCSR[esp]
-    bts dword ptr s_dwMXCSR[esp], 13
-    bts dword ptr s_dwMXCSR[esp], 14
-    ldmxcsr dword ptr s_dwMXCSR[esp]
+    stmxcsr dword ptr sdi_MXCSR_Alt[esp]
+    stmxcsr dword ptr sdi_MXCSR[esp]
+    or dword ptr sdi_MXCSR[esp], 6000h
+    ldmxcsr dword ptr sdi_MXCSR[esp]
 
     mov ebx, dword ptr COComma4_lVorKomma_A[ecx]
     cvtsi2sd xmm0, ebx 
@@ -1327,9 +1309,8 @@ s_dwMXCSR = 0
     cvtsi2sd xmm1, eax
     subsd xmm0, xmm1
 
-    btr dword ptr s_dwMXCSR[esp], 13
-    btr dword ptr s_dwMXCSR[esp], 14
-    ldmxcsr dword ptr s_dwMXCSR[esp]
+    xor dword ptr sdi_MXCSR[esp], 6000h
+    ldmxcsr dword ptr sdi_MXCSR[esp]
 
     mulsd xmm0, dZehntausend
     cvtsd2si ebx, xmm0
@@ -1345,7 +1326,7 @@ s_dwMXCSR = 0
 
     mov eax, ecx
     
-    ldmxcsr dword ptr s_dwMXCSR_Alt[esp]
+    ldmxcsr dword ptr sdi_MXCSR_Alt[esp]
     add esp, esp_Bytes
     pop ebx
     ret 0
@@ -1658,8 +1639,8 @@ _Text ENDS
 ;----------------------------------------------------------------------------
 _Text SEGMENT
 esp_Bytes = 8
-s_dwMXCSR_Alt = 4
-s_dwMXCSR = 0
+sdi_MXCSR_Alt = 4
+sdi_MXCSR = 0
 ?Round@COComma4@System@RePag@@QAQPAV123@E@Z PROC ; COComma4::Round(ucStellen)
     sub esp, esp_Bytes
 
@@ -1718,11 +1699,10 @@ s_dwMXCSR = 0
     jmp Ende
 
   Runden:
-    stmxcsr dword ptr s_dwMXCSR_Alt[esp]
-    stmxcsr dword ptr s_dwMXCSR[esp]
-    bts dword ptr s_dwMXCSR[esp], 13
-    bts dword ptr s_dwMXCSR[esp], 14
-    ldmxcsr dword ptr s_dwMXCSR[esp]
+    stmxcsr dword ptr sdi_MXCSR_Alt[esp]
+    stmxcsr dword ptr sdi_MXCSR[esp]
+    or dword ptr sdi_MXCSR[esp], 6000h
+    ldmxcsr dword ptr sdi_MXCSR[esp]
 
     movsd xmm3, xmm2
     cvtsi2sd xmm0, eax
@@ -1754,7 +1734,7 @@ s_dwMXCSR = 0
 
   EndeRunden:
     cvtsd2si eax, xmm0
-    ldmxcsr dword ptr s_dwMXCSR_Alt[esp]
+    ldmxcsr dword ptr sdi_MXCSR_Alt[esp]
 
   Ende:
     mov word ptr COComma4_sNachKomma[ecx], ax
@@ -1791,20 +1771,20 @@ _Text ENDS
 ;----------------------------------------------------------------------------
 _Text SEGMENT
 esp_Bytes = 20
-s_dZahl = 12
-s_c2Runden_Alt = 10
-s_c2Runden = 8
-s_dwMXCSR = 4
-s_dwMXCSR_Alt = 0
+sqd_Zahl = 12
+swi_Runden_Alt = 10
+swi_Runden = 8
+sdi_MXCSR = 4
+sdi_MXCSR_Alt = 0
 ?sin@COComma4@System@RePag@@QAQNXZ PROC ; COComma4::sin(void)
     sub esp, esp_Bytes
 
-    fstcw s_c2Runden_Alt[esp]
-    fstcw s_c2Runden[esp]
-    btr word ptr s_c2Runden[esp], 10
-    btr word ptr s_c2Runden[esp], 11
+    fstcw swi_Runden_Alt[esp]
+    fstcw swi_Runden[esp]
+    btr word ptr swi_Runden[esp], 10
+    btr word ptr swi_Runden[esp], 11
     fclex
-    fldcw s_c2Runden[esp]
+    fldcw swi_Runden[esp]
 
     fild dword ptr COComma4_lVorKomma[ecx]
     fmul dZehntausend
@@ -1817,14 +1797,13 @@ s_dwMXCSR_Alt = 0
     fdivp ST(1), ST(0)
     fsin
 
-    stmxcsr dword ptr s_dwMXCSR_Alt[esp]
-    stmxcsr dword ptr s_dwMXCSR[esp]
-    bts dword ptr s_dwMXCSR[esp], 13
-    bts dword ptr s_dwMXCSR[esp], 14
-    ldmxcsr dword ptr s_dwMXCSR[esp]
+    stmxcsr dword ptr sdi_MXCSR_Alt[esp]
+    stmxcsr dword ptr sdi_MXCSR[esp]
+    or dword ptr sdi_MXCSR[esp], 6000h
+    ldmxcsr dword ptr sdi_MXCSR[esp]
 
-    fstp qword ptr s_dZahl[esp]
-    movsd xmm0, qword ptr s_dZahl[esp]
+    fstp qword ptr sqd_Zahl[esp]
+    movsd xmm0, qword ptr sqd_Zahl[esp]
     movsd xmm1, xmm0
     movsd xmm2, xmm0
     cvtsd2si edx, xmm2
@@ -1859,8 +1838,8 @@ s_dwMXCSR_Alt = 0
   EndeRunden:
     mov dword ptr COComma4_lVorKomma[ecx], edx
     mov word ptr COComma4_sNachKomma[ecx], ax
-    fldcw s_c2Runden_Alt[esp]
-    ldmxcsr dword ptr s_dwMXCSR_Alt[esp]
+    fldcw swi_Runden_Alt[esp]
+    ldmxcsr dword ptr sdi_MXCSR_Alt[esp]
 
     add esp, esp_Bytes
     ret 0
@@ -1869,20 +1848,20 @@ _Text ENDS
 ;----------------------------------------------------------------------------
 _Text SEGMENT
 esp_Bytes = 20
-s_dZahl = 12
-s_c2Runden_Alt = 10
-s_c2Runden = 8
-s_dwMXCSR = 4
-s_dwMXCSR_Alt = 0
+sqd_Zahl = 12
+swi_Runden_Alt = 10
+swi_Runden = 8
+sdi_MXCSR = 4
+sdi_MXCSR_Alt = 0
 ?cos@COComma4@System@RePag@@QAQNXZ PROC ; COComma4::cos(void)
     sub esp, esp_Bytes
 
-    fstcw s_c2Runden_Alt[esp]
-    fstcw s_c2Runden[esp]
-    btr word ptr s_c2Runden[esp], 10
-    btr word ptr s_c2Runden[esp], 11
+    fstcw swi_Runden_Alt[esp]
+    fstcw swi_Runden[esp]
+    btr word ptr swi_Runden[esp], 10
+    btr word ptr swi_Runden[esp], 11
     fclex
-    fldcw s_c2Runden[esp]
+    fldcw swi_Runden[esp]
 
     fild dword ptr COComma4_lVorKomma[ecx]
     fmul dZehntausend
@@ -1895,14 +1874,13 @@ s_dwMXCSR_Alt = 0
     fdivp ST(1), ST(0)
     fcos
 
-    stmxcsr dword ptr s_dwMXCSR_Alt[esp]
-    stmxcsr dword ptr s_dwMXCSR[esp]
-    bts dword ptr s_dwMXCSR[esp], 13
-    bts dword ptr s_dwMXCSR[esp], 14
-    ldmxcsr dword ptr s_dwMXCSR[esp]
+    stmxcsr dword ptr sdi_MXCSR_Alt[esp]
+    stmxcsr dword ptr sdi_MXCSR[esp]
+    or dword ptr sdi_MXCSR[esp], 6000h
+    ldmxcsr dword ptr sdi_MXCSR[esp]
 
-    fstp qword ptr s_dZahl[esp]
-    movsd xmm0, qword ptr s_dZahl[esp]
+    fstp qword ptr sqd_Zahl[esp]
+    movsd xmm0, qword ptr sqd_Zahl[esp]
     movsd xmm1, xmm0
     movsd xmm2, xmm0
     cvtsd2si edx, xmm2
@@ -1937,8 +1915,8 @@ s_dwMXCSR_Alt = 0
   EndeRunden:
     mov dword ptr COComma4_lVorKomma[ecx], edx
     mov word ptr COComma4_sNachKomma[ecx], ax
-    fldcw s_c2Runden_Alt[esp]
-    ldmxcsr dword ptr s_dwMXCSR_Alt[esp]
+    fldcw swi_Runden_Alt[esp]
+    ldmxcsr dword ptr sdi_MXCSR_Alt[esp]
 
     add esp, esp_Bytes
     ret 0
@@ -1947,20 +1925,20 @@ _Text ENDS
 ;----------------------------------------------------------------------------
 _Text SEGMENT
 esp_Bytes = 20
-s_dZahl = 12
-s_c2Runden_Alt = 10
-s_c2Runden = 8
-s_dwMXCSR = 4
-s_dwMXCSR_Alt = 0
+sqd_Zahl = 12
+swi_Runden_Alt = 10
+swi_Runden = 8
+sdi_MXCSR = 4
+sdi_MXCSR_Alt = 0
 ?tan@COComma4@System@RePag@@QAQNXZ PROC ; COComma4::tan(void)
     sub esp, esp_Bytes
 
-    fstcw s_c2Runden_Alt[esp]
-    fstcw s_c2Runden[esp]
-    btr word ptr s_c2Runden[esp], 10
-    btr word ptr s_c2Runden[esp], 11
+    fstcw swi_Runden_Alt[esp]
+    fstcw swi_Runden[esp]
+    btr word ptr swi_Runden[esp], 10
+    btr word ptr swi_Runden[esp], 11
     fclex
-    fldcw s_c2Runden[esp]
+    fldcw swi_Runden[esp]
 
     fild dword ptr COComma4_lVorKomma[ecx]
     fmul dZehntausend
@@ -1973,15 +1951,14 @@ s_dwMXCSR_Alt = 0
     fdivp ST(1), ST(0)
     fptan
 
-    stmxcsr dword ptr s_dwMXCSR_Alt[esp]
-    stmxcsr dword ptr s_dwMXCSR[esp]
-    bts dword ptr s_dwMXCSR[esp], 13
-    bts dword ptr s_dwMXCSR[esp], 14
-    ldmxcsr dword ptr s_dwMXCSR[esp]
+    stmxcsr dword ptr sdi_MXCSR_Alt[esp]
+    stmxcsr dword ptr sdi_MXCSR[esp]
+    or dword ptr sdi_MXCSR[esp], 6000h
+    ldmxcsr dword ptr sdi_MXCSR[esp]
 
-		fstp qword ptr s_dZahl[esp]
-    fstp qword ptr s_dZahl[esp]
-    movsd xmm0, qword ptr s_dZahl[esp]
+		fstp qword ptr sqd_Zahl[esp]
+    fstp qword ptr sqd_Zahl[esp]
+    movsd xmm0, qword ptr sqd_Zahl[esp]
     movsd xmm1, xmm0
     movsd xmm2, xmm0
     cvtsd2si edx, xmm2
@@ -2016,8 +1993,8 @@ s_dwMXCSR_Alt = 0
   EndeRunden:
     mov dword ptr COComma4_lVorKomma[ecx], edx
     mov word ptr COComma4_sNachKomma[ecx], ax
-    fldcw s_c2Runden_Alt[esp]
-    ldmxcsr dword ptr s_dwMXCSR_Alt[esp]
+    fldcw swi_Runden_Alt[esp]
+    ldmxcsr dword ptr sdi_MXCSR_Alt[esp]
 
     add esp, esp_Bytes
     ret 0
@@ -2026,20 +2003,20 @@ _Text ENDS
 ;----------------------------------------------------------------------------
 _Text SEGMENT
 esp_Bytes = 20
-s_dZahl = 12
-s_c2Runden_Alt = 10
-s_c2Runden = 8
-s_dwMXCSR = 4
-s_dwMXCSR_Alt = 0
+sqd_Zahl = 12
+swi_Runden_Alt = 10
+swi_Runden = 8
+sdi_MXCSR = 4
+sdi_MXCSR_Alt = 0
 ?Squareroot@COComma4@System@RePag@@QAQNXZ PROC ; COComma4::Squareroot(void)
     sub esp, esp_Bytes
 
-    fstcw s_c2Runden_Alt[esp]
-    fstcw s_c2Runden[esp]
-    btr word ptr s_c2Runden[esp], 10
-    btr word ptr s_c2Runden[esp], 11
+    fstcw swi_Runden_Alt[esp]
+    fstcw swi_Runden[esp]
+    btr word ptr swi_Runden[esp], 10
+    btr word ptr swi_Runden[esp], 11
     fclex
-    fldcw s_c2Runden[esp]
+    fldcw swi_Runden[esp]
 
     fild dword ptr COComma4_lVorKomma[ecx]
     fmul dZehntausend
@@ -2060,14 +2037,13 @@ s_dwMXCSR_Alt = 0
 	Wurzel:
     fsqrt
 
-    stmxcsr dword ptr s_dwMXCSR_Alt[esp]
-    stmxcsr dword ptr s_dwMXCSR[esp]
-    bts dword ptr s_dwMXCSR[esp], 13
-    bts dword ptr s_dwMXCSR[esp], 14
-    ldmxcsr dword ptr s_dwMXCSR[esp]
+    stmxcsr dword ptr sdi_MXCSR_Alt[esp]
+    stmxcsr dword ptr sdi_MXCSR[esp]
+    or dword ptr sdi_MXCSR[esp], 6000h
+    ldmxcsr dword ptr sdi_MXCSR[esp]
 
-    fstp qword ptr s_dZahl[esp]
-    movsd xmm0, qword ptr s_dZahl[esp]
+    fstp qword ptr sqd_Zahl[esp]
+    movsd xmm0, qword ptr sqd_Zahl[esp]
     movsd xmm1, xmm0
     movsd xmm2, xmm0
     cvtsd2si edx, xmm2
@@ -2102,8 +2078,8 @@ s_dwMXCSR_Alt = 0
   EndeRunden:
     mov dword ptr COComma4_lVorKomma[ecx], edx
     mov word ptr COComma4_sNachKomma[ecx], ax
-    fldcw s_c2Runden_Alt[esp]
-    ldmxcsr dword ptr s_dwMXCSR_Alt[esp]
+    fldcw swi_Runden_Alt[esp]
+    ldmxcsr dword ptr sdi_MXCSR_Alt[esp]
 
 	Ende:
     add esp, esp_Bytes

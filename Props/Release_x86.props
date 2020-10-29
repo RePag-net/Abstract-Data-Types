@@ -11,13 +11,13 @@
     <TargetExt />
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <SpectreMitigation>Spectre</SpectreMitigation>
+    <SpectreMitigation>SpectreLoad</SpectreMitigation>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <EnableEnhancedInstructionSet>AdvancedVectorExtensions</EnableEnhancedInstructionSet>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
       <WarningLevel>Level2</WarningLevel>
       <PrecompiledHeaderFile>H$(ProjectName).h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>$(IntDir)$(ProjectName).pch</PrecompiledHeaderOutputFile>

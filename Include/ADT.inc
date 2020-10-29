@@ -1,3 +1,4 @@
+; up Fileversion 2.3.6.1
 COStringA_vbInhalt = 0
 COStringA_ulLange = 4
 COStringA_vbInhalt_A = COStringA_ulLange + 4

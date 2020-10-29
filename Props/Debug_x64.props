@@ -15,7 +15,7 @@
     <PostBuildEventUseInBuild>false</PostBuildEventUseInBuild>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <SpectreMitigation>Spectre</SpectreMitigation>
+    <SpectreMitigation>SpectreLoad</SpectreMitigation>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
@@ -36,12 +36,13 @@
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <ControlFlowGuard>Guard</ControlFlowGuard>
       <FunctionLevelLinking>true</FunctionLevelLinking>
-      <EnableEnhancedInstructionSet>AdvancedVectorExtensions</EnableEnhancedInstructionSet>
+      <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
       <PrecompiledHeaderFile>H$(ProjectName).h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>$(IntDir)$(ProjectName).pch</PrecompiledHeaderOutputFile>
       <AssemblerListingLocation>$(IntDir)%(Filename)_Dx64.asm</AssemblerListingLocation>
       <ProgramDataBaseFileName>$(IntDir)$(TargetName)_Dx64.pdb</ProgramDataBaseFileName>
       <EnableModules>false</EnableModules>
+      <IntelJCCErratum>true</IntelJCCErratum>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(OutDir)</AdditionalLibraryDirectories>

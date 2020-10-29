@@ -1,4 +1,4 @@
-// up Fileversion 2.3.5.1
+// up Fileversion 2.3.6.1
 #ifndef ADTH
 #define ADTH
 #ifndef CompSysH
@@ -95,7 +95,7 @@ namespace RePag
     __declspec(dllimport) COComma4* __vectorcall COComma4V(_In_ const __m128d m128dNumber);                                // Note range of values
     __declspec(dllimport) COComma4* __vectorcall COComma4V(_In_ const VMEMORY vmMemory, _In_ const __m128d m128dNumber);   // Note range of values
     //---------------------------------------------------------------------------
-    class __declspec(dllexport) COComma4_80
+    class __declspec(dllimport) COComma4_80
     {
     private:
       struct STComma4_80
@@ -205,7 +205,11 @@ namespace RePag
         VMBLOCK vbInhalt_A;
         unsigned long ulLange_A;
       };
+#ifndef _64bit
       char c16StringA[16];
+#else
+      char c16StringA[24];
+#endif
       VMEMORY vmMemory;
 
     public:

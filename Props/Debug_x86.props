@@ -16,7 +16,7 @@
     <ClCompile>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <WarningLevel>Level2</WarningLevel>
-      <EnableEnhancedInstructionSet>AdvancedVectorExtensions</EnableEnhancedInstructionSet>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <AssemblerListingLocation>$(IntDir)%(Filename)_Dx86.asm</AssemblerListingLocation>
       <AdditionalOptions>/volatile:iso %(AdditionalOptions)</AdditionalOptions>
