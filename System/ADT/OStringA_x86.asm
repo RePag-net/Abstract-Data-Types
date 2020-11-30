@@ -68,6 +68,7 @@ _Text SEGMENT
 a_vmSpeicher = 4
 ??0COStringA@System@RePag@@QAE@PBX@Z PROC ; COStringA::COStringA(vmSpeicher)
 		mov eax, dword ptr a_vmSpeicher[esp]
+		mov edx, dword ptr[ecx]
     mov dword ptr COStringA_vmSpeicher[ecx], eax
 		xor eax, eax
     mov dword ptr COStringA_ulLange[ecx], eax
@@ -218,6 +219,34 @@ _Text ENDS
     pop ebp
     ret
 ??1COStringA@System@RePag@@QAE@XZ ENDP
+;----------------------------------------------------------------------------
+?COFreiV@COStringA@System@RePag@@QAQPBXXZ PROC ; COStringA::COFreiV(void)
+    push ebp
+    mov ebp, ecx
+
+		mov eax, dword ptr COStringA_vbInhalt[ebp]
+    test eax, eax
+    je short Kopie
+    mov edx, dword ptr COStringA_vbInhalt[ebp]
+    mov ecx, dword ptr COStringA_vmSpeicher[ebp]
+    call ?VMFrei@System@RePag@@YQXPBXPAX@Z ; VMFrei(vmSpeicher, vbAdresse)
+    mov eax, dword ptr COStringA_vbInhalt[ebp]
+    cmp eax, dword ptr COStringA_vbInhalt_A[ebp]
+    je short Ende
+
+  Kopie:
+		mov eax, dword ptr COStringA_vbInhalt_A[ebp]
+    test eax, eax
+    je short Ende
+    mov edx, dword ptr COStringA_vbInhalt_A[ebp]
+    mov ecx, dword ptr COStringA_vmSpeicher[ebp]
+    call ?VMFrei@System@RePag@@YQXPBXPAX@Z ; VMFrei(vmSpeicher, vbAdresse)
+
+  Ende:    
+		mov eax, dword ptr COStringA_vmSpeicher[ebp]
+    pop ebp
+    ret
+?COFreiV@COStringA@System@RePag@@QAQPBXXZ ENDP
 ;----------------------------------------------------------------------------
 ?COStringAV@System@RePag@@YQPAVCOStringA@12@XZ PROC ; COStringAV(void)
     movzx edx, ucBY_COSTRINGA
@@ -574,34 +603,6 @@ _Text ENDS
 		ret
 ?COStringAV@System@RePag@@YQPAVCOStringA@12@QBXK@Z ENDP
 ;----------------------------------------------------------------------------
-?COFreiV@COStringA@System@RePag@@QAQPBXXZ PROC ; COStringA::COFreiV(void)
-    push ebp
-    mov ebp, ecx
-
-		mov eax, dword ptr COStringA_vbInhalt[ebp]
-    test eax, eax
-    je short Kopie
-    mov edx, dword ptr COStringA_vbInhalt[ebp]
-    mov ecx, dword ptr COStringA_vmSpeicher[ebp]
-    call ?VMFrei@System@RePag@@YQXPBXPAX@Z ; VMFrei(vmSpeicher, vbAdresse)
-    mov eax, dword ptr COStringA_vbInhalt[ebp]
-    cmp eax, dword ptr COStringA_vbInhalt_A[ebp]
-    je short Ende
-
-  Kopie:
-		mov eax, dword ptr COStringA_vbInhalt_A[ebp]
-    test eax, eax
-    je short Ende
-    mov edx, dword ptr COStringA_vbInhalt_A[ebp]
-    mov ecx, dword ptr COStringA_vmSpeicher[ebp]
-    call ?VMFrei@System@RePag@@YQXPBXPAX@Z ; VMFrei(vmSpeicher, vbAdresse)
-
-  Ende:    
-		mov eax, dword ptr COStringA_vmSpeicher[ebp]
-    pop ebp
-    ret
-?COFreiV@COStringA@System@RePag@@QAQPBXXZ ENDP
-;----------------------------------------------------------------------------
 ??4COStringA@System@RePag@@QAQXPBD@Z PROC ; COStringA::operator=(pcString)
 		push ebp
 		push edi
@@ -637,7 +638,6 @@ _Text ENDS
 		repnz scasb
 		mov eax, -2
 		sub eax, ecx
-		push eax
 		sub edi, eax
 		sub edi, 1
 
@@ -651,6 +651,7 @@ _Text ENDS
     mov dword ptr COStringA_vbInhalt[ebp], eax
     mov dword ptr COStringA_vbInhalt_A[ebp], eax
 
+		push dword ptr COStringA_ulLange[ebp]
     mov edx, edi
     mov ecx, eax
     call ?MemCopy@System@RePag@@YQPAXPAXPBXK@Z ; MemCopy(pvZiel, pvQuelle, ulBytes)
@@ -672,7 +673,7 @@ _Text ENDS
 		ret
 ??4COStringA@System@RePag@@QAQXPBD@Z ENDP
 ;----------------------------------------------------------------------------
-??4COStringA@System@RePag@@QAQXABV012@@Z PROC ; COStringA::operator =(&asString)
+??4COStringA@System@RePag@@QAQXABV012@@Z PROC ; COStringA::operator=(&asString)
 		push ebp
 		push esi
 
@@ -721,9 +722,7 @@ _Text ENDS
 		add eax, dword ptr COStringA_ulLange[ebp]
 		xor dl, dl
 		mov byte ptr [eax], dl
-		jmp short Gleichsetzen
 
-	Gleichsetzen:
 		mov eax, dword ptr COStringA_vbInhalt[esi]
 		cmp eax, dword ptr COStringA_vbInhalt_A[esi]
 		je short Ende
@@ -749,7 +748,7 @@ _Text ENDS
 		ret
 ??4COStringA@System@RePag@@QAQXABV012@@Z ENDP
 ;----------------------------------------------------------------------------
-??YCOStringA@System@RePag@@QAQXPBD@Z PROC ; COStringA::operator +=(pcString)
+??YCOStringA@System@RePag@@QAQXPBD@Z PROC ; COStringA::operator+=(pcString)
 		push ebp
 		push ebx
 		push edi
@@ -829,7 +828,7 @@ _Text ENDS
 		ret
 ??YCOStringA@System@RePag@@QAQXPBD@Z ENDP
 ;----------------------------------------------------------------------------
-??YCOStringA@System@RePag@@QAQXABV012@@Z PROC ; COStringA::operator +=(&ascString)
+??YCOStringA@System@RePag@@QAQXABV012@@Z PROC ; COStringA::operator+=(&ascString)
 		push ebp
 		push edi
 		
@@ -2291,6 +2290,7 @@ a_ulVon = 12
 		test ebx, ebx
 		je short Ende
 		mov ebx, dword ptr a_ulBis[esp]
+		test ebx, ebx
 		je short Ende
 		cmp ebx, dword ptr COStringA_ulLange[ecx]
 		ja short Ende
@@ -2515,7 +2515,7 @@ _Text ENDS
 		xor eax, eax
 		mov dword ptr COStringA_ulLange_A[ebp], eax
 		mov dword ptr COStringA_vbInhalt[ebp], eax
-		mov dword ptr COStringA_vbInhalt_a[ebp], eax
+		mov dword ptr COStringA_vbInhalt_A[ebp], eax
 
 	Ende:
 		pop ebp
@@ -2951,8 +2951,6 @@ _Text ENDS
 ?LONGLONG@COStringA@System@RePag@@QAQAA_JAA_J@Z PROC ; COStringA::LONGLONG(&llZahl)
 		push edi
 
-		xorpd xmm0, xmm0
-		movq qword ptr [edx], xmm0
 		mov eax, dword ptr COStringA_ulLange[ecx]
 		test eax, eax
 		je Ende
@@ -2970,11 +2968,8 @@ _Text ENDS
 
 	Zahl:
 		movsd xmm1, dEins
-		fild qword ptr [edx]
-		fstp qword ptr [edx]
-		movsd xmm2, qword ptr [edx]
-
 		add edi, 1
+
 	Fuss_Anfang:
 		sub edi, 1
 		mov eax, dword ptr COStringA_vbInhalt[ecx]
@@ -4707,7 +4702,7 @@ s_dwMXCSR = 0
 ?COMMA4_80@COStringA@System@RePag@@QAQPAVCOComma4_80@23@PAV423@@Z ENDP
 _Text ENDS
 ;----------------------------------------------------------------------------
-?BIT128fromGUID@COStringA@System@RePag@@QAQAAY0BA@EAAY0BA@E@Z PROC ;BIT128& __vectorcall BIT128fromGUID(BIT128& bit128Zahl)
+?BIT128fromGUID@COStringA@System@RePag@@QAQAAY0BA@EAAY0BA@E@Z PROC ; COStringA::BIT128fromGUID(BIT128& bit128Zahl)
 		push ebp
 		push esi
 		push edi
@@ -5149,11 +5144,11 @@ _Text ENDS
 		test edx, edx
 		je short Inhalt_Null
 		push edx
-		push ecx
+		;push ecx
 		add edx, 1
     mov ecx, dword ptr COStringA_vmSpeicher[ebp]
     call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
-		pop ecx
+		;pop ecx
 		pop edx
 		mov dword ptr COStringA_vbInhalt[ebp], eax
 		mov dword ptr COStringA_vbInhalt_A[ebp], eax

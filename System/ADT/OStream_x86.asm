@@ -657,7 +657,7 @@ s_pvDaten = 0
 a_ulByte = esp_Bytes + 20
 ?Read@COStream@System@RePag@@QAQPAXPAXK@Z PROC ; COStream::Read(pvDaten, ulByte)
 		push ebp
-		push ebp
+		push ebx
 		push esi
 		push edi
 		sub esp, esp_Bytes
@@ -735,7 +735,7 @@ a_ulByte = esp_Bytes + 20
 		mov edi, dword ptr [edi]
 
 		mov ecx, esi
-		add ecx, eax
+		add ecx, edi
 		cmp dword ptr a_ulByte[esp], ecx
 		ja short Copy_ElementLange
 
@@ -789,7 +789,7 @@ s_pvDaten = 0
 a_ulByte = esp_Bytes + 20
 ?ThRead@COStream@System@RePag@@QAQPAXPAXK@Z PROC ; COStream::ThRead(pvDaten, ulByte)
 		push ebp
-		push ebp
+		push ebx
 		push esi
 		push edi
 		sub esp, esp_Bytes
@@ -871,7 +871,7 @@ a_ulByte = esp_Bytes + 20
 		mov edi, dword ptr [edi]
 
 		mov ecx, esi
-		add ecx, eax
+		add ecx, edi
 		cmp dword ptr a_ulByte[esp], ecx
 		ja short Copy_ElementLange
 
@@ -1155,7 +1155,7 @@ a_ulLesePosition = esp_Bytes + 24
 a_ulByte = esp_Bytes + 20
 ?Read@COStream@System@RePag@@QAQPAXPAXKAAK@Z PROC ; COStream::Read(pvDaten, ulByte, &ulLesePosition)
 		push ebp
-		push ebp
+		push ebx
 		push esi
 		push edi
 		sub esp, esp_Bytes
@@ -1238,7 +1238,7 @@ a_ulByte = esp_Bytes + 20
 		mov edi, dword ptr [edi]
 
 		mov ecx, esi
-		add ecx, eax
+		add ecx, edi
 		cmp dword ptr a_ulByte[esp], ecx
 		ja short Copy_ElementLange
 
@@ -1381,7 +1381,7 @@ a_ulByte = esp_Bytes + 20
 		mov edi, dword ptr [edi]
 
 		mov ecx, esi
-		add ecx, eax
+		add ecx, edi
 		cmp dword ptr a_ulByte[esp], ecx
 		ja short Copy_ElementLange
 
@@ -1632,7 +1632,7 @@ s_pk4_80Number = 0
 		call ?Read@COStream@System@RePag@@QAQPAXPAXK@Z ; COStream::Read(pvDaten, ulByte)
 
 		lea edx, s_c10Number[esp]
-		mov ecx, dword ptr s_pk4Number[esp]
+		mov ecx, dword ptr s_pk4_80Number[esp]
 		call ?Write@COComma4_80@System@RePag@@QAQXQBD@Z ; COComma4_80::Write(cZahl[10])
 
 		add esp, esp_Bytes
@@ -1654,7 +1654,7 @@ s_pk4_80Number = 0
 		call ?ThRead@COStream@System@RePag@@QAQPAXPAXK@Z ; COStream::Read(pvDaten, ulByte)
 
 		lea edx, s_c10Number[esp]
-		mov ecx, dword ptr s_pk4Number[esp]
+		mov ecx, dword ptr s_pk4_80Number[esp]
 		call ?Write@COComma4_80@System@RePag@@QAQXQBD@Z ; COComma4_80::Write(cZahl[10])
 
 		add esp, esp_Bytes
@@ -2328,6 +2328,12 @@ a_pOverlapped = esp_Bytes + 8
 		jmp Ende
 
 	Block:
+		xor eax, eax
+		mov dword ptr s_dwLastError[esp], eax
+		mov edx, dword ptr s_liFileSize[esp]
+		test edx, edx
+		je Ende
+
 		mov edx, 8
 		mov ecx, dword ptr COStream_vmSpeicher[ebp]
     call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
@@ -2446,6 +2452,12 @@ a_pOverlapped = esp_Bytes + 8
 		jmp Ende
 
 	Block:
+		xor eax, eax
+		mov dword ptr s_dwLastError[esp], eax
+		mov edx, dword ptr s_liFileSize[esp]
+		test edx, edx
+		je Ende
+
 		mov edx, 8
 		mov ecx, dword ptr COStream_vmSpeicher[ebp]
     call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
@@ -2572,6 +2584,12 @@ a_bAsynchronous = esp_Bytes + 8
 		jmp Ende
 
 	Block:
+		xor eax, eax
+		mov dword ptr s_dwLastError[esp], eax
+		mov edx, dword ptr s_liFileSize[esp]
+		test edx, edx
+		je Ende
+
 		mov edx, 8
 		mov ecx, dword ptr COStream_vmSpeicher[ebp]
     call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
@@ -2602,8 +2620,8 @@ a_bAsynchronous = esp_Bytes + 8
 		jmp short Liste
 
 	Asynchron:
-		PXOR xmm7, xmm7
-		movdqu xmmword ptr s_stOverlapped[esp], xmm7
+		;PXOR xmm7, xmm7
+		;movdqu xmmword ptr s_stOverlapped[esp], xmm7
 		push 0
 		push 0
 		push 0
@@ -2836,7 +2854,8 @@ a_pOverlapped = esp_Bytes + 8
 
 		mov ebp, ecx
 		mov dword ptr s_hFile[esp], edx
-		mov dword ptr s_dwLastError[esp], 0
+		xor eax, eax
+		mov dword ptr s_dwLastError[esp], eax
 
 		lea edx, s_vbDaten[esp]
 		call ?Data@COStream@System@RePag@@QAQPADAAPAD@Z ; COStream::Daten(&vbDaten)
@@ -2873,6 +2892,8 @@ a_pOverlapped = esp_Bytes + 8
 		mov dword ptr s_dwLastError[esp], eax
 		cmp eax, 997
 		jne short Ende
+
+		mov dword ptr s_dwLastError[esp], 0
 
 		push dword ptr a_BWait[esp]
 		lea ecx, s_dwBytes_written[esp + 4]
@@ -3018,8 +3039,8 @@ a_bAsynchronous = esp_Bytes + 8
 		push dword ptr s_hFile[esp + 16]
 		call dword ptr __imp__WriteFile@20 ; WriteFile(hFile, vbDaten, ulBytes, &dwBytes_written, pOverlapped)
 		test eax, eax
-		je short Error
-		jmp short Ende
+		je Error
+		jmp Ende
 
 	Asynchron:
 		PXOR xmm7, xmm7
@@ -3040,12 +3061,12 @@ a_bAsynchronous = esp_Bytes + 8
 		push dword ptr s_hFile[esp + 16]
 		call dword ptr __imp__WriteFile@20 ; WriteFile(hFile, vbDaten, ulBytes, &dwBytes_written, pOverlapped)
 		test eax, eax
-		jne short Ende
+		jne short Error_Last
 
 		call dword ptr __imp__GetLastError@0 ; GetLastError()
 		mov dword ptr s_dwLastError[esp], eax
 		cmp eax, 997
-		jne short Error_Event
+		jne short Close_Event
 
 		push dword ptr a_BWait[esp]
 		lea ecx, s_dwBytes_written[esp + 4]
@@ -3054,11 +3075,16 @@ a_bAsynchronous = esp_Bytes + 8
 		push dword ptr s_hFile[esp + 12]
 		call dword ptr __imp__GetOverlappedResult@16 ; GetOverlappedResult(hFile, pOverlapped, &dwBytes_return, BWait)
 		test eax, eax
-		jne short Ende
+		jne short Close_Event
 
-	Error_Event:
+	Error_Last:
+		call dword ptr __imp__GetLastError@0 ; GetLastError()
+		mov dword ptr s_dwLastError[esp], eax
+
+	Close_Event:
 		push dword ptr s_stOverlapped[esp + 16]
 		call dword ptr __imp__CloseHandle@4 ; CloseHandle(hHandle)
+		jmp short Ende
 
 	Error:
 		call dword ptr __imp__GetLastError@0 ; GetLastError()

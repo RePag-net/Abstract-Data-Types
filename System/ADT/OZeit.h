@@ -108,6 +108,7 @@ namespace RePag
       FILETIME __vectorcall FileTime(void);
       SYSTEMTIME __vectorcall SystemTime(void);
 #ifdef HADT
+#ifndef _64bit
 #pragma comment(linker, "/export:?COFreiV@COTime@System@RePag@@QAQPBXXZ")
 #pragma comment(linker, "/export:??0COTime@System@RePag@@QAE@XZ")
 #pragma comment(linker, "/export:??0COTime@System@RePag@@QAE@PBD@Z")
@@ -153,7 +154,53 @@ namespace RePag
 #pragma comment(linker, "/export:?Write@COTime@System@RePag@@QAQXPBD@Z")
 #pragma comment(linker, "/export:?FileTime@COTime@System@RePag@@QAQ?AU_FILETIME@@XZ")
 #pragma comment(linker, "/export:?SystemTime@COTime@System@RePag@@QAQ?AU_SYSTEMTIME@@XZ")
-
+#else
+#pragma comment(linker, "/export:?COFreiV@COTime@System@RePag@@QEAQPEBXXZ")
+#pragma comment(linker, "/export:??0COTime@System@RePag@@QEAA@XZ")
+#pragma comment(linker, "/export:??0COTime@System@RePag@@QEAA@PEBD@Z")
+#pragma comment(linker, "/export:??0COTime@System@RePag@@QEAA@PEBV012@@Z")
+#pragma comment(linker, "/export:??0COTime@System@RePag@@QEAA@AEBUSTTime@12@@Z")
+#pragma comment(linker, "/export:??0COTime@System@RePag@@QEAA@AEBU_SYSTEMTIME@@@Z")
+#pragma comment(linker, "/export:?Now@COTime@System@RePag@@QEAQPEAV123@XZ")
+#pragma comment(linker, "/export:?Today@COTime@System@RePag@@QEAQPEAV123@XZ")
+#pragma comment(linker, "/export:?Tommorow@COTime@System@RePag@@QEAQPEAV123@XZ")
+#pragma comment(linker, "/export:?IsZero@COTime@System@RePag@@QEAQ_NXZ")
+#pragma comment(linker, "/export:?CHARDate@COTime@System@RePag@@QEAQPEADPEAD@Z")
+#pragma comment(linker, "/export:?StrDate@COTime@System@RePag@@QEAQPEAVCOStringA@23@PEAV423@@Z")
+#pragma comment(linker, "/export:?CHARTime@COTime@System@RePag@@QEAQPEADPEAD@Z")
+#pragma comment(linker, "/export:?StrTime@COTime@System@RePag@@QEAQPEAVCOStringA@23@PEAV423@@Z")
+#pragma comment(linker, "/export:?CHARDateTime@COTime@System@RePag@@QEAQPEADPEAD@Z")
+#pragma comment(linker, "/export:?StrDateTime@COTime@System@RePag@@QEAQPEAVCOStringA@23@PEAV423@@Z")
+#pragma comment(linker, "/export:?StrDateFormat@COTime@System@RePag@@QEAQPEAVCOStringA@23@PEAV423@PEBD@Z")
+#pragma comment(linker, "/export:?StrTimeFormat@COTime@System@RePag@@QEAQPEAVCOStringA@23@PEAV423@PEBD@Z")
+#pragma comment(linker, "/export:?StrDateTimeFormat@COTime@System@RePag@@QEAQPEAVCOStringA@23@PEAV423@PEBD1_N@Z")
+#pragma comment(linker, "/export:?VMBLOCKDateFormat@COTime@System@RePag@@QEAQPEADAEAPEADPEBD@Z")
+#pragma comment(linker, "/export:?VMBLOCKTimeFormat@COTime@System@RePag@@QEAQPEADAEAPEADPEBD@Z")
+#pragma comment(linker, "/export:?VMBLOCKDateTimeFormat@COTime@System@RePag@@QEAQPEADAEAPEADPEBD1_N@Z")
+#pragma comment(linker, "/export:??4COTime@System@RePag@@QEAQXPEBD@Z")
+#pragma comment(linker, "/export:??4COTime@System@RePag@@QEAQXAEBV012@@Z")
+#pragma comment(linker, "/export:??4COTime@System@RePag@@QEAQXAEBUSTTime@12@@Z")
+#pragma comment(linker, "/export:??4COTime@System@RePag@@QEAQXAEBU_SYSTEMTIME@@@Z")
+#pragma comment(linker, "/export:??MCOTime@System@RePag@@QEAQ_NAEBV012@@Z")
+#pragma comment(linker, "/export:??OCOTime@System@RePag@@QEAQ_NAEBV012@@Z")
+#pragma comment(linker, "/export:??NCOTime@System@RePag@@QEAQ_NAEBV012@@Z")
+#pragma comment(linker, "/export:??PCOTime@System@RePag@@QEAQ_NAEBV012@@Z")
+#pragma comment(linker, "/export:??8COTime@System@RePag@@QEAQ_NAEBV012@@Z")
+#pragma comment(linker, "/export:??9COTime@System@RePag@@QEAQ_NAEBV012@@Z")
+#pragma comment(linker, "/export:??YCOTime@System@RePag@@QEAQXAEBUSTTime@12@@Z")
+#pragma comment(linker, "/export:??YCOTime@System@RePag@@QEAQX_J@Z")
+#pragma comment(linker, "/export:??ZCOTime@System@RePag@@QEAQXAEBUSTTime@12@@Z")
+#pragma comment(linker, "/export:??ZCOTime@System@RePag@@QEAQX_J@Z")
+#pragma comment(linker, "/export:??HCOTime@System@RePag@@QEAQAEAV012@_J@Z")
+#pragma comment(linker, "/export:??HCOTime@System@RePag@@QEAQAEAV012@AEBUSTTime@12@@Z")
+#pragma comment(linker, "/export:??GCOTime@System@RePag@@QEAQAEAV012@_J@Z")
+#pragma comment(linker, "/export:??GCOTime@System@RePag@@QEAQAEAV012@AEBUSTTime@12@@Z")
+#pragma comment(linker, "/export:?DifferenceTime@COTime@System@RePag@@QEAQXPEBV123@AEAUSTTime@23@@Z")
+#pragma comment(linker, "/export:?Read@COTime@System@RePag@@QEAQXPEAD@Z")
+#pragma comment(linker, "/export:?Write@COTime@System@RePag@@QEAQXPEBD@Z")
+#pragma comment(linker, "/export:?FileTime@COTime@System@RePag@@QEAQ?AU_FILETIME@@XZ")
+#pragma comment(linker, "/export:?SystemTime@COTime@System@RePag@@QEAQ?AU_SYSTEMTIME@@XZ")
+#endif
 #endif
     };
     //---------------------------------------------------------------------------
@@ -168,6 +215,7 @@ namespace RePag
     COTime* __vectorcall COTimeV(_In_ const SYSTEMTIME& stSystemTime);
     COTime* __vectorcall COTimeV(_In_ VMEMORY vmSpeicher, _In_ const SYSTEMTIME& stSystemTime);
 #ifdef HADT
+#ifndef _64bit
 #pragma comment(linker, "/export:?COTimeV@System@RePag@@YQPAVCOTime@12@XZ")
 #pragma comment(linker, "/export:?COTimeV@System@RePag@@YQPAVCOTime@12@PBX@Z")
 #pragma comment(linker, "/export:?COTimeV@System@RePag@@YQPAVCOTime@12@PBD@Z")
@@ -178,6 +226,18 @@ namespace RePag
 #pragma comment(linker, "/export:?COTimeV@System@RePag@@YQPAVCOTime@12@ABUSTTime@12@@Z")
 #pragma comment(linker, "/export:?COTimeV@System@RePag@@YQPAVCOTime@12@PBXABUSTTime@12@@Z")
 #pragma comment(linker, "/export:?COTimeV@System@RePag@@YQPAVCOTime@12@PBXABU_SYSTEMTIME@@@Z")
+#else
+#pragma comment(linker, "/export:?COTimeV@System@RePag@@YQPEAVCOTime@12@XZ")
+#pragma comment(linker, "/export:?COTimeV@System@RePag@@YQPEAVCOTime@12@PEBX@Z")
+#pragma comment(linker, "/export:?COTimeV@System@RePag@@YQPEAVCOTime@12@PEBD@Z")
+#pragma comment(linker, "/export:?COTimeV@System@RePag@@YQPEAVCOTime@12@PEBXPEBD@Z")
+#pragma comment(linker, "/export:?COTimeV@System@RePag@@YQPEAVCOTime@12@AEBU_SYSTEMTIME@@@Z")
+#pragma comment(linker, "/export:?COTimeV@System@RePag@@YQPEAVCOTime@12@PEBXAEBU_SYSTEMTIME@@@Z")
+#pragma comment(linker, "/export:?COTimeV@System@RePag@@YQPEAVCOTime@12@PEBV312@@Z")
+#pragma comment(linker, "/export:?COTimeV@System@RePag@@YQPEAVCOTime@12@PEBXPEBV312@@Z")
+#pragma comment(linker, "/export:?COTimeV@System@RePag@@YQPEAVCOTime@12@AEBUSTTime@12@@Z")
+#pragma comment(linker, "/export:?COTimeV@System@RePag@@YQPEAVCOTime@12@PEBXAEBUSTTime@12@@Z")
+#endif
 #endif
   }
 }

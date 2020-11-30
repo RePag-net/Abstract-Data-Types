@@ -69,7 +69,7 @@ CS_OZeit SEGMENT EXECUTE
     call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 
 		pxor xmm7, xmm7
-		movdqu xmmword ptr COTime_FZeit_dwLowDateTime[eax], xmm7
+		movdqu xmmword ptr [eax], xmm7
 		xor edx, edx
 		mov dword ptr COTime_vmSpeicher[eax], edx
 
@@ -85,9 +85,8 @@ CS_OZeit SEGMENT EXECUTE
 		pop ecx ; vmSpeicher
 
 		pxor xmm7, xmm7
-		movdqu xmmword ptr COTime_FZeit_dwLowDateTime[eax], xmm7
-		xor edx, edx
-		mov dword ptr COTime_vmSpeicher[eax], edx
+		movdqu xmmword ptr [eax], xmm7
+		mov dword ptr COTime_vmSpeicher[eax], ecx
 		ret 0
 ?COTimeV@System@RePag@@YQPAVCOTime@12@PBX@Z ENDP
 ;----------------------------------------------------------------------------
@@ -128,7 +127,7 @@ StringZuFILETIME PROC PRIVATE
 		mov dword ptr s_asZiffer[esp + 4 + COStringA_ulLange_A], 0
 		mov dword ptr s_asZiffer[esp + 4 + COStringA_vmSpeicher], 0
 
-		mov eax, dword ptr s_asString[esp + 4 + COStringA_ulLange]
+		;mov eax, dword ptr s_asString[esp + 4 + COStringA_ulLange]
 		cmp dword ptr s_asString[esp + 4 + COStringA_ulLange], 10
 		jb short Lange_8
 		ja Lange_17
@@ -399,14 +398,10 @@ s_vmSpeicher = 0
 
 		mov dword ptr s_vmSpeicher[esp], ecx
 		mov dword ptr s_pcString[esp], edx
-		;push ecx ; vmSpeicher
-		;push edx ; pcString
 
     movzx edx, ucBY_COZEIT
     call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 
-		;pop ecx ; pcString
-		;pop edx ; vmSpeicher
 		mov edx, dword ptr s_vmSpeicher[esp]
 		mov ecx, dword ptr s_pcString[esp]
 
@@ -468,16 +463,12 @@ s_vmSpeicher = 0
 ?COTimeV@System@RePag@@YQPAVCOTime@12@PBXABU_SYSTEMTIME@@@Z PROC ; COTimeV(vmSpeicher, stSystemTime)
 		sub esp, esp_Bytes
 
-		;push edx ; stSystemTime
-		;push ecx ; vmSpeicher
 		mov dword ptr s_Temp[esp], edx ; SystemTime
 		mov dword ptr s_vmSpeicher[esp], ecx
 
     movzx edx, ucBY_COZEIT
     call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 
-		;pop edx ; vmSpeicher
-		;pop ecx ; stSystemTime
 		mov ecx, dword ptr s_Temp[esp] ; SystemTime
 		mov edx, dword ptr s_vmSpeicher[esp]
 
@@ -897,8 +888,8 @@ wSecond = 12;
 		call dword ptr __imp__GetLocalTime@4 ; GetLocalTime(lpSystemTime)
 
 		xor eax, eax
-		mov dword ptr s_stSystemTime[esp + wHour], eax
-		mov dword ptr s_stSystemTime[esp + wSecond], eax
+		mov dword ptr s_stSZeit[esp + wHour], eax
+		mov dword ptr s_stSZeit[esp + wSecond], eax
 
 		push ebp
 		lea eax, s_stSZeit[esp + 4]
@@ -923,7 +914,7 @@ esp_Bytes = 16
 s_stSZeit = 0
 wHour = 8;
 wSecond = 12;
-?Tommorow@COTime@System@RePag@@QAQPAV123@XZ PROC ; COTime::Morgen(void)
+?Tommorow@COTime@System@RePag@@QAQPAV123@XZ PROC ; COTime::Tommorow(void)
 		push ebp
 		sub esp, esp_Bytes
 
@@ -934,8 +925,8 @@ wSecond = 12;
 		call dword ptr __imp__GetLocalTime@4 ; GetLocalTime(lpSystemTime)
 
 		xor eax, eax
-		mov dword ptr s_stSystemTime[esp + wHour], eax
-		mov dword ptr s_stSystemTime[esp + wSecond], eax
+		mov dword ptr s_stSZeit[esp + wHour], eax
+		mov dword ptr s_stSZeit[esp + wSecond], eax
 
 		push ebp
 		lea eax, s_stSZeit[esp + 4]
@@ -960,7 +951,7 @@ wSecond = 12;
 ?Tommorow@COTime@System@RePag@@QAQPAV123@XZ ENDP
 _Text ENDS
 ;----------------------------------------------------------------------------
-?IsZero@COTime@System@RePag@@QAQ_NXZ PROC ; COTime::IstNull(void)
+?IsZero@COTime@System@RePag@@QAQ_NXZ PROC ; COTime::IsZero(void)
 		xor eax, eax
 
 		xor edx, edx
@@ -1135,7 +1126,9 @@ s_stSZeit = 0
 		mov byte ptr [ecx + 10], 32
 
 		push 9
-		lea eax, s_pcZeit[esp + 4]
+		;lea eax, s_pcZeit[esp + 4]
+		mov eax, dword ptr s_pcDatumZeit[esp + 4]
+		add eax, 11
 		push eax
 		push 0
 		lea eax, s_stSZeit[esp + 12]
@@ -1144,11 +1137,11 @@ s_stSZeit = 0
 		push 1024
 		call dword ptr __imp__GetTimeFormatA@24 ; GetTimeFormat(Locale, dwFlags, stSZeit, NULL, s_pcZeit, 9)
 
-		push 9
-		lea edx, s_pcZeit[esp + 4]
-		mov ecx, dword ptr s_pcDatumZeit[esp + 4]
-		add ecx, 11
-    call ?MemCopy@System@RePag@@YQPAXPAXPBXK@Z ; MemCopy(pvZiel, pvQuelle, ulBytes)
+		;push 9
+		;lea edx, s_pcZeit[esp + 4]
+		;mov ecx, dword ptr s_pcDatumZeit[esp + 4]
+		;add ecx, 11
+    ;call ?MemCopy@System@RePag@@YQPAXPAXPBXK@Z ; MemCopy(pvZiel, pvQuelle, ulBytes)
 
 		mov eax, dword ptr s_pcDatumZeit[esp]
 
@@ -1159,8 +1152,7 @@ _Text ENDS
 ;----------------------------------------------------------------------------
 _Text SEGMENT
 esp_Bytes = 40
-s_pcDatum = 29
-s_pcZeit = 20
+s_pcDatumZeit = 20
 s_pasDatumZeit = 16
 s_stSZeit = 0
 ?StrDateTime@COTime@System@RePag@@QAQPAVCOStringA@23@PAV423@@Z PROC ; COTime::StrDateTime(pasDatumZeit)
@@ -1174,7 +1166,7 @@ s_stSZeit = 0
 		call dword ptr __imp__FileTimeToSystemTime@8 ; FileTimeToSystemTime(FZeit, stSZeit)
 
 		push 11
-		lea eax, dword ptr s_pcDatum[esp + 4]
+		lea eax, dword ptr s_pcDatumZeit[esp + 4]
 		push eax
 		push 0
 		lea eax, s_stSZeit[esp + 12]
@@ -1183,12 +1175,15 @@ s_stSZeit = 0
 		push 1024
 		call dword ptr __imp__GetDateFormatA@24 ; GetDateFormat(Locale, dwFlags, stSZeit, NULL, s_pcDatum, 11)
 
-		lea edx, s_pcDatum[esp]
-		mov ecx, dword ptr s_pasDatumZeit[esp]
-		call ??4COStringA@System@RePag@@QAQXPBD@Z ; COStringA::operator=(pcString)
+		;lea edx, s_pcDatumZeit[esp]
+		;mov ecx, dword ptr s_pasDatumZeit[esp]
+		;call ??4COStringA@System@RePag@@QAQXPBD@Z ; COStringA::operator=(pcString)
+		lea ecx, dword ptr s_pcDatumZeit[esp]
+		mov byte ptr [ecx + 10], 32
 
 		push 9
-		lea eax, s_pcZeit[esp + 4]
+		lea eax, s_pcDatumZeit[esp + 4]
+		add eax, 11
 		push eax
 		push 0
 		lea eax, s_stSZeit[esp + 12]
@@ -1197,13 +1192,13 @@ s_stSZeit = 0
 		push 1024
 		call dword ptr __imp__GetTimeFormatA@24 ; GetTimeFormat(Locale, dwFlags, stSZeit, NULL, s_pcZeit, 9)
 
-		mov edx, offset pcLeer
-		mov ecx, dword ptr s_pasDatumZeit[esp]
-		call ??YCOStringA@System@RePag@@QAQXPBD@Z ; COStringA::operator +=(pcString)
+		;mov edx, offset pcLeer
+		;mov ecx, dword ptr s_pasDatumZeit[esp]
+		;call ??YCOStringA@System@RePag@@QAQXPBD@Z ; COStringA::operator +=(pcString)
 
-		lea edx, s_pcZeit[esp]
+		lea edx, s_pcDatumZeit[esp]
 		mov ecx, dword ptr s_pasDatumZeit[esp]
-		call ??YCOStringA@System@RePag@@QAQXPBD@Z ; COStringA::operator +=(pcString)
+		call ??4COStringA@System@RePag@@QAQXPBD@Z ; COStringA::operator=(pcString)
 
 		mov eax, dword ptr s_pasDatumZeit[esp]
 
@@ -2486,7 +2481,7 @@ _Text SEGMENT
 esp_Bytes = 20
 s_SReturn = 16
 s_stSZeit = 0
-?SystemTime@COTime@System@RePag@@QAQ?AU_SYSTEMTIME@@XZ PROC ; COTime::SytsemTime(void)
+?SystemTime@COTime@System@RePag@@QAQ?AU_SYSTEMTIME@@XZ PROC ; COTime::SystemTime(void)
 		sub esp, esp_Bytes
 
 		mov dword ptr s_sReturn[esp], edx

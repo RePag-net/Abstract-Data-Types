@@ -94,6 +94,7 @@ namespace RePag
       void* __vectorcall ThIteratorToBegin_Lock(void);
       void __vectorcall ThIteratorEnd(void);
 #ifdef HADT
+#ifndef _64bit
 #pragma comment(linker, "/export:??0COList@System@RePag@@QAE@_N@Z")
 #pragma comment(linker, "/export:??1COList@System@RePag@@QAE@XZ")
 #pragma comment(linker, "/export:??0COList@System@RePag@@QAE@_NK@Z")
@@ -133,6 +134,47 @@ namespace RePag
 #pragma comment(linker, "/export:?ThIteratorToBegin@COList@System@RePag@@QAQPAXXZ")
 #pragma comment(linker, "/export:?ThIteratorToBegin_Lock@COList@System@RePag@@QAQPAXXZ")
 #pragma comment(linker, "/export:?ThIteratorEnd@COList@System@RePag@@QAQXXZ")
+#else
+#pragma comment(linker, "/export:??0COList@System@RePag@@QEAA@_N@Z")
+#pragma comment(linker, "/export:??1COList@System@RePag@@QEAA@XZ")
+#pragma comment(linker, "/export:??0COList@System@RePag@@QEAA@_NK@Z")
+#pragma comment(linker, "/export:??0COList@System@RePag@@QEAA@PEBX_N@Z")
+#pragma comment(linker, "/export:??0COList@System@RePag@@QEAA@PEBX_NK@Z")
+#pragma comment(linker, "/export:?ToBegin@COList@System@RePag@@QEAQPEAXPEAX@Z")
+#pragma comment(linker, "/export:?ToBeginS@COList@System@RePag@@QEAQPEAXPEAX@Z")
+#pragma comment(linker, "/export:?ThToBegin@COList@System@RePag@@QEAQPEAXPEAX@Z")
+#pragma comment(linker, "/export:?ThToBeginS@COList@System@RePag@@QAQPAXPAX@Z")
+#pragma comment(linker, "/export:?ToEnd@COList@System@RePag@@QEAQPEAXPEAX@Z")
+#pragma comment(linker, "/export:?ToEndS@COList@System@RePag@@QEAQPEAXPEAX@Z")
+#pragma comment(linker, "/export:?ThToEnd@COList@System@RePag@@QEAQPEAXPEAX@Z")
+#pragma comment(linker, "/export:?ThToEndS@COList@System@RePag@@QAQPAXPAX@Z")
+#pragma comment(linker, "/export:?Element@COList@System@RePag@@QEAQPEAXK@Z")
+#pragma comment(linker, "/export:?ThElement@COList@System@RePag@@QEAQPEAXK@Z")
+#pragma comment(linker, "/export:?Element@COList@System@RePag@@QEAQPEAXPEAX@Z")
+#pragma comment(linker, "/export:?NextElement@COList@System@RePag@@QEAQXAEAPEAX@Z")
+#pragma comment(linker, "/export:?NextElement@COList@System@RePag@@QEAQXAEAPEAX0@Z")
+#pragma comment(linker, "/export:?DeleteElement@COList@System@RePag@@QEAQXAEAPEAX0_N@Z")
+#pragma comment(linker, "/export:?DeleteElementS@COList@System@RePag@@QEAQXAEAPEAX0_N@Z")
+#pragma comment(linker, "/export:?DeleteFirstElement@COList@System@RePag@@QEAQXAEAPEAX_N@Z")
+#pragma comment(linker, "/export:?DeleteFirstElementS@COList@System@RePag@@QEAQXAEAPEAX_N@Z")
+#pragma comment(linker, "/export:?DeleteElement@COList@System@RePag@@QEAQXK_N@Z")
+#pragma comment(linker, "/export:?DeleteElementS@COList@System@RePag@@QEAQXK_N@Z")
+#pragma comment(linker, "/export:?ThDeleteElement@COList@System@RePag@@QEAQXK_N@Z")
+#pragma comment(linker, "/export:?ThDeleteElementS@COList@System@RePag@@QEAQXK_N@Z")
+#pragma comment(linker, "/export:?DeleteList@COList@System@RePag@@QEAQX_N@Z")
+#pragma comment(linker, "/export:?DeleteListS@COList@System@RePag@@QEAQX_N@Z")
+#pragma comment(linker, "/export:?ThDeleteList@COList@System@RePag@@QEAQX_N@Z")
+#pragma comment(linker, "/export:?ThDeleteListS@COList@System@RePag@@QEAQX_N@Z")
+#pragma comment(linker, "/export:?COFreiV@COList@System@RePag@@QEAQPEBXXZ")
+#pragma comment(linker, "/export:?Insert@COList@System@RePag@@QEAQPEAXAEAPEAX0PEAX@Z")
+#pragma comment(linker, "/export:?InsertS@COList@System@RePag@@QEAQPEAXAEAPEAX0PEAX@Z")
+#pragma comment(linker, "/export:?Number@COList@System@RePag@@QEAQKXZ")
+#pragma comment(linker, "/export:?ThNumber@COList@System@RePag@@QEAQAEAKAEAK@Z")
+#pragma comment(linker, "/export:?IteratorToBegin@COList@System@RePag@@QEAQPEAXXZ")
+#pragma comment(linker, "/export:?ThIteratorToBegin@COList@System@RePag@@QEAQPEAXXZ")
+#pragma comment(linker, "/export:?ThIteratorToBegin_Lock@COList@System@RePag@@QEAQPEAXXZ")
+#pragma comment(linker, "/export:?ThIteratorEnd@COList@System@RePag@@QEAQXXZ")
+#endif
 #endif
     };
     //---------------------------------------------------------------------------
@@ -141,10 +183,17 @@ namespace RePag
     COList* __vectorcall COListV(VMEMORY vmSpeicher, bool bThreadSicher);
     COList* __vectorcall COListV(VMEMORY vmSpeicher, bool bThreadSicher, unsigned long ulSpinCount);
 #ifdef HADT
+#ifndef _64bit
 #pragma comment(linker, "/export:?COListV@System@RePag@@YQPAVCOList@12@_N@Z")
 #pragma comment(linker, "/export:?COListV@System@RePag@@YQPAVCOList@12@_NK@Z")
 #pragma comment(linker, "/export:?COListV@System@RePag@@YQPAVCOList@12@PBX_N@Z")
 #pragma comment(linker, "/export:?COListV@System@RePag@@YQPAVCOList@12@PBX_NK@Z")
+#else
+#pragma comment(linker, "/export:?COListV@System@RePag@@YQPEAVCOList@12@_N@Z")
+#pragma comment(linker, "/export:?COListV@System@RePag@@YQPEAVCOList@12@_NK@Z")
+#pragma comment(linker, "/export:?COListV@System@RePag@@YQPEAVCOList@12@PEBX_N@Z")
+#pragma comment(linker, "/export:?COListV@System@RePag@@YQPEAVCOList@12@PEBX_NK@Z")
+#endif
 #endif
     //---------------------------------------------------------------------------
   }

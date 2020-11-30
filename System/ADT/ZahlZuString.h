@@ -1,5 +1,5 @@
 /****************************************************************************
-  OZahlZuString.h
+  ZahlZuString.h
   For more information see https://github.com/RePag-net/Core
 *****************************************************************************/
 
@@ -40,7 +40,7 @@
 __forceinline void __vectorcall __ULONGtoCHAR(char pcZahl[11], unsigned long ulZahl);
 __forceinline void __vectorcall __LONGtoCHAR(char pcZahl[11], long lZahl);
 __forceinline void __vectorcall __LONGLONGtoCHAR(char pcZahl[20], long long llZahl);
-__forceinline void __vectorcall __DOUBLE_B10toCHAR(short& Exponent, short& sVorKomma, long long& llNachKomma, double& dZahl, unsigned char& ucStellen);
+ void __vectorcall __DOUBLE_B10toCHAR(short& Exponent, short& sVorKomma, long long& llNachKomma, double& dZahl, unsigned char& ucStellen);
 void __vectorcall __DOUBLE_B10toCHAR(short& sExponent, short& sVorKomma, double dZahl, long long& llNachKomma, unsigned char ucStellen);
 __forceinline void __vectorcall __FLOAT_B10zuCHAR(short& Exponent, short& sVorKomma, long& lNachKomma, float& fZahl, unsigned char& ucStellen);
 void __vectorcall __FLOAT_B10zuCHAR(short& Exponent, short& sVorKomma, float fZahl, long& lNachKomma, unsigned char ucPositions);
@@ -50,9 +50,16 @@ namespace RePag
   namespace System
   {
     char* __vectorcall Comma4toCHAR(_Out_writes_z_(20) char pc20Number[20], _In_ COComma4* pk4Number, _In_ unsigned char ucPositions);
-#pragma comment(linker, "/export:?Comma4toCHAR@System@RePag@@YQPADQADPAVCOComma4@12@E@Z")
     char* __vectorcall Comma4_80toCHAR(_Out_writes_z_(32) char pcZahl[32], _In_ COComma4_80* pk4gZahl, _In_ unsigned char ucStellen);
+#ifdef HADT
+#ifndef _64bit
+#pragma comment(linker, "/export:?Comma4toCHAR@System@RePag@@YQPADQADPAVCOComma4@12@E@Z")
 #pragma comment(linker, "/export:?Comma4_80toCHAR@System@RePag@@YQPADQADPAVCOComma4_80@12@E@Z")
+#else
+#pragma comment(linker, "/export:?Comma4toCHAR@System@RePag@@YQPEADQEADPEAVCOComma4@12@E@Z")
+#pragma comment(linker, "/export:?Comma4_80toCHAR@System@RePag@@YQPEADQEADPEAVCOComma4_80@12@E@Z")
+#endif
+#endif
     _Export COStringA* __vectorcall Comma4toStringA(_In_ COStringA* pasString, _In_ COComma4* pk4Number, _In_ unsigned char ucPositions);
     _Export COStringA* __vectorcall Comma4_80toStringA(_In_ COStringA* pasString, _In_ COComma4_80* pk4_80Number, _In_ unsigned char ucPositions);
     _Export char* __vectorcall LONGtoCHAR(_Out_writes_z_(12) char pc12Number[12], _In_ long lNumber);

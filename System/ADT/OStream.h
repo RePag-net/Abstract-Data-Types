@@ -118,6 +118,7 @@ namespace RePag
       BYTE __vectorcall GetLastError(void);
       BYTE* __vectorcall ThGetLastError(_In_ BYTE& ucError);
 #ifdef HADT
+#ifndef _64bit
 #pragma comment(linker, "/export:??0COStream@System@RePag@@QAE@_N@Z")
 #pragma comment(linker, "/export:??0COStream@System@RePag@@QAE@_NK@Z")
 #pragma comment(linker, "/export:??0COStream@System@RePag@@QAE@PBX_N@Z")
@@ -178,7 +179,68 @@ namespace RePag
 #pragma comment(linker, "/export:?ThSetPosition@COStream@System@RePag@@QAQKJD@Z")
 #pragma comment(linker, "/export:?GetLastError@COStream@System@RePag@@QAQEXZ")
 #pragma comment(linker, "/export:?ThGetLastError@COStream@System@RePag@@QAQPAEAAE@Z")
-
+#else
+#pragma comment(linker, "/export:??0COStream@System@RePag@@QEAA@_N@Z")
+#pragma comment(linker, "/export:??0COStream@System@RePag@@QEAA@_NK@Z")
+#pragma comment(linker, "/export:??0COStream@System@RePag@@QEAA@PEBX_N@Z")
+#pragma comment(linker, "/export:??0COStream@System@RePag@@QEAA@PEBX_NK@Z")
+#pragma comment(linker, "/export:??1COStream@System@RePag@@QEAA@XZ")
+#pragma comment(linker, "/export:?COFreiV@COStream@System@RePag@@QEAQPEBXXZ")
+#pragma comment(linker, "/export:?Write@COStream@System@RePag@@QEAQXPEAXK@Z")
+#pragma comment(linker, "/export:?WriteS@COStream@System@RePag@@QEAQXPEAXK@Z")
+#pragma comment(linker, "/export:?ThWrite@COStream@System@RePag@@QEAQXPEAXK@Z")
+#pragma comment(linker, "/export:?ThWriteS@COStream@System@RePag@@QEAQXPEAXK@Z")
+#pragma comment(linker, "/export:?Read@COStream@System@RePag@@QEAQPEAXPEAXK@Z")
+#pragma comment(linker, "/export:?ThRead@COStream@System@RePag@@QEAQPEAXPEAXK@Z")
+#pragma comment(linker, "/export:?Write@COStream@System@RePag@@QEAQXPEAXKAEAK@Z")
+#pragma comment(linker, "/export:?WriteS@COStream@System@RePag@@QEAQXPEAXKAEAK@Z")
+#pragma comment(linker, "/export:?ThWrite@COStream@System@RePag@@QEAQXPEAXKAEAK@Z")
+#pragma comment(linker, "/export:?ThWriteS@COStream@System@RePag@@QEAQXPEAXKAEAK@Z")
+#pragma comment(linker, "/export:?Read@COStream@System@RePag@@QEAQPEAXPEAXKAEAK@Z")
+#pragma comment(linker, "/export:?ThRead@COStream@System@RePag@@QEAQPEAXPEAXKAEAK@Z")
+#pragma comment(linker, "/export:?ReadTime@COStream@System@RePag@@QEAQPEAVCOTime@23@PEAV423@@Z")
+#pragma comment(linker, "/export:?ThReadTime@COStream@System@RePag@@QEAQPEAVCOTime@23@PEAV423@@Z")
+#pragma comment(linker, "/export:?WriteTime@COStream@System@RePag@@QEAQXPEAVCOTime@23@@Z")
+#pragma comment(linker, "/export:?ThWriteTime@COStream@System@RePag@@QEAQXPEAVCOTime@23@@Z")
+#pragma comment(linker, "/export:?ReadComma4@COStream@System@RePag@@QEAQPEAVCOComma4@23@PEAV423@@Z")
+#pragma comment(linker, "/export:?ThReadComma4@COStream@System@RePag@@QEAQPEAVCOComma4@23@PEAV423@@Z")
+#pragma comment(linker, "/export:?WriteComma4@COStream@System@RePag@@QEAQXPEAVCOComma4@23@@Z")
+#pragma comment(linker, "/export:?ThWriteComma4@COStream@System@RePag@@QEAQXPEAVCOComma4@23@@Z")
+#pragma comment(linker, "/export:?ReadComma4_80@COStream@System@RePag@@QEAQPEAVCOComma4_80@23@PEAV423@@Z")
+#pragma comment(linker, "/export:?ThReadComma4_80@COStream@System@RePag@@QEAQPEAVCOComma4_80@23@PEAV423@@Z")
+#pragma comment(linker, "/export:?WriteComma4_80@COStream@System@RePag@@QEAQXPEAVCOComma4_80@23@@Z")
+#pragma comment(linker, "/export:?ThWriteComma4_80@COStream@System@RePag@@QEAQXPEAVCOComma4_80@23@@Z")
+#pragma comment(linker, "/export:?ReadStringA@COStream@System@RePag@@QEAQPEAVCOStringA@23@PEAV423@E@Z")
+#pragma comment(linker, "/export:?ThReadStringA@COStream@System@RePag@@QEAQPEAVCOStringA@23@PEAV423@E@Z")
+#pragma comment(linker, "/export:?WriteStringA@COStream@System@RePag@@QEAQXPEAVCOStringA@23@E@Z")
+#pragma comment(linker, "/export:?ThWriteStringA@COStream@System@RePag@@QEAQXPEAVCOStringA@23@E@Z")
+#pragma comment(linker, "/export:?ReadCHAR@COStream@System@RePag@@QEAQPEADAEAPEADE@Z")
+#pragma comment(linker, "/export:?ThReadCHAR@COStream@System@RePag@@QEAQPEADAEAPEADE@Z")
+#pragma comment(linker, "/export:?WriteCHAR@COStream@System@RePag@@QEAQXPEADE@Z")
+#pragma comment(linker, "/export:?ThWriteCHAR@COStream@System@RePag@@QEAQXPEADE@Z")
+#pragma comment(linker, "/export:?ReadFile@COStream@System@RePag@@QEAQKPEAXPEAU_OVERLAPPED@@H@Z")
+#pragma comment(linker, "/export:?ThReadFile@COStream@System@RePag@@QEAQKPEAXPEAU_OVERLAPPED@@H@Z")
+#pragma comment(linker, "/export:?ReadFile@COStream@System@RePag@@QEAQKPEAX_N@Z")
+#pragma comment(linker, "/export:?ThReadFile@COStream@System@RePag@@QEAQKPEAX_N@Z")
+#pragma comment(linker, "/export:?ThWriteFile@COStream@System@RePag@@QEAQKPEAXPEAU_OVERLAPPED@@H@Z")
+#pragma comment(linker, "/export:?WriteFile@COStream@System@RePag@@QEAQKPEAX_N@Z")
+#pragma comment(linker, "/export:?WriteFile@COStream@System@RePag@@QEAQKPEAXPEAU_OVERLAPPED@@H@Z")
+#pragma comment(linker, "/export:?ThWriteFile@COStream@System@RePag@@QEAQKPEAX_N@Z")
+#pragma comment(linker, "/export:?Data@COStream@System@RePag@@QEAQPEADAEAPEAD@Z")
+#pragma comment(linker, "/export:?ThData@COStream@System@RePag@@QEAQPEADAEAPEAD@Z")
+#pragma comment(linker, "/export:?Delete@COStream@System@RePag@@QEAQXXZ")
+#pragma comment(linker, "/export:?ThDelete@COStream@System@RePag@@QEAQXXZ")
+#pragma comment(linker, "/export:?End@COStream@System@RePag@@QEAQ_NXZ")
+#pragma comment(linker, "/export:?ThEnd@COStream@System@RePag@@QEAQ_NXZ")
+#pragma comment(linker, "/export:?Bytes@COStream@System@RePag@@QEAQKXZ")
+#pragma comment(linker, "/export:?ThBytes@COStream@System@RePag@@QEAQPEAKAEAK@Z")
+#pragma comment(linker, "/export:?Position@COStream@System@RePag@@QEAQKXZ")
+#pragma comment(linker, "/export:?ThPosition@COStream@System@RePag@@QEAQPEAKAEAK@Z")
+#pragma comment(linker, "/export:?SetPosition@COStream@System@RePag@@QEAQKJD@Z")
+#pragma comment(linker, "/export:?ThSetPosition@COStream@System@RePag@@QEAQKJD@Z")
+#pragma comment(linker, "/export:?GetLastError@COStream@System@RePag@@QEAQEXZ")
+#pragma comment(linker, "/export:?ThGetLastError@COStream@System@RePag@@QEAQPEAEAEAE@Z")
+#endif
 #endif
     };
     //---------------------------------------------------------------------------
@@ -187,14 +249,21 @@ namespace RePag
 #define STM_POS_ENDE 1
 //---------------------------------------------------------------------------
     COStream* __vectorcall COStreamV(_In_ bool bThreadSafe);
-    _Export COStream* __vectorcall COStreamV(VMEMORY vmMemory, bool bThreadSafe);
-    _Export COStream* __vectorcall COStreamV(bool bThreadSicher, unsigned long ulSpinCount);
-    _Export COStream* __vectorcall COStreamV(VMEMORY vmMemory, bool bThreadSafe, unsigned long ulSpinCount);
+    COStream* __vectorcall COStreamV(VMEMORY vmMemory, bool bThreadSafe);
+    COStream* __vectorcall COStreamV(bool bThreadSicher, unsigned long ulSpinCount);
+    COStream* __vectorcall COStreamV(VMEMORY vmMemory, bool bThreadSafe, unsigned long ulSpinCount);
 #ifdef HADT
+#ifndef _64bit
 #pragma comment(linker, "/export:?COStreamV@System@RePag@@YQPAVCOStream@12@_N@Z")
 #pragma comment(linker, "/export:?COStreamV@System@RePag@@YQPAVCOStream@12@_NK@Z")
 #pragma comment(linker, "/export:?COStreamV@System@RePag@@YQPAVCOStream@12@PBX_N@Z")
 #pragma comment(linker, "/export:?COStreamV@System@RePag@@YQPAVCOStream@12@PBX_NK@Z")
+#else
+#pragma comment(linker, "/export:?COStreamV@System@RePag@@YQPEAVCOStream@12@_N@Z")
+#pragma comment(linker, "/export:?COStreamV@System@RePag@@YQPEAVCOStream@12@_NK@Z")
+#pragma comment(linker, "/export:?COStreamV@System@RePag@@YQPEAVCOStream@12@PEBX_N@Z")
+#pragma comment(linker, "/export:?COStreamV@System@RePag@@YQPEAVCOStream@12@PEBX_NK@Z")
+#endif
 #endif
   }
 }

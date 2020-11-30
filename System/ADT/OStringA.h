@@ -50,7 +50,11 @@ namespace RePag
         VMBLOCK vbInhalt_A;
         unsigned long ulLange_A;
       };
+#ifndef _64bit
       char c16StringA[16];
+#else
+      char c16StringA[24];
+#endif
       VMEMORY vmSpeicher;
 
     public:
@@ -111,6 +115,7 @@ namespace RePag
       char* __vectorcall c_Str(void);
 
 #ifdef HADT
+#ifndef _64bit
 #pragma comment(linker, "/export:??0COStringA@System@RePag@@QAE@XZ")
 #pragma comment(linker, "/export:??0COStringA@System@RePag@@QAE@PBX@Z")
 #pragma comment(linker, "/export:??0COStringA@System@RePag@@QAE@PBD@Z")
@@ -166,6 +171,62 @@ namespace RePag
 #pragma comment(linker, "/export:?Length@COStringA@System@RePag@@QAQKXZ")
 #pragma comment(linker, "/export:?SetLength@COStringA@System@RePag@@QAQXK@Z")
 #pragma comment(linker, "/export:?c_Str@COStringA@System@RePag@@QAQPADXZ")
+#else
+#pragma comment(linker, "/export:??0COStringA@System@RePag@@QEAA@XZ")
+#pragma comment(linker, "/export:??0COStringA@System@RePag@@QEAA@PEBX@Z")
+#pragma comment(linker, "/export:??0COStringA@System@RePag@@QEAA@PEBD@Z")
+#pragma comment(linker, "/export:??0COStringA@System@RePag@@QAE@PBXPBD@Z")
+#pragma comment(linker, "/export:??1COStringA@System@RePag@@QEAA@XZ")
+#pragma comment(linker, "/export:?COFreiV@COStringA@System@RePag@@QEAQPEBXXZ")
+#pragma comment(linker, "/export:??4COStringA@System@RePag@@QEAQXPEBD@Z")
+#pragma comment(linker, "/export:??4COStringA@System@RePag@@QEAQXAEBV012@@Z")
+#pragma comment(linker, "/export:??YCOStringA@System@RePag@@QEAQXPEBD@Z")
+#pragma comment(linker, "/export:??YCOStringA@System@RePag@@QEAQXAEBV012@@Z")
+#pragma comment(linker, "/export:??HCOStringA@System@RePag@@QAQAAV012@PBD@Z")
+#pragma comment(linker, "/export:??HCOStringA@System@RePag@@QEAQAEAV012@AEBV012@@Z")
+#pragma comment(linker, "/export:??8COStringA@System@RePag@@QEAQ_NPEBD@Z")
+#pragma comment(linker, "/export:??8COStringA@System@RePag@@QEAQ_NAEBV012@@Z")
+#pragma comment(linker, "/export:??9COStringA@System@RePag@@QAQ_NPBD@Z")
+#pragma comment(linker, "/export:??9COStringA@System@RePag@@QEAQ_NAEBV012@@Z")
+#pragma comment(linker, "/export:??MCOStringA@System@RePag@@QEAQ_NPEBD@Z")
+#pragma comment(linker, "/export:??MCOStringA@System@RePag@@QEAQ_NAEBV012@@Z")
+#pragma comment(linker, "/export:??OCOStringA@System@RePag@@QEAQ_NPEBD@Z")
+#pragma comment(linker, "/export:??OCOStringA@System@RePag@@QEAQ_NAEBV012@@Z")
+#pragma comment(linker, "/export:??ACOStringA@System@RePag@@QEAQAEADK@Z")
+#pragma comment(linker, "/export:?Contain@COStringA@System@RePag@@QEAQ_NPEBD@Z")
+#pragma comment(linker, "/export:?Contain@COStringA@System@RePag@@QEAQ_NAEBV123@@Z")
+#pragma comment(linker, "/export:?ContainLeft@COStringA@System@RePag@@QEAQ_NPEBD@Z")
+#pragma comment(linker, "/export:?ContainLeft@COStringA@System@RePag@@QEAQ_NAEBV123@@Z")
+#pragma comment(linker, "/export:?ContainRight@COStringA@System@RePag@@QEAQ_NPEBD@Z")
+#pragma comment(linker, "/export:?ContainRight@COStringA@System@RePag@@QEAQ_NAEBV123@@Z")
+#pragma comment(linker, "/export:?SubString@COStringA@System@RePag@@QEAQKAEAPEADKK@Z")
+#pragma comment(linker, "/export:?SubString@COStringA@System@RePag@@QEAQPEAV123@PEBV123@KK@Z")
+#pragma comment(linker, "/export:?Insert@COStringA@System@RePag@@QEAQPEAV123@PEBDK@Z")
+#pragma comment(linker, "/export:?Insert@COStringA@System@RePag@@QEAQPEAV123@PEBV123@K@Z")
+#pragma comment(linker, "/export:?Delete@COStringA@System@RePag@@QEAQPEAV123@KK@Z")
+#pragma comment(linker, "/export:?SearchCharacters@COStringA@System@RePag@@QEAQKPEBD@Z")
+#pragma comment(linker, "/export:?SearchCharacters@COStringA@System@RePag@@QEAQKPEBDKK@Z") 
+#pragma comment(linker, "/export:?ShortLeft@COStringA@System@RePag@@QEAQXK@Z")
+#pragma comment(linker, "/export:?ShortRightOne@COStringA@System@RePag@@QEAQXXZ")
+#pragma comment(linker, "/export:?CHAR@COStringA@System@RePag@@QEAQAEADAEAD@Z")
+#pragma comment(linker, "/export:?BYTE@COStringA@System@RePag@@QEAQAEAEAEAE@Z")
+#pragma comment(linker, "/export:?SHORT@COStringA@System@RePag@@QEAQAEAFAEAF@Z")
+#pragma comment(linker, "/export:?USHORT@COStringA@System@RePag@@QEAQAEAGAEAG@Z")
+#pragma comment(linker, "/export:?LONG@COStringA@System@RePag@@QEAQAEAJAEAJ@Z")
+#pragma comment(linker, "/export:?ULONG@COStringA@System@RePag@@QEAQAEAKAEAK@Z")
+#pragma comment(linker, "/export:?LONGLONG@COStringA@System@RePag@@QEAQAEA_JAEA_J@Z")
+#pragma comment(linker, "/export:?FLOAT@COStringA@System@RePag@@QEAQAEAMAEAM@Z")
+#pragma comment(linker, "/export:?DOUBLE@COStringA@System@RePag@@QEAQAEANAEAN@Z")
+#pragma comment(linker, "/export:?COMMA4@COStringA@System@RePag@@QEAQPEAVCOComma4@23@PEAV423@@Z")
+#pragma comment(linker, "/export:?COMMA4_80@COStringA@System@RePag@@QEAQPEAVCOComma4_80@23@PEAV423@@Z")
+#pragma comment(linker, "/export:?BIT128fromGUID@COStringA@System@RePag@@QEAQAEAY0BA@EAEAY0BA@E@Z")
+#pragma comment(linker, "/export:?IsIntegralNumber@COStringA@System@RePag@@QEAQ_NXZ")
+#pragma comment(linker, "/export:?IsFloatingPointNumber@COStringA@System@RePag@@QEAQ_NXZ")
+#pragma comment(linker, "/export:?Uppercase@COStringA@System@RePag@@QEAQXXZ")
+#pragma comment(linker, "/export:?Length@COStringA@System@RePag@@QEAQKXZ")
+#pragma comment(linker, "/export:?SetLength@COStringA@System@RePag@@QEAQXK@Z")
+#pragma comment(linker, "/export:?c_Str@COStringA@System@RePag@@QEAQPEADXZ")
+#endif
 #endif
 
     };
@@ -179,6 +240,7 @@ namespace RePag
     COStringA* __vectorcall COStringAV(_In_ const unsigned long ulStrLange);
     COStringA* __vectorcall COStringAV(_In_ const VMEMORY vmSpeicher, _In_ const unsigned long ulStrLange);
 #ifdef HADT
+#ifndef _64bit
 #pragma comment(linker, "/export:?COStringAV@System@RePag@@YQPAVCOStringA@12@XZ")
 #pragma comment(linker, "/export:?COStringAV@System@RePag@@YQPAVCOStringA@12@QBX@Z")
 #pragma comment(linker, "/export:?COStringAV@System@RePag@@YQPAVCOStringA@12@PBD@Z")
@@ -187,6 +249,17 @@ namespace RePag
 #pragma comment(linker, "/export:?COStringAV@System@RePag@@YQPAVCOStringA@12@QBXPBV312@@Z")
 #pragma comment(linker, "/export:?COStringAV@System@RePag@@YQPAVCOStringA@12@K@Z")
 #pragma comment(linker, "/export:?COStringAV@System@RePag@@YQPAVCOStringA@12@QBXK@Z")
+#else
+#pragma comment(linker, "/export:?COStringAV@System@RePag@@YQPEAVCOStringA@12@XZ")
+#pragma comment(linker, "/export:?COStringAV@System@RePag@@YQPEAVCOStringA@12@QEBX@Z")
+#pragma comment(linker, "/export:?COStringAV@System@RePag@@YQPEAVCOStringA@12@QEBXPEBD@Z")
+#pragma comment(linker, "/export:?COStringAV@System@RePag@@YQPEAVCOStringA@12@PEBD@Z")
+#pragma comment(linker, "/export:?COStringAV@System@RePag@@YQPEAVCOStringA@12@QEBX@Z")
+#pragma comment(linker, "/export:?COStringAV@System@RePag@@YQPEAVCOStringA@12@PEBV312@@Z")
+#pragma comment(linker, "/export:?COStringAV@System@RePag@@YQPEAVCOStringA@12@QEBXPEBV312@@Z")
+#pragma comment(linker, "/export:?COStringAV@System@RePag@@YQPEAVCOStringA@12@K@Z")
+#pragma comment(linker, "/export:?COStringAV@System@RePag@@YQPEAVCOStringA@12@QEBXK@Z")
+#endif
 #endif
     //---------------------------------------------------------------------------
   }
