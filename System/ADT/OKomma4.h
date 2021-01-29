@@ -6,7 +6,7 @@
 /****************************************************************************
   The MIT License(MIT)
 
-  Copyright(c) 2020 René Pagel
+  Copyright(c) 2021 René Pagel
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this softwareand associated documentation files(the "Software"), to deal
@@ -100,6 +100,7 @@ namespace RePag
       double __vectorcall tan(void);
       double __vectorcall Squareroot(void);
 #ifdef HADT
+#ifndef _64bit
 #pragma comment(linker, "/export:??0COComma4@System@RePag@@QAE@XZ")
 #pragma comment(linker, "/export:??0COComma4@System@RePag@@QAE@N@Z")
 #pragma comment(linker, "/export:??0COComma4@System@RePag@@QAE@H@Z")
@@ -147,6 +148,55 @@ namespace RePag
 #pragma comment(linker, "/export:?cos@COComma4@System@RePag@@QAQNXZ")
 #pragma comment(linker, "/export:?tan@COComma4@System@RePag@@QAQNXZ")
 #pragma comment(linker, "/export:?Squareroot@COComma4@System@RePag@@QAQNXZ")
+#else
+#pragma comment(linker, "/export:??0COComma4@System@RePag@@QEAA@XZ")
+#pragma comment(linker, "/export:??0COComma4@System@RePag@@QEAA@N@Z")
+#pragma comment(linker, "/export:??0COComma4@System@RePag@@QEAA@H@Z")
+#pragma comment(linker, "/export:??0COComma4@System@RePag@@QEAA@AEBV012@@Z")
+#pragma comment(linker, "/export:??0COComma4@System@RePag@@QEAA@T__m128i@@@Z")
+#pragma comment(linker, "/export:??0COComma4@System@RePag@@QEAA@U__m128d@@@Z")
+#pragma comment(linker, "/export:?COFreiV@COComma4@System@RePag@@QEAQPEBXXZ")
+#pragma comment(linker, "/export:??4COComma4@System@RePag@@QEAQXN@Z")
+#pragma comment(linker, "/export:??4COComma4@System@RePag@@QEAQXH@Z")
+#pragma comment(linker, "/export:??4COComma4@System@RePag@@QEAQXAEBV012@@Z")
+#pragma comment(linker, "/export:??4COComma4@System@RePag@@QEAQXT__m128i@@@Z")
+#pragma comment(linker, "/export:??4COComma4@System@RePag@@QEAQXU__m128d@@@Z")
+#pragma comment(linker, "/export:??YCOComma4@System@RePag@@QEAQXAEBV012@@Z")
+#pragma comment(linker, "/export:??HCOComma4@System@RePag@@QEAQAEAV012@AEBV012@@Z")
+#pragma comment(linker, "/export:??ZCOComma4@System@RePag@@QEAQXAEBV012@@Z")
+#pragma comment(linker, "/export:??GCOComma4@System@RePag@@QEAQAEAV012@AEBV012@@Z")
+#pragma comment(linker, "/export:??XCOComma4@System@RePag@@QEAQXAEBV012@@Z")
+#pragma comment(linker, "/export:??DCOComma4@System@RePag@@QEAQAEAV012@AEBV012@@Z")
+#pragma comment(linker, "/export:??_0COComma4@System@RePag@@QEAQXAEBV012@@Z")
+#pragma comment(linker, "/export:??KCOComma4@System@RePag@@QEAQAEAV012@AEBV012@@Z")
+#pragma comment(linker, "/export:??MCOComma4@System@RePag@@QEAQ_NAEBV012@@Z")
+#pragma comment(linker, "/export:??OCOComma4@System@RePag@@QEAQ_NAEBV012@@Z")
+#pragma comment(linker, "/export:??NCOComma4@System@RePag@@QEAQ_NAEBV012@@Z")
+#pragma comment(linker, "/export:??PCOComma4@System@RePag@@QEAQ_NAEBV012@@Z")
+#pragma comment(linker, "/export:??8COComma4@System@RePag@@QEAQ_NAEBV012@@Z")
+#pragma comment(linker, "/export:??9COComma4@System@RePag@@QEAQ_NAEBV012@@Z")
+#pragma comment(linker, "/export:??ECOComma4@System@RePag@@QEAQXXZ")
+#pragma comment(linker, "/export:??ECOComma4@System@RePag@@QEAQXH@Z")
+#pragma comment(linker, "/export:??FCOComma4@System@RePag@@QEAQXH@Z")
+#pragma comment(linker, "/export:??FCOComma4@System@RePag@@QEAQXXZ")
+#pragma comment(linker, "/export:?Compare@COComma4@System@RePag@@QEAQDPEBV123@@Z")
+#pragma comment(linker, "/export:?Write@COComma4@System@RePag@@QEAQXQEBD@Z")
+#pragma comment(linker, "/export:?Read@COComma4@System@RePag@@QEAQXQEBD@Z")
+#pragma comment(linker, "/export:?PreComma@COComma4@System@RePag@@QEAQJXZ")
+#pragma comment(linker, "/export:?AfterComma@COComma4@System@RePag@@QEAQFXZ")
+#pragma comment(linker, "/export:?FLOAT@COComma4@System@RePag@@QEAQMXZ")
+#pragma comment(linker, "/export:?DOUBLE@COComma4@System@RePag@@QEAQNXZ")
+#pragma comment(linker, "/export:?M128D@COComma4@System@RePag@@QEAQ?AU__m128d@@XZ")
+#pragma comment(linker, "/export:?SetZero@COComma4@System@RePag@@QEAQXXZ")
+#pragma comment(linker, "/export:?Round@COComma4@System@RePag@@QEAQPEAV123@E@Z")
+#pragma comment(linker, "/export:?PresignChange@COComma4@System@RePag@@QEAQXXZ")
+#pragma comment(linker, "/export:?pi@COComma4@System@RePag@@QEAQPEAV123@XZ")
+#pragma comment(linker, "/export:?pi_10e8@COComma4@System@RePag@@QEAQPEAV123@XZ")
+#pragma comment(linker, "/export:?sin@COComma4@System@RePag@@QEAQNXZ")
+#pragma comment(linker, "/export:?cos@COComma4@System@RePag@@QEAQNXZ")
+#pragma comment(linker, "/export:?tan@COComma4@System@RePag@@QEAQNXZ")
+#pragma comment(linker, "/export:?Squareroot@COComma4@System@RePag@@QEAQNXZ")
+#endif
 #endif
     };
     //---------------------------------------------------------------------------
@@ -163,6 +213,7 @@ namespace RePag
     COComma4* __vectorcall COComma4V(_In_ const __m128i m128iZahl);
     COComma4* __vectorcall COComma4V(_In_ const VMEMORY vmSpeicher, _In_ const __m128i m128iZahl);
 #ifdef HADT
+#ifndef _64bit
 #pragma comment(linker, "/export:?COComma4V@System@RePag@@YQPAVCOComma4@12@XZ")
 #pragma comment(linker, "/export:?COComma4V@System@RePag@@YQPAVCOComma4@12@QBX@Z")
 #pragma comment(linker, "/export:?COComma4V@System@RePag@@YQPAVCOComma4@12@N@Z")
@@ -175,6 +226,20 @@ namespace RePag
 #pragma comment(linker, "/export:?COComma4V@System@RePag@@YQPAVCOComma4@12@QBXU__m128d@@@Z")
 #pragma comment(linker, "/export:?COComma4V@System@RePag@@YQPAVCOComma4@12@T__m128i@@@Z")
 #pragma comment(linker, "/export:?COComma4V@System@RePag@@YQPAVCOComma4@12@QBXT__m128i@@@Z")
+#else
+#pragma comment(linker, "/export:?COComma4V@System@RePag@@YQPEAVCOComma4@12@XZ")
+#pragma comment(linker, "/export:?COComma4V@System@RePag@@YQPEAVCOComma4@12@QEBX@Z")
+#pragma comment(linker, "/export:?COComma4V@System@RePag@@YQPEAVCOComma4@12@N@Z")
+#pragma comment(linker, "/export:?COComma4V@System@RePag@@YQPEAVCOComma4@12@QEBXN@Z")
+#pragma comment(linker, "/export:?COComma4V@System@RePag@@YQPEAVCOComma4@12@H@Z")
+#pragma comment(linker, "/export:?COComma4V@System@RePag@@YQPEAVCOComma4@12@QEBXH@Z")
+#pragma comment(linker, "/export:?COComma4V@System@RePag@@YQPEAVCOComma4@12@PEBV312@@Z")
+#pragma comment(linker, "/export:?COComma4V@System@RePag@@YQPEAVCOComma4@12@QEBXPEBV312@@Z")
+#pragma comment(linker, "/export:?COComma4V@System@RePag@@YQPEAVCOComma4@12@U__m128d@@@Z")
+#pragma comment(linker, "/export:?COComma4V@System@RePag@@YQPEAVCOComma4@12@QEBXU__m128d@@@Z")
+#pragma comment(linker, "/export:?COComma4V@System@RePag@@YQPEAVCOComma4@12@T__m128i@@@Z")
+#pragma comment(linker, "/export:?COComma4V@System@RePag@@YQPEAVCOComma4@12@QEBXT__m128i@@@Z")
+#endif
 #endif
     //---------------------------------------------------------------------------
   }

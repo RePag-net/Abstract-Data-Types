@@ -1,5 +1,5 @@
 ;****************************************************************************
-;  String_x86.asm
+;  String_x64.asm
 ;  For more information see https://github.com/RePag-net/Core
 ;****************************************************************************
 ;
@@ -27,230 +27,221 @@
 ;  SOFTWARE.
 ;******************************************************************************
 
-.686P
-.XMM
 INCLUDE listing.inc
-.MODEL FLAT
-INCLUDELIB LIBCMTD
 INCLUDELIB OLDNAMES
 
-CS_Strings SEGMENT PARA PRIVATE FLAT EXECUTE
+CS_Strings SEGMENT EXECUTE
 ;----------------------------------------------------------------------------
-?StrLength@System@RePag@@YQKPBD@Z PROC ; StrLength(ulLange)
-		push edi
+?StrLength@System@RePag@@YQKPEBD@Z  PROC ; StrLength(pcString)
+		push rdi
 
 		xor al, al
-    mov edi, ecx
-		mov ecx, -1
+    mov rdi, rcx
+		mov rcx, -1
 		cld
 		repnz scasb
-		mov eax, -2
-		sub eax, ecx
+		mov rax, -2
+		sub rax, rcx
 
-		pop	edi
-		ret 0
-?StrLength@System@RePag@@YQKPBD@Z ENDP
+		pop	rdi
+		ret
+?StrLength@System@RePag@@YQKPEBD@Z ENDP
 ;----------------------------------------------------------------------------
-?CharactersPosition@System@RePag@@YQKPBDD_N@Z PROC ; CharactersPosition(pcString, cCharacters, bFromLefttoRight)
-		push edi
+?CharactersPosition@System@RePag@@YQKPEBDD_N@Z PROC ; CharactersPosition(pcString, cCharacters, bFromLefttoRight)
+		push rdi
 
     xor al, al
-    mov edi, ecx
-		mov ecx, -1
+    mov rdi, rcx
+		mov rcx, -1
 		cld
 		repnz scasb
     mov al, dl
-		mov edx, -2
-		sub edx, ecx
+		mov rdx, -2
+		sub rdx, rcx
 
-		mov ecx, edx
-    sub edx, 1
-		cmp byte ptr [esp + 8], 1  ; cRichtung
+		mov rcx, rdx
+    sub rdx, 1
+		cmp r8b, 1  ; cRichtung
 		je short VonLinksNachRechts
 		std
 		jmp short Scan
 
 	VonLinksNachRechts:
-		sub edi, ecx
+		sub rdi, rcx
 
 	Scan:
-    add ecx, 1
-    sub edi, 1
+    add rcx, 1
+    sub rdi, 1
 		repne scasb
-		mov eax, edx
-		sub eax, ecx
-		add eax, 1
+		mov rax, rdx
+		sub rax, rcx
+		add rax, 1
 
 		cld
-		pop	edi
-		ret 4
-?CharactersPosition@System@RePag@@YQKPBDD_N@Z ENDP
+		pop	rdi
+		ret 0
+?CharactersPosition@System@RePag@@YQKPEBDD_N@Z ENDP
 ;----------------------------------------------------------------------------
 ?CharactersPosition@System@RePag@@YQKPBDKD_N@Z PROC ; CharactersPosition(pcString, ulLength, cCharacters, bFromLefttoRight)
-		push edi
+		push rdi
 
 		cld
-		mov edi, ecx
-		mov ecx, edx
-    sub edx, 1
-		mov al, byte ptr [esp+8] ; cCharacters
+		mov rdi, rcx
+		mov rcx, rdx
+    sub rdx, 1
+		mov al, r8b ; cCharacters
 
-		cmp byte ptr [esp+12], 1 ; cRichtung
+		cmp r9b, 1 ; cRichtung
 		je short Scan
 		std
-		add edi, ecx
+		add rdi, rcx
 
 	Scan:
-    add ecx, 1
+    add rcx, 1
 		repne scasb
-		mov eax, edx
-		sub eax, ecx
-		add eax, 1
+		mov rax, rdx
+		sub rax, rcx
+		add rax, 1
 
 		cld
-		pop	edi
-		ret 8
+		pop	rdi
+		ret 0
 ?CharactersPosition@System@RePag@@YQKPBDKD_N@Z ENDP
 ;----------------------------------------------------------------------------
-?StrCompare@System@RePag@@YQDPBD0@Z PROC PUBLIC ; StrCompare(pcRefString, pcCmpString)
-		push ebx
-		push esi
-		push edi
+?StrCompare@System@RePag@@YQDPEBD0@Z PROC PUBLIC ; StrCompare(pcRefString, pcCmpString)
+		push rdi
+		push rsi
 
 		cld
-		xor eax, eax
-    mov edi, ecx
-    mov esi, ecx
+		xor rax, rax
+    mov rdi, rcx
+    mov rsi, rcx
 
-		mov ecx, -1 
+		mov rcx, -1 
 		repnz scasb
-		mov ebx, -2 
-		sub ebx, ecx
+		mov r8, -2 
+		sub r8, rcx
 
-    mov edi, edx
-		mov ecx, -1 
+    mov rdi, rdx
+		mov rcx, -1 
 		repnz scasb
-    mov edi, esi
-    mov esi, edx
+    mov rdi, rsi
+    mov rsi, rdx
 
-		mov edx, -2
-		sub edx, ecx
+		mov rdx, -2
+		sub rdx, rcx
 
-		mov ecx, ebx
+		mov rcx, r8
 
-    cmp ebx, edx
-		jbe short RefKleinerGleich
-		mov ecx, edx
+    cmp r8, rdx
+		jbe  short RefKleinerGleich
+		mov rcx, rdx
 
 	RefKleinerGleich:
 		repe cmpsb
 		ja  short Grosser
 		jb  short Kleiner
 
-    cmp edx, ebx
+    cmp rdx, r8
 		ja  short Grosser
 		jb  short Kleiner
 
-		add eax, -1
+		add rax, -1
 	Kleiner:
-		add eax, 2
+		add rax, 2
 	Grosser:
-		add eax, -1
+		add rax, -1
 
-		pop	edi
-		pop	esi
-		pop	ebx
+		pop rsi
+		pop	rdi
 		ret 0
-?StrCompare@System@RePag@@YQDPBD0@Z ENDP
+?StrCompare@System@RePag@@YQDPEBD0@Z ENDP
 ;----------------------------------------------------------------------------
-?StrCompare@System@RePag@@YQDPBDK0K@Z PROC PUBLIC ; StrCompare(pcRefString, ulRefLength, pcVglString, ulCmpLength)
-		push ebx
-		push esi
-		push edi
+?StrCompare@System@RePag@@YQDPEBDK0K@Z PROC PUBLIC ; StrCompare(pcRefString, ulRefLength, pcVglString, ulCmpLength)
+		;push ebx
+		push rsi
+		push rdi
 
 		cld
-		xor eax, eax
+		xor rax, rax
 
-		mov edi, ecx
-		mov ecx, edx
+		mov rdi, rcx
+		mov rcx, rdx
 
-		mov ebx, dword ptr [esp+20] ; ulVergLange
-
-		cmp edx, ebx
+		cmp rdx, r9
 		jbe short RefKleinerGleich
-		mov ecx, ebx
+		mov rcx, r9
 
 	RefKleinerGleich:
-		mov esi, dword ptr [esp+16] ; pcVergString
+		mov rsi, r8 
 		repe cmpsb
 		ja short Grosser
 		jb short Kleiner
 
-		cmp ebx, edx
+		cmp r9, rdx
 		ja short Grosser
 		jb short Kleiner
 		jmp short Ende
 
 	Kleiner:
-		mov eax, 1
+		mov rax, 1
 		jmp short Ende
 
 	Grosser:
-		mov eax, -1
+		mov rax, -1
 
 	Ende:
-		pop	edi
-		pop	esi
-		pop	ebx
-		ret 8
-?StrCompare@System@RePag@@YQDPBDK0K@Z ENDP
+		pop	rdi
+		pop	rsi
+		;pop	ebx
+		ret 0
+?StrCompare@System@RePag@@YQDPEBDK0K@Z ENDP
 ;----------------------------------------------------------------------------
-?StrContain@System@RePag@@YQ_NPBD0@Z PROC PUBLIC ; StrContain(pcRefString, pcCmpString)
-		push ebx
-		push esi
-		push edi
+?StrContain@System@RePag@@YQ_NPEBD0@Z PROC PUBLIC ; StrContain(pcRefString, pcCmpString)
+		push rsi
+		push rdi
 
-    mov edi, ecx
-    mov esi, ecx
+    mov rdi, rcx
+    mov rsi, rcx
 
 		cld
-		xor eax, eax
+		xor rax, rax
 
-		mov ecx, -1 
+		mov rcx, -1 
 		repnz scasb
 
-    mov edi, edx
-    mov ebx, edx
+    mov rdi, rdx
+    mov r8, rdx
 
-		mov edx, -1 
-		sub edx, ecx
+		mov rdx, -1 
+		sub rdx, rcx
 
-		mov ecx, -1 
+		mov rcx, -1 
 		repnz scasb
 		
-    mov edi, esi
-    mov esi, ebx
+    mov rdi, rsi
+    mov rsi, r8
 
-    mov ebx, -1 
-		sub ebx, ecx
+    mov r8, -1 
+		sub r8, rcx
 
-		cmp ebx, edx
+		cmp r8, rdx
 		ja short Return_0
 
-		mov ecx, edx
+		mov rcx, rdx
 
-		cmp ebx, 2
+		cmp r8, 2
 		je short EinBuchstabe
 		lodsb
 		repne scasb
 
 	NachsterBuchstabe:
-		test eax, eax
+		test rax, rax
 		je short Return_1
 		lodsb
 		scasb
 		je NachsterBuchstabe
-		test eax, eax
+		test rax, rax
 		je short Return_1
 		jmp short Return_0
 
@@ -261,53 +252,50 @@ CS_Strings SEGMENT PARA PRIVATE FLAT EXECUTE
 		jmp short Return_0
 
 	Return_Tmp:
-		xor eax, eax
+		xor rax, rax
 		jmp short Return_1
 
 	Return_0:
-		mov eax, -1
+		mov rax, -1
 
 	Return_1:
-		add eax, 1
+		add rax, 1
 
-		pop	edi
-		pop	esi
-		pop	ebx
+		pop	rdi
+		pop	rsi
 		ret 0
-?StrContain@System@RePag@@YQ_NPBD0@Z ENDP
+?StrContain@System@RePag@@YQ_NPEBD0@Z ENDP
 ;----------------------------------------------------------------------------
-?StrContain@System@RePag@@YQ_NPBDK0K@Z PROC PUBLIC ; StrContain(pcRefString, ulRefLength, pcCmpString, ulVglLength)
-		push ebx
-		push esi
-		push edi
+?StrContain@System@RePag@@YQ_NPEBDK0K@Z PROC PUBLIC ; StrContain(pcRefString, ulRefLength, pcCmpString, ulVglLength)
+		push rsi
+		push rdi
 
 		cld
-		xor eax, eax
+		xor rax, rax
 
-    mov edi, ecx
-    mov esi, dword ptr [esp+16] ; pcVergString
+    mov rdi, rcx
+    mov rsi, r8
 
-		add edx, 1
-		mov ebx, dword ptr [esp+20] ; ulVergLange
-		add ebx, 1
+		add rdx, 1
+		add r9, 1
 
-		cmp ebx, edx
+		cmp r9, rdx
 		ja Return_0
 
-		mov ecx, edx
+		mov rcx, rdx
 
-		cmp ebx, 2
+		cmp r9, 2
 		je EinBuchstabe
 		lodsb
 		repne scasb
 
 	NachsterBuchstabe:
-		test eax, eax
+		test rax, rax
 		je short Return_1
 		lodsb
 		scasb
 		je NachsterBuchstabe
-		test eax, eax
+		test rax, rax
 		je short Return_1
 		jmp short Return_0
 
@@ -318,225 +306,214 @@ CS_Strings SEGMENT PARA PRIVATE FLAT EXECUTE
 		jmp short Return_0
 
 	Return_Tmp:
-		xor eax, eax
+		xor rax, rax
 		jmp short Return_1
 
 	Return_0:
-		mov eax, -1
+		mov rax, -1
 
 	Return_1:
-		add eax, 1
+		add rax, 1
 
-		pop	edi
-		pop	esi
-		pop	ebx
-		ret 8
-?StrContain@System@RePag@@YQ_NPBDK0K@Z ENDP
+		pop	rdi
+		pop	rsi
+		ret 0
+?StrContain@System@RePag@@YQ_NPEBDK0K@Z ENDP
 ;----------------------------------------------------------------------------
-_pcRefString_1 = 8
-_pcVglString_2  = 12
-?StrContainLeft@System@RePag@@YQ_NPBD0@Z PROC PUBLIC
-		push ebx
-		push esi
-		push edi
+?StrContainLeft@System@RePag@@YQ_NPEBD0@Z PROC ; StrContainLeft(pcRefString, pcCmpString)
+		;push ebx
+		push rsi
+		push rdi
 
 		cld
-		xor eax, eax
+		xor rax, rax
 
-    mov edi, ecx
-    mov esi, ecx
+    mov rdi, rcx
+    mov rsi, rcx
 
-		mov ecx, -1 
+		mov rcx, -1 
 		repnz scasb
 
-    mov edi, edx
-    mov ebx, edx
+    mov rdi, rdx
+    mov r9, rdx
 
-		mov edx, -1 
-    sub edx, ecx
+		mov rdx, -1 
+    sub rdx, rcx
 
-		mov ecx, -1 
+		mov rcx, -1 
 		repnz scasb
 
-    mov edi, esi
-    mov esi, ebx
+    mov rdi, rsi
+    mov rsi, r9
 
-		mov ebx, -1 
-		sub ebx, ecx
+		mov r9, -1 
+		sub r9, rcx
 
-		cmp ebx, edx
+		cmp r9, rdx
 		ja short Return_0
 
-    cmp ebx, 1
+    cmp r9, 1
     ja short Vergleich
-    cmp edx, 1
+    cmp rdx, 1
     je short Return_1
     jmp short Return_0
 
   Vergleich:
-		mov ecx, ebx
+		mov rcx, r9
 		repe cmpsb
-		cmp ecx, 0
+		test rcx, rcx
 		je short Return_1
 
 	Return_0:
-		mov eax, -1
+		mov rax, -1
 
 	Return_1:
-		add eax, 1
+		add rax, 1
 
-		pop	edi
-		pop	esi
-		pop	ebx
+		pop	rdi
+		pop	rsi
+		;pop	ebx
 		ret 0
-?StrContainLeft@System@RePag@@YQ_NPBD0@Z ENDP
+?StrContainLeft@System@RePag@@YQ_NPEBD0@Z ENDP
 ;----------------------------------------------------------------------------
-?StrContainLeft@System@RePag@@YQ_NPBDK0K@Z PROC PUBLIC
-		push ebx
-		push esi
-		push edi
+?StrContainLeft@System@RePag@@YQ_NPEBDK0K@Z PROC ; StrContainLeft(pcRefString, ulRefLength, pcCmpString, ulCmpLength)
+		push rsi
+		push rdi
 
 		cld
-		xor eax, eax
+		xor rax, rax
 
-    mov edi, ecx
-    mov esi, dword ptr [esp+16] ; pcVergString
+    mov rdi, rcx
+    mov rsi, r8 
 
-		add edx, 1
-		mov ebx, dword ptr [esp+20] ; ulVergLange
-		add ebx, 1
+		add rdx, 1
+		add r9, 1
 
-		cmp ebx, edx
+		cmp r9, rdx
 		ja short Return_0
 
-    cmp ebx, 1
+    cmp r9, 1
     ja short Vergleich
-    cmp edx, 1
+    cmp rdx, 1
     je short Return_1
     jmp short Return_0
 
   Vergleich:
-		mov ecx, ebx
+		mov rcx, r9
 		repe cmpsb
-		cmp ecx, 0
+		test rcx, rcx
 		je short Return_1
 
 	Return_0:
-		mov eax, -1
+		mov rax, -1
 
 	Return_1:
-		add eax, 1
+		add rax, 1
 
-		pop	edi
-		pop	esi
-		pop	ebx
-		ret 8
-?StrContainLeft@System@RePag@@YQ_NPBDK0K@Z ENDP
-;----------------------------------------------------------------------------
-?StrContainRight@System@RePag@@YQ_NPBD0@Z PROC PUBLIC
-		push ebx
-		push esi
-		push edi
-
-		cld
-		xor eax, eax
-
-    mov edi, ecx
-    mov esi, ecx
-
-		mov ecx, -1 
-		repnz scasb
-
-    mov edi, edx
-    mov ebx, edx
-
-		mov edx, -1 
-		sub edx, ecx
-
-		mov ecx, -1 
-		repnz scasb
-
-    mov edi, esi
-    mov esi, ebx
-
-		mov ebx, -1 
-		sub ebx, ecx
-
-		cmp ebx, edx
-		ja short Return_0
-
-		mov ecx, ebx
-
-		sub edx, ebx
-		add edi, edx
-
-		repe cmpsb
-		cmp ecx, 0
-		je short Return_1
-
-	Return_0:
-		mov eax, -1
-
-	Return_1:
-		add eax, 1
-
-		pop	edi
-		pop	esi
-		pop	ebx
+		pop	rdi
+		pop	rsi
 		ret 0
-?StrContainRight@System@RePag@@YQ_NPBD0@Z ENDP
+?StrContainLeft@System@RePag@@YQ_NPEBDK0K@Z ENDP
 ;----------------------------------------------------------------------------
-?StrContainRight@System@RePag@@YQ_NPBDK0K@Z PROC PUBLIC
-		push ebx
-		push esi
-		push edi
+?StrContainRight@System@RePag@@YQ_NPEBD0@Z PROC PUBLIC
+		push rsi
+		push rdi
 
 		cld
-		xor eax, eax
+		xor rax, rax
 
-    mov edi, ecx
-    mov esi, dword ptr [esp+16] ; pcVergString
+    mov rdi, rcx
+    mov rsi, rcx
 
-		add edx, 1
-		mov ebx, dword ptr [esp+20] ; ulVergLange
-		add ebx, 1
+		mov rcx, -1 
+		repnz scasb
 
-		cmp ebx, edx
+    mov rdi, rdx
+    mov r8, rdx
+
+		mov rdx, -1 
+		sub rdx, rcx
+
+		mov rcx, -1 
+		repnz scasb
+
+    mov rdi, rsi
+    mov rsi, r8
+
+		mov r8, -1 
+		sub r8, rcx
+
+		cmp r8, rdx
 		ja short Return_0
 
-		mov ecx, ebx
+		mov rcx, r8
 
-		sub edx, ebx
-		add edi, edx
+		sub rdx, r8
+		add rdi, rdx
 
 		repe cmpsb
-		cmp ecx, 0
+		test rcx, rcx
 		je short Return_1
 
 	Return_0:
-		mov eax, -1
+		mov rax, -1
 
 	Return_1:
-		add eax, 1
+		add rax, 1
 
-		pop	edi
-		pop	esi
-		pop	ebx
-		ret 8
-?StrContainRight@System@RePag@@YQ_NPBDK0K@Z ENDP
+		pop	rdi
+		pop	rsi
+		ret 0
+?StrContainRight@System@RePag@@YQ_NPEBD0@Z ENDP
+;----------------------------------------------------------------------------
+?StrContainRight@System@RePag@@YQ_NPEBDK0K@Z PROC PUBLIC ; StrContainRight(pcRefString, ulRefLength, pcCmpString, ulCmpLength)
+		push rsi
+		push rdi
+
+		cld
+		xor rax, rax
+
+    mov rdi, rcx
+    mov rsi, r8 
+
+		add rdx, 1
+		add r9, 1
+
+		cmp r9, rdx
+		ja short Return_0
+
+		mov rcx, r9
+
+		sub rdx, r9
+		add rdi, rdx
+
+		repe cmpsb
+		test rcx, rcx
+		je short Return_1
+
+	Return_0:
+		mov rax, -1
+
+	Return_1:
+		add rax, 1
+
+		pop	rdi
+		pop	rsi
+		ret 0
+?StrContainRight@System@RePag@@YQ_NPEBDK0K@Z ENDP
 ;----------------------------------------------------------------------------
 CS_Strings ENDS
 ;----------------------------------------------------------------------------
-CS_Compare SEGMENT PARA PRIVATE FLAT EXECUTE
+CS_Compare SEGMENT EXECUTE
 ;----------------------------------------------------------------------------
-?BIT128Compare@System@RePag@@YQDQBE0@Z PROC PUBLIC
-    push esi
-    push edi
+?BIT128Compare@System@RePag@@YQDQEBE0@Z PROC PUBLIC ; BIT128Compare(bit128Value_1, bit128Value_2)
+    push rsi
+    push rdi
 
-    xor eax, eax
-    mov edi, ecx
-    mov esi, edx
-    mov ecx, 16
+    xor rax, rax
+    mov rdi, rcx
+    mov rsi, rdx
+    mov rcx, 16
 
 		repe cmpsb
     je short Ende
@@ -544,17 +521,17 @@ CS_Compare SEGMENT PARA PRIVATE FLAT EXECUTE
 		jb short Kleiner
 
 	Kleiner:
-		mov eax, 1
+		mov rax, 1
 		jmp short Ende
 
 	Grosser:
-		mov eax, -1
+		mov rax, -1
 
   Ende:
-    pop edi
-    pop esi
+    pop rdi
+    pop rsi
     ret 0
-?BIT128Compare@System@RePag@@YQDQBE0@Z ENDP
+?BIT128Compare@System@RePag@@YQDQEBE0@Z ENDP
 ;----------------------------------------------------------------------------
 CS_Compare ENDS
 ;----------------------------------------------------------------------------

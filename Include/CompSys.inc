@@ -1,4 +1,4 @@
-; up Fileversion 2.2.5.1
+; up Fileversion 2.3.7.0
 ;--------------------------------------------------------------------------------------------------
 EXTRN	?MemCopy@System@RePag@@YQPAXPAXPBXK@Z:PROC         ; MemCopy(pvZiel, pvQuelle, ulBytes)
 EXTRN	?VMBlock@System@RePag@@YQPADPBXK@Z:PROC            ; VMBlock(vmSpeicher, ulBytes)

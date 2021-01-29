@@ -9,32 +9,25 @@
   <PropertyGroup>
     <OutDir>..\..\Debug\x64\</OutDir>
     <IntDir>Debug\x64\</IntDir>
-    <LinkIncremental>false</LinkIncremental>
     <GenerateManifest>false</GenerateManifest>
     <TargetExt />
     <PostBuildEventUseInBuild>false</PostBuildEventUseInBuild>
+    <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <SpectreMitigation>SpectreLoad</SpectreMitigation>
+    <SpectreMitigation>false</SpectreMitigation>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <AdditionalIncludeDirectories>..\..\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <WarningLevel>Level2</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <Optimization>Custom</Optimization>
-      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
-      <OmitFramePointers>false</OmitFramePointers>
-      <WholeProgramOptimization>true</WholeProgramOptimization>
-      <PreprocessorDefinitions>_WINDLL;WIN64;_DEBUG;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_64bit;WIN64;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
-      <MinimalRebuild>false</MinimalRebuild>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <ControlFlowGuard>Guard</ControlFlowGuard>
+      <ControlFlowGuard>false</ControlFlowGuard>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
       <PrecompiledHeaderFile>H$(ProjectName).h</PrecompiledHeaderFile>
@@ -42,7 +35,19 @@
       <AssemblerListingLocation>$(IntDir)%(Filename)_Dx64.asm</AssemblerListingLocation>
       <ProgramDataBaseFileName>$(IntDir)$(TargetName)_Dx64.pdb</ProgramDataBaseFileName>
       <EnableModules>false</EnableModules>
-      <IntelJCCErratum>true</IntelJCCErratum>
+      <IntelJCCErratum>false</IntelJCCErratum>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <Optimization>Custom</Optimization>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Neither</FavorSizeOrSpeed>
+      <OmitFramePointers>false</OmitFramePointers>
+      <EnableFiberSafeOptimizations>false</EnableFiberSafeOptimizations>
+      <WholeProgramOptimization>true</WholeProgramOptimization>
+      <MinimalRebuild />
+      <CreateHotpatchableImage>
+      </CreateHotpatchableImage>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(OutDir)</AdditionalLibraryDirectories>
@@ -50,9 +55,10 @@
       <MapFileName>$(IntDir)$(TargetName).map</MapFileName>
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
-      <EnableCOMDATFolding>false</EnableCOMDATFolding>
       <LinkTimeCodeGeneration>UseFastLinkTimeCodeGeneration</LinkTimeCodeGeneration>
       <LinkErrorReporting>NoErrorReport</LinkErrorReporting>
+      <GenerateDebugInformation>DebugFastLink</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
     </Link>
     <Lib>
       <AdditionalLibraryDirectories>$(OutDir)</AdditionalLibraryDirectories>
@@ -63,6 +69,9 @@
       <Command>signtool sign /i "RePag Root" $(OutDir)$(TargetName)$(TargetExt)</Command>
       <Message>/t http://timestamp.verisign.com/scripts/timstamp.dll</Message>
     </PostBuildEvent>
+    <BuildLog>
+      <Path>$(IntDir)$(MSBuildProjectName)_Dx64.log</Path>
+    </BuildLog>
   </ItemDefinitionGroup>
   <ItemGroup>
     <BuildMacro Include="Debug_x64">

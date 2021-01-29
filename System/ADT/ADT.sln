@@ -9,8 +9,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Include", "Include", "{5ECD
 	ProjectSection(SolutionItems) = preProject
 		..\..\Include\ADT.h = ..\..\Include\ADT.h
 		..\..\Include\ADT.inc = ..\..\Include\ADT.inc
+		..\..\Include\ADT_x64.inc = ..\..\Include\ADT_x64.inc
 		..\..\Include\CompSys.h = ..\..\Include\CompSys.h
 		..\..\Include\CompSys.inc = ..\..\Include\CompSys.inc
+		..\..\Include\CompSys_x64.inc = ..\..\Include\CompSys_x64.inc
 		..\..\Include\Fieldsizes.h = ..\..\Include\Fieldsizes.h
 	EndProjectSection
 EndProject
@@ -18,6 +20,8 @@ Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
 		Debug|x86 = Debug|x86
+		Preview|x64 = Preview|x64
+		Preview|x86 = Preview|x86
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
 	EndGlobalSection
@@ -26,6 +30,10 @@ Global
 		{A054A5CD-C32F-4710-A1FE-6102C6687090}.Debug|x64.Build.0 = Debug|x64
 		{A054A5CD-C32F-4710-A1FE-6102C6687090}.Debug|x86.ActiveCfg = Debug|Win32
 		{A054A5CD-C32F-4710-A1FE-6102C6687090}.Debug|x86.Build.0 = Debug|Win32
+		{A054A5CD-C32F-4710-A1FE-6102C6687090}.Preview|x64.ActiveCfg = Release|x64
+		{A054A5CD-C32F-4710-A1FE-6102C6687090}.Preview|x64.Build.0 = Release|x64
+		{A054A5CD-C32F-4710-A1FE-6102C6687090}.Preview|x86.ActiveCfg = Release|Win32
+		{A054A5CD-C32F-4710-A1FE-6102C6687090}.Preview|x86.Build.0 = Release|Win32
 		{A054A5CD-C32F-4710-A1FE-6102C6687090}.Release|x64.ActiveCfg = Release|x64
 		{A054A5CD-C32F-4710-A1FE-6102C6687090}.Release|x64.Build.0 = Release|x64
 		{A054A5CD-C32F-4710-A1FE-6102C6687090}.Release|x86.ActiveCfg = Release|Win32

@@ -12,6 +12,9 @@
     <ExcludePath>$(WindowsSDK_IncludePath);$(MSBuild_ExecutablePath);$(VC_LibraryPath_x86);$(ExcludePath)</ExcludePath>
     <ExecutablePath>C:\Program Files\NASM 2.14.02;$(ExecutablePath)</ExecutablePath>
   </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <SpectreMitigation>false</SpectreMitigation>
+  </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -23,12 +26,13 @@
       <PrecompiledHeaderFile>H$(ProjectName).h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>$(IntDir)$(ProjectName).pch</PrecompiledHeaderOutputFile>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <MinimalRebuild>false</MinimalRebuild>
+      <MinimalRebuild>
+      </MinimalRebuild>
       <StringPooling>true</StringPooling>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <AdditionalIncludeDirectories>..\..\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_WINDLL;WIN32;_DEBUG;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ControlFlowGuard>Guard</ControlFlowGuard>
+      <ControlFlowGuard>false</ControlFlowGuard>
       <WholeProgramOptimization>true</WholeProgramOptimization>
       <SDLCheck>true</SDLCheck>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -37,7 +41,11 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <Optimization>Custom</Optimization>
       <EnableModules>false</EnableModules>
-      <IntelJCCErratum>true</IntelJCCErratum>
+      <IntelJCCErratum>false</IntelJCCErratum>
+      <SupportJustMyCode>false</SupportJustMyCode>
+      <CreateHotpatchableImage>
+      </CreateHotpatchableImage>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -46,8 +54,9 @@
       <LinkTimeCodeGeneration>UseFastLinkTimeCodeGeneration</LinkTimeCodeGeneration>
       <MapFileName>$(IntDir)$(TargetName).map</MapFileName>
       <OptimizeReferences>true</OptimizeReferences>
-      <EnableCOMDATFolding>false</EnableCOMDATFolding>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <LinkErrorReporting>NoErrorReport</LinkErrorReporting>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
     <ResourceCompile>
       <Culture>0x0407</Culture>

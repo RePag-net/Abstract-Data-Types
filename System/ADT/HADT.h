@@ -6,7 +6,7 @@
 /****************************************************************************
   The MIT License(MIT)
 
-  Copyright(c) 2020 René Pagel
+  Copyright(c) 2021 René Pagel
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this softwareand associated documentation files(the "Software"), to deal
@@ -53,6 +53,7 @@ namespace RePag
     bool __vectorcall StrContainRight(_In_z_ const char* pcRefString, _In_z_ const char* pcVglString);
     bool __vectorcall StrContainRight(_In_z_ const char* pcRefString, _In_ unsigned long ulRefLength, _In_z_ const char* pcCmpString, _In_ unsigned long ulCmpLength);
     char __vectorcall BIT128Compare(_In_ const BIT128 bit128Value_1, _In_ const BIT128 bit128Value_2);
+#ifndef _64bit
 #pragma comment(linker, "/export:?StrLength@System@RePag@@YQKPBD@Z")
 #pragma comment(linker, "/export:?CharactersPosition@System@RePag@@YQKPBDD_N@Z")
 #pragma comment(linker, "/export:?CharactersPosition@System@RePag@@YQKPBDKD_N@Z")
@@ -65,6 +66,20 @@ namespace RePag
 #pragma comment(linker, "/export:?StrContainRight@System@RePag@@YQ_NPBD0@Z")
 #pragma comment(linker, "/export:?StrContainRight@System@RePag@@YQ_NPBDK0K@Z")
 #pragma comment(linker, "/export:?BIT128Compare@System@RePag@@YQDQBE0@Z")
+#else
+#pragma comment(linker, "/export:?StrLength@System@RePag@@YQKPEBD@Z")
+#pragma comment(linker, "/export:?CharactersPosition@System@RePag@@YQKPEBDD_N@Z")
+#pragma comment(linker, "/export:?CharactersPosition@System@RePag@@YQKPBDKD_N@Z")
+#pragma comment(linker, "/export:?StrCompare@System@RePag@@YQDPEBD0@Z")
+#pragma comment(linker, "/export:?StrCompare@System@RePag@@YQDPEBDK0K@Z")
+#pragma comment(linker, "/export:?StrContain@System@RePag@@YQ_NPEBD0@Z")
+#pragma comment(linker, "/export:?StrContain@System@RePag@@YQ_NPEBDK0K@Z")
+#pragma comment(linker, "/export:?StrContainLeft@System@RePag@@YQ_NPEBD0@Z")
+#pragma comment(linker, "/export:?StrContainLeft@System@RePag@@YQ_NPEBDK0K@Z")
+#pragma comment(linker, "/export:?StrContainRight@System@RePag@@YQ_NPEBD0@Z")
+#pragma comment(linker, "/export:?StrContainRight@System@RePag@@YQ_NPEBDK0K@Z")
+#pragma comment(linker, "/export:?BIT128Compare@System@RePag@@YQDQEBE0@Z")
+#endif
     //--------------------------------------------------------------------------
   }
 }

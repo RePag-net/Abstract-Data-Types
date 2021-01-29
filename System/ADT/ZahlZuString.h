@@ -6,7 +6,7 @@
 /****************************************************************************
   The MIT License(MIT)
 
-  Copyright(c) 2020 René Pagel
+  Copyright(c) 2021 René Pagel
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this softwareand associated documentation files(the "Software"), to deal
@@ -40,7 +40,7 @@
 __forceinline void __vectorcall __ULONGtoCHAR(char pcZahl[11], unsigned long ulZahl);
 __forceinline void __vectorcall __LONGtoCHAR(char pcZahl[11], long lZahl);
 __forceinline void __vectorcall __LONGLONGtoCHAR(char pcZahl[20], long long llZahl);
- void __vectorcall __DOUBLE_B10toCHAR(short& Exponent, short& sVorKomma, long long& llNachKomma, double& dZahl, unsigned char& ucStellen);
+void __vectorcall __DOUBLE_B10toCHAR(short& Exponent, short& sVorKomma, long long& llNachKomma, double& dZahl, unsigned char& ucStellen);
 void __vectorcall __DOUBLE_B10toCHAR(short& sExponent, short& sVorKomma, double dZahl, long long& llNachKomma, unsigned char ucStellen);
 __forceinline void __vectorcall __FLOAT_B10zuCHAR(short& Exponent, short& sVorKomma, long& lNachKomma, float& fZahl, unsigned char& ucStellen);
 void __vectorcall __FLOAT_B10zuCHAR(short& Exponent, short& sVorKomma, float fZahl, long& lNachKomma, unsigned char ucPositions);

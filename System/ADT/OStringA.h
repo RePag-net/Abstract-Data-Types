@@ -6,7 +6,7 @@
 /****************************************************************************
   The MIT License(MIT)
 
-  Copyright(c) 2020 René Pagel
+  Copyright(c) 2021 René Pagel
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this softwareand associated documentation files(the "Software"), to deal
@@ -46,8 +46,8 @@ namespace RePag
       struct STStringA
       {
         VMBLOCK vbInhalt;
-        unsigned long ulLange;
         VMBLOCK vbInhalt_A;
+        unsigned long ulLange;
         unsigned long ulLange_A;
       };
 #ifndef _64bit
@@ -175,18 +175,18 @@ namespace RePag
 #pragma comment(linker, "/export:??0COStringA@System@RePag@@QEAA@XZ")
 #pragma comment(linker, "/export:??0COStringA@System@RePag@@QEAA@PEBX@Z")
 #pragma comment(linker, "/export:??0COStringA@System@RePag@@QEAA@PEBD@Z")
-#pragma comment(linker, "/export:??0COStringA@System@RePag@@QAE@PBXPBD@Z")
+#pragma comment(linker, "/export:??0COStringA@System@RePag@@QEAA@PEBXPEBD@Z")
 #pragma comment(linker, "/export:??1COStringA@System@RePag@@QEAA@XZ")
 #pragma comment(linker, "/export:?COFreiV@COStringA@System@RePag@@QEAQPEBXXZ")
 #pragma comment(linker, "/export:??4COStringA@System@RePag@@QEAQXPEBD@Z")
 #pragma comment(linker, "/export:??4COStringA@System@RePag@@QEAQXAEBV012@@Z")
 #pragma comment(linker, "/export:??YCOStringA@System@RePag@@QEAQXPEBD@Z")
 #pragma comment(linker, "/export:??YCOStringA@System@RePag@@QEAQXAEBV012@@Z")
-#pragma comment(linker, "/export:??HCOStringA@System@RePag@@QAQAAV012@PBD@Z")
+#pragma comment(linker, "/export:??HCOStringA@System@RePag@@QEAQAEAV012@PEBD@Z")
 #pragma comment(linker, "/export:??HCOStringA@System@RePag@@QEAQAEAV012@AEBV012@@Z")
 #pragma comment(linker, "/export:??8COStringA@System@RePag@@QEAQ_NPEBD@Z")
 #pragma comment(linker, "/export:??8COStringA@System@RePag@@QEAQ_NAEBV012@@Z")
-#pragma comment(linker, "/export:??9COStringA@System@RePag@@QAQ_NPBD@Z")
+#pragma comment(linker, "/export:??9COStringA@System@RePag@@QEAQ_NPEBD@Z")
 #pragma comment(linker, "/export:??9COStringA@System@RePag@@QEAQ_NAEBV012@@Z")
 #pragma comment(linker, "/export:??MCOStringA@System@RePag@@QEAQ_NPEBD@Z")
 #pragma comment(linker, "/export:??MCOStringA@System@RePag@@QEAQ_NAEBV012@@Z")
@@ -205,7 +205,8 @@ namespace RePag
 #pragma comment(linker, "/export:?Insert@COStringA@System@RePag@@QEAQPEAV123@PEBV123@K@Z")
 #pragma comment(linker, "/export:?Delete@COStringA@System@RePag@@QEAQPEAV123@KK@Z")
 #pragma comment(linker, "/export:?SearchCharacters@COStringA@System@RePag@@QEAQKPEBD@Z")
-#pragma comment(linker, "/export:?SearchCharacters@COStringA@System@RePag@@QEAQKPEBDKK@Z") 
+#pragma comment(linker, "/export:?SearchCharacters@COStringA@System@RePag@@QEAQKPEBDKK@Z")
+#pragma comment(linker, "/export:?ShortRight@COStringA@System@RePag@@QEAQXK@Z")
 #pragma comment(linker, "/export:?ShortLeft@COStringA@System@RePag@@QEAQXK@Z")
 #pragma comment(linker, "/export:?ShortRightOne@COStringA@System@RePag@@QEAQXXZ")
 #pragma comment(linker, "/export:?CHAR@COStringA@System@RePag@@QEAQAEADAEAD@Z")

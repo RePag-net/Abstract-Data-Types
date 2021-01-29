@@ -1,8 +1,8 @@
-; up Fileversion 2.3.6.1
+; up Fileversion 2.3.7.0
 COStringA_vbInhalt = 0
-COStringA_ulLange = 4
-COStringA_vbInhalt_A = COStringA_ulLange + 4
-COStringA_ulLange_A = COStringA_vbInhalt_A + 4
+COStringA_vbInhalt_A = 4
+COStringA_ulLange = COStringA_vbInhalt_A + 4
+COStringA_ulLange_A = COStringA_ulLange + 4
 COStringA_vmSpeicher = COStringA_ulLange_A + 4
 ;----------------------------------------------------------------------------
 COComma4_lVorKomma = 0

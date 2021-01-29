@@ -6,7 +6,7 @@
 /****************************************************************************
   The MIT License(MIT)
 
-  Copyright(c) 2020 René Pagel
+  Copyright(c) 2021 René Pagel
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this softwareand associated documentation files(the "Software"), to deal
@@ -143,11 +143,11 @@ namespace RePag
 #pragma comment(linker, "/export:?ToBegin@COList@System@RePag@@QEAQPEAXPEAX@Z")
 #pragma comment(linker, "/export:?ToBeginS@COList@System@RePag@@QEAQPEAXPEAX@Z")
 #pragma comment(linker, "/export:?ThToBegin@COList@System@RePag@@QEAQPEAXPEAX@Z")
-#pragma comment(linker, "/export:?ThToBeginS@COList@System@RePag@@QAQPAXPAX@Z")
+#pragma comment(linker, "/export:?ThToBeginS@COList@System@RePag@@QEAQPEAXPEAX@Z")
 #pragma comment(linker, "/export:?ToEnd@COList@System@RePag@@QEAQPEAXPEAX@Z")
 #pragma comment(linker, "/export:?ToEndS@COList@System@RePag@@QEAQPEAXPEAX@Z")
 #pragma comment(linker, "/export:?ThToEnd@COList@System@RePag@@QEAQPEAXPEAX@Z")
-#pragma comment(linker, "/export:?ThToEndS@COList@System@RePag@@QAQPAXPAX@Z")
+#pragma comment(linker, "/export:?ThToEndS@COList@System@RePag@@QEAQPEAXPEAX@Z")
 #pragma comment(linker, "/export:?Element@COList@System@RePag@@QEAQPEAXK@Z")
 #pragma comment(linker, "/export:?ThElement@COList@System@RePag@@QEAQPEAXK@Z")
 #pragma comment(linker, "/export:?Element@COList@System@RePag@@QEAQPEAXPEAX@Z")

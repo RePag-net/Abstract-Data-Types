@@ -1,12 +1,12 @@
-;/****************************************************************************
-;  Oliste_x86.asm
+;****************************************************************************
+;  OListe_x86.asm
 ;  For more information see https://github.com/RePag-net/Core
-;****************************************************************************/
+;****************************************************************************
 ;
-;/****************************************************************************
+;****************************************************************************
 ;  The MIT License(MIT)
 ;
-;  Copyright(c) 2020 René Pagel
+;  Copyright(c) 2021 René Pagel
 ;
 ;  Permission is hereby granted, free of charge, to any person obtaining a copy
 ;  of this softwareand associated documentation files(the "Software"), to deal
@@ -25,7 +25,7 @@
 ;  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 ;  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 ;  SOFTWARE.
-;******************************************************************************/
+;******************************************************************************
 
 .686P
 .XMM
@@ -508,14 +508,15 @@ _Text ENDS
 		jmp short Kopf_Anfang
 		
 	Ende:
-		lea edx, COList_csIterator[ebp]
-		push edx
-		call dword ptr __imp__LeaveCriticalSection@4 ; LeaveCriticalSection(&csIterator)
-
 		xor eax, eax
 		mov dword ptr COList_ulAnzahl[ebp], eax
 		mov dword ptr COList_pstLetzer[ebp], eax
 		mov dword ptr COList_pstErster[ebp], eax
+
+		lea edx, COList_csIterator[ebp]
+		push edx
+		call dword ptr __imp__LeaveCriticalSection@4 ; LeaveCriticalSection(&csIterator)
+
 		pop edi
 		pop ebx
 		pop ebp
@@ -588,10 +589,7 @@ s_pvDaten = 4
 s_this = 0
 ?ToBegin@COList@System@RePag@@QAQPAXPAX@Z PROC ; COList::ToBegin(pvDaten)
 		sub esp, esp_Bytes
-		;push ebp
 
-		;mov ebp, ecx
-		;push edx ; pvDaten
 		mov dword ptr s_this[esp], ecx
 		mov dword ptr s_pvDaten[esp], edx
 
@@ -614,7 +612,6 @@ s_this = 0
 		mov dword ptr COList_pstErster[ecx], eax
 		add dword ptr COList_ulAnzahl[ecx], 1
 
-		;pop ebp
 		add esp, esp_Bytes
 		ret 0
 ?ToBegin@COList@System@RePag@@QAQPAXPAX@Z ENDP
@@ -626,10 +623,7 @@ s_pvDaten = 4
 s_this = 0
 ?ToBeginS@COList@System@RePag@@QAQPAXPAX@Z PROC ; COList::ToBeginS(pvDaten)
 		sub esp, esp_Bytes
-		;push ebp
 
-		;mov ebp, ecx
-		;push edx ; pvDaten
 		mov dword ptr s_this[esp], ecx
 		mov dword ptr s_pvDaten[esp], edx
 
@@ -637,7 +631,6 @@ s_this = 0
     mov ecx, dword ptr COList_vmSpeicher[ecx]
     call ?VMBlockS@System@RePag@@YQPADPBXK@Z ; VMBlockS(vmSpeicher, ulBytes)
 
-		;pop edx ; pvDaten
 		mov edx, dword ptr s_pvDaten[esp]
 		mov dword ptr COList_pvDaten[eax], edx
 	
@@ -652,7 +645,6 @@ s_this = 0
 		mov dword ptr COList_pstErster[ecx], eax
 		add dword ptr COList_ulAnzahl[ecx], 1
 
-		;pop ebp
 		add esp, esp_Bytes
 		ret 0
 ?ToBeginS@COList@System@RePag@@QAQPAXPAX@Z ENDP
@@ -663,19 +655,17 @@ esp_Bytes = 4
 s_Temp_Daten = 0
 ?ThToBegin@COList@System@RePag@@QAQPAXPAX@Z PROC ; COList::ThToBegin(pvDaten)
 		push ebp
+		push ebx
 		sub esp, esp_Bytes
-		;push ebx
 
 		mov ebp, ecx
-		;push edx ; pvDaten
 		mov dword ptr s_Temp_Daten[esp], edx ; pvDaten
 
 		mov edx, 8
     mov ecx, dword ptr COList_vmSpeicher[ebp]
     call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
-		;mov ebx, eax
+		mov ebx, eax
 
-		;pop edx ; pvDaten
 		mov edx, dword ptr s_Temp_Daten[esp] ; pvDaten
 		mov dword ptr COList_pvDaten[eax], edx
 
@@ -701,8 +691,10 @@ s_Temp_Daten = 0
 		push edx
 		call dword ptr __imp__LeaveCriticalSection@4 ; LeaveCriticalSection(&csIterator)
 
-		;pop ebx
+		mov eax, ebx
+
 		add esp, esp_Bytes
+		pop ebx
 		pop ebp
 		ret 0
 ?ThToBegin@COList@System@RePag@@QAQPAXPAX@Z ENDP
@@ -740,6 +732,8 @@ _Text ENDS
 		lea edx, COList_csIterator[ebp]
 		push edx
 		call dword ptr __imp__LeaveCriticalSection@4 ; LeaveCriticalSection(&csIterator)
+
+		mov eax, ebx
 
 		pop ebx
 		pop ebp
@@ -849,6 +843,8 @@ _Text ENDS
 		push edx
 		call dword ptr __imp__LeaveCriticalSection@4 ; LeaveCriticalSection(&csIterator)
 
+		mov eax, ebx
+
 		pop ebx
 		pop ebp
 		add esp, esp_Bytes
@@ -892,6 +888,8 @@ _Text ENDS
 		lea edx, COList_csIterator[ebp]
 		push edx
 		call dword ptr __imp__LeaveCriticalSection@4 ; LeaveCriticalSection(&csIterator)
+
+		mov eax, ebx
 
 		pop ebx
 		pop ebp
@@ -983,8 +981,13 @@ _Text ENDS
 
 	Ende:
 		lea edx, COList_csIterator[ebp]
+		mov ebp, eax
+
 		push edx
 		call dword ptr __imp__LeaveCriticalSection@4 ; LeaveCriticalSection(&csIterator)
+
+		mov eax, ebp
+
 		pop ebp
 		ret 0
 ?ThElement@COList@System@RePag@@QAQPAXK@Z ENDP
@@ -1040,14 +1043,13 @@ a_pstLoschen = esp_Bytes + 8
 a_bDatenLoschen = esp_Bytes + 12
 ?DeleteElement@COList@System@RePag@@QAQXAAPAX0_N@Z PROC ; COList::DeleteElement(*&pstKnoten, *&pstLoschen, bDatenLoschen)
 		push ebp
-		sub esp, esp_BYtes
+		sub esp, esp_Bytes
 
 		mov ebp, ecx
 
 		mov eax, dword ptr a_pstLoschen[esp]
 		mov eax, dword ptr [eax]
 		test eax, eax
-		;cmp dword ptr [eax], 0
 		jne Loschen
 
 		mov eax, dword ptr COList_pstErster[ebp]
@@ -1056,11 +1058,9 @@ a_bDatenLoschen = esp_Bytes + 12
 		jne short Nachster
 
 		mov dword ptr s_pstKnoten_1[esp], edx ; pstKnoten
-		;push edx ; pstKnoten
 
 		mov edx, dword ptr a_bDatenLoschen[esp]
 		test edx, edx
-		;cmp dword ptr a_bDatenLoschen[esp], 0
 		je short AllesNull
 
 		mov edx, dword ptr COList_pstErster[ebp]
@@ -1073,7 +1073,6 @@ a_bDatenLoschen = esp_Bytes + 12
 		mov ecx, dword ptr COList_vmSpeicher[ebp]
 		call ?VMFrei@System@RePag@@YQXPBXPAX@Z ; VMFrei(vmSpeicher, vbAdresse)
 
-		;pop edx ; pstKnoten
 		mov edx, dword ptr s_pstKnoten_1[esp] ; pstKnoten
 
 		xor ecx, ecx
@@ -1089,22 +1088,18 @@ a_bDatenLoschen = esp_Bytes + 12
 		mov ecx, dword ptr COList_pstErster[ebp]
 		mov dword ptr COList_pstErster[ebp], eax
 
-		;push edx ; pstKnoten
 		mov dword ptr s_pstKnoten_1[esp], edx ; pstKnoten
 
-		mov edx, dword ptr a_bDatenLoschen[esp]
+		movzx edx, byte ptr a_bDatenLoschen[esp]
 		test edx, edx
-		;cmp dword ptr a_bDatenLoschen[esp], 0
 		je short Knoten_Erster
 
-		;push ecx ; COList_pstErster_Alt
 		mov dword ptr s_pstKnoten_2[esp], ecx ; COList_pstErster_Alt
 
 		mov edx, dword ptr COList_pvDaten[ecx]
 		mov ecx, dword ptr COList_vmSpeicher[ebp]
 		call ?VMFrei@System@RePag@@YQXPBXPAX@Z ; VMFrei(vmSpeicher, vbAdresse)
 
-		;pop ecx ; COList_pstErster_Alt
 		mov ecx, dword ptr s_pstKnoten_2[esp] ; COList_pstErster_Alt
 
 	Knoten_Erster:
@@ -1112,7 +1107,6 @@ a_bDatenLoschen = esp_Bytes + 12
 		mov ecx, dword ptr COList_vmSpeicher[ebp]
 		call ?VMFrei@System@RePag@@YQXPBXPAX@Z ; VMFrei(vmSpeicher, vbAdresse)
 
-		;pop edx ; pstKnoten
 		mov edx, dword ptr s_pstKnoten_1[esp] ; pstKnoten
 
 		mov ecx, dword ptr COList_pstErster[ebp]
@@ -1123,7 +1117,6 @@ a_bDatenLoschen = esp_Bytes + 12
 		jmp short Ende
 
 	Loschen:
-		;push edx ; pstKnoten
 		mov dword ptr s_pstKnoten_1[esp], edx ; pstKnoten
 
 		;mov eax, dword ptr [eax] ; pstLoschen
@@ -1133,31 +1126,26 @@ a_bDatenLoschen = esp_Bytes + 12
 
 		mov ecx, dword ptr [eax]
 		test ecx, ecx
-		;cmp dword ptr [eax], 0
 		jne short Daten_Loschen
 		mov dword ptr COList_pstLetzer[ebp], eax
 
 	Daten_Loschen:
 		mov ecx, dword ptr a_bDatenLoschen[esp]
 		test ecx, ecx
-		;cmp dword ptr a_bDatenLoschen[esp], 0
 		je short Knoten_Loschen
 
-		;push edx ; pstLoschen->pstNachster
 		mov dword ptr s_pstKnoten_2[esp], edx
 
 		mov edx, dword ptr COList_pvDaten[edx]
 		mov ecx, dword ptr COList_vmSpeicher[ebp]
 		call ?VMFrei@System@RePag@@YQXPBXPAX@Z ; VMFrei(vmSpeicher, vbAdresse)
 
-		;pop edx ; pstLoschen->pstNachster
 		mov edx, dword ptr s_pstKnoten_2[esp]
 		
 	Knoten_Loschen:
 		mov ecx, dword ptr COList_vmSpeicher[ebp]
 		call ?VMFrei@System@RePag@@YQXPBXPAX@Z ; VMFrei(vmSpeicher, vbAdresse)
 
-		;pop edx ; pstKnoten
 		mov edx, dword ptr s_pstKnoten_1[esp]
 
 		mov ecx, dword ptr a_pstLoschen[esp]
@@ -1180,12 +1168,14 @@ a_pstLoschen = esp_Bytes + 8
 a_bDatenLoschen = esp_Bytes + 12
 ?DeleteElementS@COList@System@RePag@@QAQXAAPAX0_N@Z PROC ; COList::DeleteElementS(*&pstKnoten, *&pstLoschen, bDatenLoschen)
 		push ebp
-		sub esp, esp_BYtes
+		sub esp, esp_Bytes
 
 		mov ebp, ecx
 
 		mov eax, dword ptr a_pstLoschen[esp]
-		cmp dword ptr [eax], 0
+		mov eax, dword ptr [eax]
+		test eax, eax
+		;cmp dword ptr [eax], 0
 		jne Loschen
 
 		mov eax, dword ptr COList_pstErster[ebp]
@@ -1196,8 +1186,9 @@ a_bDatenLoschen = esp_Bytes + 12
 		mov dword ptr s_pstKnoten_1[esp], edx ; pstKnoten
 		;push edx ; pstKnoten
 
-		mov edx, dword ptr a_bDatenLoschen[esp]
-		cmp dword ptr a_bDatenLoschen[esp], 0
+		movzx edx, byte ptr a_bDatenLoschen[esp]
+		test edx, edx
+		;cmp dword ptr a_bDatenLoschen[esp], 0
 		je short AllesNull
 
 		mov edx, dword ptr COList_pstErster[ebp]
@@ -1319,8 +1310,8 @@ a_bDatenLoschen = esp_Bytes + 8
 		test eax, eax
 		jne short Nachstes
 		
-		xor eax, eax
-		cmp dword ptr a_bDatenLoschen[esp], eax
+		mov eax, dword ptr a_bDatenLoschen[esp]
+		test eax, eax
 		je short Losch_Null
 
 		mov edx, dword ptr COList_pvDaten[edx]
@@ -1344,25 +1335,22 @@ a_bDatenLoschen = esp_Bytes + 8
 	Nachstes:
 		mov dword ptr COList_pstErster[ebp], eax
 
-		xor eax, eax
-		cmp dword ptr a_bDatenLoschen[esp], eax
+		mov eax, dword ptr a_bDatenLoschen[esp]
+		test eax, eax
 		je short Knoten_Erster
 
-		;push edx ; pstErster
 		mov dword ptr s_pstKnoten_2[esp], edx ; pstErster
 
 		mov edx, dword ptr COList_pvDaten[edx]
 		mov ecx, dword ptr COList_vmSpeicher[ebp]
 		call ?VMFrei@System@RePag@@YQXPBXPAX@Z ; VMFrei(vmSpeicher, vbAdresse)
 
-		;pop edx ; pstErster
 		mov edx, dword ptr s_pstKnoten_2[esp] ; pstErster
 
 	Knoten_Erster:
 		mov ecx, dword ptr COList_vmSpeicher[ebp]
 		call ?VMFrei@System@RePag@@YQXPBXPAX@Z ; VMFrei(vmSpeicher, vbAdresse)
 		
-		;pop edx ; pstKnoten
 		mov edx, dword ptr s_pstKnoten_1[esp] ; pstKnoten
 		mov eax, dword ptr COList_pstErster[ebp]
 		mov dword ptr [edx], eax
@@ -1385,7 +1373,6 @@ a_bDatenLoschen = esp_Bytes + 8
 		sub esp, esp_Bytes
 
 		mov ebp, ecx
-		;push edx ; pstKnoten
 		mov dword ptr s_pstKnoten_1[esp], edx ; pstKnoten
 		mov eax, dword ptr COList_vmSpeicher[ebp]
 
@@ -1394,8 +1381,8 @@ a_bDatenLoschen = esp_Bytes + 8
 		test eax, eax
 		jne short Nachstes
 		
-		xor eax, eax
-		cmp dword ptr a_bDatenLoschen[esp], eax
+		mov eax, dword ptr a_bDatenLoschen[esp]
+		test eax, eax
 		je short Losch_Null
 
 		mov edx, dword ptr COList_pvDaten[edx]
@@ -1411,7 +1398,6 @@ a_bDatenLoschen = esp_Bytes + 8
 		mov dword ptr COList_pstErster[ebp], eax
 		mov dword ptr COList_pstLetzer[ebp], eax
 
-		;pop edx ; pstKnoten
 		mov edx, dword ptr s_pstKnoten_1[esp] ; pstKnoten
 		mov dword ptr [edx], eax
 		jmp short Ende
@@ -1419,25 +1405,22 @@ a_bDatenLoschen = esp_Bytes + 8
 	Nachstes:
 		mov dword ptr COList_pstErster[ebp], eax
 
-		xor eax, eax
-		cmp dword ptr a_bDatenLoschen[esp], eax
+		mov eax, dword ptr a_bDatenLoschen[esp]
+		test eax, eax
 		je short Knoten_Erster
 
-		;push edx ; pstErster
 		mov dword ptr s_pstKnoten_2[esp], edx ; pstErster
 
 		mov edx, dword ptr COList_pvDaten[edx]
 		mov ecx, dword ptr COList_vmSpeicher[ebp]
 		call ?VMFreiS@System@RePag@@YQXPBXPAX@Z ; VMFreiS(vmSpeicher, vbAdresse)
 
-		;pop edx ; pstErster
 		mov edx, dword ptr s_pstKnoten_2[esp] ; pstErster
 
 	Knoten_Erster:
 		mov ecx, dword ptr COList_vmSpeicher[ebp]
 		call ?VMFreiS@System@RePag@@YQXPBXPAX@Z ; VMFreiS(vmSpeicher, vbAdresse)
 		
-		;pop edx ; pstKnoten
 		mov edx, dword ptr s_pstKnoten_1[esp] ; pstKnoten
 		mov eax, dword ptr COList_pstErster[ebp]
 		mov dword ptr [edx], eax

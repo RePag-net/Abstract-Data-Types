@@ -51,6 +51,9 @@
     <ClInclude Include="HADT.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="ZahlZuHexalString.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ADT.cpp">
@@ -63,6 +66,9 @@
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="HADT.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="ZahlZuHexalString.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
@@ -94,6 +100,30 @@
       <Filter>Quelldateien</Filter>
     </CustomBuild>
     <CustomBuild Include="OStream_x86.asm">
+      <Filter>Quelldateien</Filter>
+    </CustomBuild>
+    <CustomBuild Include="OKomma4_80_x64.asm">
+      <Filter>Quelldateien</Filter>
+    </CustomBuild>
+    <CustomBuild Include="OKomma4_x64.asm">
+      <Filter>Quelldateien</Filter>
+    </CustomBuild>
+    <CustomBuild Include="OListe_x64.asm">
+      <Filter>Quelldateien</Filter>
+    </CustomBuild>
+    <CustomBuild Include="OStream_x64.asm">
+      <Filter>Quelldateien</Filter>
+    </CustomBuild>
+    <CustomBuild Include="OStringA_x64.asm">
+      <Filter>Quelldateien</Filter>
+    </CustomBuild>
+    <CustomBuild Include="OZeit_x64.asm">
+      <Filter>Quelldateien</Filter>
+    </CustomBuild>
+    <CustomBuild Include="String_x64.asm">
+      <Filter>Quelldateien</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Zahlen_x64.asm">
       <Filter>Quelldateien</Filter>
     </CustomBuild>
   </ItemGroup>

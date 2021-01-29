@@ -1,12 +1,12 @@
-;/****************************************************************************
+;****************************************************************************
 ;  OKomma4_80_x86.asm
 ;  For more information see https://github.com/RePag-net/Core
-;****************************************************************************/
+;****************************************************************************
 ;
-;/****************************************************************************
+;****************************************************************************
 ;  The MIT License(MIT)
 ;
-;  Copyright(c) 2020 René Pagel
+;  Copyright(c) 2021 René Pagel
 ;
 ;  Permission is hereby granted, free of charge, to any person obtaining a copy
 ;  of this softwareand associated documentation files(the "Software"), to deal
@@ -25,7 +25,7 @@
 ;  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 ;  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 ;  SOFTWARE.
-;******************************************************************************/
+;******************************************************************************
 
 .686P
 .XMM
