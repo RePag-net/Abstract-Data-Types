@@ -1,5 +1,5 @@
 ;****************************************************************************
-;  OStringA_x86.asm
+;  OStrangA_x86.asm
 ;  For more information see https://github.com/RePag-net/Core
 ;****************************************************************************
 ;
@@ -1929,9 +1929,6 @@ a_ulPosition = 20
 
 		test edx, edx
 		je Ende
-		xor eax, eax
-		cmp dword ptr a_ulPosition[esp], eax
-		jl Ende
 
 		push edx ; pcString
 
@@ -2043,9 +2040,6 @@ a_ulPosition = 16
 
 		test edx, edx
 		je Ende
-		xor eax, eax
-		cmp dword ptr a_ulPosition[esp], eax
-		jl Ende
 
 		mov edx, dword ptr COStringA_ulLange[ebx]
 		add edx, dword ptr COStringA_ulLange[ebp]

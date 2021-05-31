@@ -1,4 +1,4 @@
-// up Fileversion 2.3.7.0
+// up Fileversion 2.1.6.2
 #ifndef CompSysH
 #define CompSysH
 #include <Windows.h>
@@ -109,6 +109,10 @@ namespace RePag
     __declspec(dllimport) BYTE __vectorcall SetTimeStartOptimize(_In_reads_z_(6) const char cTime[6]); // Format 24h examples "18:30" or "07:15"
     __declspec(dllimport) BYTE __vectorcall DeleteTimeStartOptimize(void);
     __declspec(dllimport) BYTE __vectorcall ImmediatelyStartOptimize(void);
+    __declspec(dllimport) BYTE __vectorcall SetRegistryValue(_In_ LONG lSchlussel, _In_z_ const char* pcSchlussel, _In_z_ const char* pcWertName, _In_ DWORD dwWertTyp,
+                                                             _In_ VMBLOCK vbWert, _In_ DWORD dwWertBytes);
+    __declspec(dllimport) BYTE __vectorcall GetRegistryValue(_In_ LONG lSchlussel, _In_z_ const char* pcSchlussel, _In_z_ const char* pcWertName, _In_ DWORD dwWertTyp,
+                                                             _In_ VMBLOCK vbWert, _In_ DWORD& dwWertBytes);
   //-------------------------------------------------------------------------------------------------------------------------------------------
 
     constexpr BYTE SHA_128 = 1;
@@ -128,8 +132,10 @@ namespace RePag
     __declspec(dllimport) BYTE __vectorcall TransferKeyFromComputer(_In_reads_z_(254) const char pcKeyName[254], _In_reads_z_(254) const char pcPassword[254], _In_z_ const char* pcIPNumber_IV4, _In_z_ const char* pcIPNumber_IV6); // either IPV4 or IPV6 other NULL
     __declspec(dllimport) BYTE __vectorcall TransferKeyToComputer(_In_reads_z_(254) const char pcKeyName[254], _In_reads_z_(254) const char pcPassword[254], _In_z_ const char* pcHost_Node_Name);
     __declspec(dllimport) BYTE __vectorcall TransferKeyFromComputer(_In_reads_z_(254) const char pcKeyName[254], _In_reads_z_(254) const char pcPassword[254], _In_z_ const char* pcHost_Node_Name);
-    __declspec(dllimport) bool __vectorcall AES256_Encrypt(_In_reads_z_(254) const char pcKeyName[254], _In_reads_z_(254) const char pcPasswort[254], _In_ VMBLOCK vbPlainText, _In_ VMBLOCK vbChipperText, _In_ unsigned long ulBytes);
-    __declspec(dllimport) bool __vectorcall AES256_Decrypt(_In_reads_z_(254) const char pcKeyName[254], _In_reads_z_(254) const char pcPasswort[254], _In_ VMBLOCK vbChipperText, _In_ VMBLOCK vbDecryptText, _In_ unsigned long ulBytes);
+    __declspec(dllimport) bool __vectorcall AES256_Encrypt(_In_reads_z_(254) const char pcKeyName[254], _In_reads_z_(254) const char pcPasswort[254], _In_ VMBLOCK vbPlainText, _In_ VMBLOCK vbChipperText, _Inout_ unsigned long& ulBytes);
+    __declspec(dllimport) bool __vectorcall AES256_Decrypt(_In_reads_z_(254) const char pcKeyName[254], _In_reads_z_(254) const char pcPasswort[254], _In_ VMBLOCK vbChipperText, _In_ VMBLOCK vbDecryptText, _Inout_ unsigned long& ulBytes);
+    __declspec(dllimport) VMBLOCK __vectorcall CoreEncrypt(_In_ VMEMORY vmSpeicher, _In_ BIT128 bit128CoreNumber, _In_ VMBLOCK vbPlainText, _Inout_ unsigned long& ulBytes);  // only used intern
+    __declspec(dllimport) VMBLOCK __vectorcall CoreDecrypt(_In_ VMEMORY vmSpeicher, _In_ BIT128 bit128CoreNumber, _In_ VMBLOCK vbChipperText, _Inout_ unsigned long& ulBytes); // only used intern
     //-------------------------------------------------------------------------------------------------------------------------------------------
   }
 }

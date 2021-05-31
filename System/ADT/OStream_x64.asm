@@ -47,10 +47,10 @@ EXTRN __imp_WriteFile:PROC
 EXTRN __imp_CloseHandle:PROC
 EXTRN __imp_CreateEventA:PROC
 
-
 EXTRN ?DeleteFirstElementS@COList@System@RePag@@QEAQXAEAPEAX_N@Z:PROC
 EXTRN ?ToEnd@COList@System@RePag@@QEAQPEAXPEAX@Z:PROC
 EXTRN ?ToEndS@COList@System@RePag@@QEAQPEAXPEAX@Z:PROC
+EXTRN ?COFreiV@COList@System@RePag@@QEAQPEBXXZ: PROC
 
 EXTRN ?Write@COTime@System@RePag@@QEAQXPEBD@Z:PROC
 EXTRN ?Read@COTime@System@RePag@@QEAQXPEAD@Z:PROC
@@ -88,7 +88,6 @@ sqp_this = 40
 		vmovdqu ymmword ptr COStream[rax + 32], ymm5
 		vmovdqu ymmword ptr COStream[rax + 64], ymm5
 		vmovdqu ymmword ptr COStream[rax + 96], ymm5
-		vmovdqu ymmword ptr COStream[rax + 128], ymm5
 		vmovdqu xmmword ptr COStream[rax + 120], xmm5
 		movzx rcx, byte ptr sbi_bThreadSicher[rsp]
 		mov byte ptr COStream_bThread[rax], cl
@@ -126,7 +125,6 @@ sqp_this = 40
 		vmovdqu ymmword ptr COStream[rax + 32], ymm5
 		vmovdqu ymmword ptr COStream[rax + 64], ymm5
 		vmovdqu ymmword ptr COStream[rax + 96], ymm5
-		vmovdqu ymmword ptr COStream[rax + 128], ymm5
 		vmovdqu xmmword ptr COStream[rax + 120], xmm5
 		movzx rcx, byte ptr sbi_bThreadSicher[rsp]
 		mov byte ptr COStream_bThread[rax], cl
@@ -163,12 +161,11 @@ sqp_this = 40
 		vmovdqu ymmword ptr COStream[rax + 32], ymm5
 		vmovdqu ymmword ptr COStream[rax + 64], ymm5
 		vmovdqu ymmword ptr COStream[rax + 96], ymm5
-		vmovdqu ymmword ptr COStream[rax + 128], ymm5
 		vmovdqu xmmword ptr COStream[rax + 120], xmm5
 
 		mov rcx, qword ptr sqp_vmSpeicher[rsp]
 		mov qword ptr COStream_vmSpeicher[rax], rcx
-		mov qword ptr CoStream_COList_vmSpeicher[rax], rcx
+		mov qword ptr COStream_COList_vmSpeicher[rax], rcx
 
 		movzx rcx, byte ptr sbi_bThreadSicher[rsp]
 		mov byte ptr COStream_bThread[rax], cl
@@ -207,7 +204,6 @@ sqp_this = 40
 		vmovdqu ymmword ptr COStream[rax + 32], ymm5
 		vmovdqu ymmword ptr COStream[rax + 64], ymm5
 		vmovdqu ymmword ptr COStream[rax + 96], ymm5
-		vmovdqu ymmword ptr COStream[rax + 128], ymm5
 		vmovdqu xmmword ptr COStream[rax + 120], xmm5
 
 		mov rcx, qword ptr sqp_vmSpeicher[rsp]
@@ -236,7 +232,6 @@ _Text ENDS
 		vmovdqu ymmword ptr COStream[rcx + 32], ymm5
 		vmovdqu ymmword ptr COStream[rcx + 64], ymm5
 		vmovdqu ymmword ptr COStream[rcx + 96], ymm5
-		vmovdqu ymmword ptr COStream[rcx + 128], ymm5
 		vmovdqu xmmword ptr COStream[rcx + 120], xmm5
 
 		mov byte ptr COStream_bThread[rcx], dl
@@ -257,7 +252,6 @@ _Text ENDS
 		vmovdqu ymmword ptr COStream[rcx + 32], ymm5
 		vmovdqu ymmword ptr COStream[rcx + 64], ymm5
 		vmovdqu ymmword ptr COStream[rcx + 96], ymm5
-		vmovdqu ymmword ptr COStream[rcx + 128], ymm5
 		vmovdqu xmmword ptr COStream[rcx + 120], xmm5
 
 		mov byte ptr COStream_bThread[rcx], dl
@@ -278,7 +272,6 @@ _Text ENDS
 		vmovdqu ymmword ptr COStream[rcx + 32], ymm5
 		vmovdqu ymmword ptr COStream[rcx + 64], ymm5
 		vmovdqu ymmword ptr COStream[rcx + 96], ymm5
-		vmovdqu ymmword ptr COStream[rcx + 128], ymm5
 		vmovdqu xmmword ptr COStream[rcx + 120], xmm5
 
 		mov qword ptr COStream_vmSpeicher[rcx], rdx
@@ -302,7 +295,6 @@ _Text ENDS
 		vmovdqu ymmword ptr COStream[rcx + 32], ymm5
 		vmovdqu ymmword ptr COStream[rcx + 64], ymm5
 		vmovdqu ymmword ptr COStream[rcx + 96], ymm5
-		vmovdqu ymmword ptr COStream[rcx + 128], ymm5
 		vmovdqu xmmword ptr COStream[rcx + 120], xmm5
 
 		mov qword ptr COStream_vmSpeicher[rcx], rdx
@@ -338,6 +330,8 @@ sqp_this = 40 + s_push
 		test rbx, rbx
 		je short Kopf_Ende
 		mov rdx, qword ptr COStream_COList_pvDaten[rbx]
+		add rdx, 04h
+		mov rdx, qword ptr [rdx]
 
 		mov rcx, rdi
 		call ?VMFrei@System@RePag@@YQXPEBXPEAX@Z ; VMFrei(vmSpeicher, vbAdresse)
@@ -346,12 +340,15 @@ sqp_this = 40 + s_push
 		mov rdx, rbx
 		mov rcx, rsi
 		call ?DeleteFirstElementS@COList@System@RePag@@QEAQXAEAPEAX_N@Z ; COList::DeleteFirstElementS(*&pstKnoten, bDatenLoschen)
+		mov rcx, qword ptr sqp_this[rsp]
+		mov rax, COStream_COList_pstErster[rcx]
+		test rax, rax ; if rbx => pstKnoten VirtualFree
+		je short Kopf_Ende
 		mov rbx, qword ptr [rbx]
 		jmp short Kopf_Anfang
 
 	Kopf_Ende:
 		mov rcx, qword ptr sqp_this[rsp]
-
 		movzx rax, byte ptr COStream_bThread[rcx]
 		test rax, rax
 		je short Ende
@@ -385,6 +382,8 @@ sqp_this = 40 + s_push
 		test rbx, rbx
 		je short Kopf_Ende
 		mov rdx, qword ptr COStream_COList_pvDaten[rbx]
+		add rdx, 04h
+		mov rdx, qword ptr [rdx]
 
 		mov rcx, rdi
 		call ?VMFrei@System@RePag@@YQXPEBXPEAX@Z ; VMFrei(vmSpeicher, vbAdresse)
@@ -393,12 +392,15 @@ sqp_this = 40 + s_push
 		mov rdx, rbx
 		mov rcx, rsi
 		call ?DeleteFirstElementS@COList@System@RePag@@QEAQXAEAPEAX_N@Z ; COList::DeleteFirstElementS(*&pstKnoten, bDatenLoschen)
+		mov rcx, qword ptr sqp_this[rsp]
+		mov rax, COStream_COList_pstErster[rcx]
+		test rax, rax ; if rbx => pstKnoten VirtualFree
+		je short Kopf_Ende
 		mov rbx, qword ptr [rbx]
 		jmp short Kopf_Anfang
 
 	Kopf_Ende:
 		mov rcx, qword ptr sqp_this[rsp]
-
 		movzx rax, byte ptr COStream_bThread[rcx]
 		test rax, rax
 		je short Ende
@@ -3242,7 +3244,8 @@ sqp_this = 40 + s_push
 		test rbx, rbx
 		je short Ende
 		mov rdx, qword ptr COStream_COList_pvDaten[rbx]
-		add rdx, 8
+		add rdx, 04h
+		mov rdx, qword ptr [rdx]
 
 		mov rcx, rdi
 		call ?VMFrei@System@RePag@@YQXPEBXPEAX@Z ; VMFrei(vmSpeicher, vbAdresse)
@@ -3289,7 +3292,8 @@ sqp_this = 40 + s_push
 		test rbx, rbx
 		je short Ende
 		mov rdx, qword ptr COStream_COList_pvDaten[rbx]
-		add rdx, 8
+		add rdx, 04h
+		mov rdx, qword ptr [rdx]
 
 		mov rcx, rdi
 		call ?VMFrei@System@RePag@@YQXPEBXPEAX@Z ; VMFrei(vmSpeicher, vbAdresse)

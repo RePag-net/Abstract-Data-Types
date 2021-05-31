@@ -1319,17 +1319,15 @@ a_bDatenLoschen = esp_Bytes + 8
 		call ?VMFrei@System@RePag@@YQXPBXPAX@Z ; VMFrei(vmSpeicher, vbAdresse)
 
 	Losch_Null:
-		mov edx, dword ptr COList_pstErster[ebp]
-		mov ecx, dword ptr COList_vmSpeicher[ebp]
-		call ?VMFrei@System@RePag@@YQXPBXPAX@Z ; VMFrei(vmSpeicher, vbAdresse)
-
 		xor eax, eax
-		mov dword ptr COList_pstErster[ebp], eax
 		mov dword ptr COList_pstLetzer[ebp], eax
-
-		;pop edx ; pstKnoten
 		mov edx, dword ptr s_pstKnoten_1[esp] ; pstKnoten
 		mov dword ptr [edx], eax
+
+		mov edx, dword ptr COList_pstErster[ebp]
+		mov dword ptr COList_pstErster[ebp], eax
+		mov ecx, dword ptr COList_vmSpeicher[ebp]
+		call ?VMFrei@System@RePag@@YQXPBXPAX@Z ; VMFrei(vmSpeicher, vbAdresse)
 		jmp short Ende
 
 	Nachstes:
@@ -1390,7 +1388,13 @@ a_bDatenLoschen = esp_Bytes + 8
 		call ?VMFreiS@System@RePag@@YQXPBXPAX@Z ; VMFreiS(vmSpeicher, vbAdresse)
 
 	Losch_Null:
+		xor eax, eax
+		mov dword ptr COList_pstLetzer[ebp], eax
+		mov edx, dword ptr s_pstKnoten_1[esp] ; pstKnoten
+		mov dword ptr [edx], eax
+
 		mov edx, dword ptr COList_pstErster[ebp]
+		mov dword ptr COList_pstErster[ebp], eax
 		mov ecx, dword ptr COList_vmSpeicher[ebp]
 		call ?VMFreiS@System@RePag@@YQXPBXPAX@Z ; VMFreiS(vmSpeicher, vbAdresse)
 

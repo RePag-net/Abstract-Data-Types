@@ -52,9 +52,9 @@ sqp_this = 40
 
 		mov byte ptr sbi_ThreadSicher[rsp], cl
 
-    movzx rdx, dbi_BY_COLIST
+		movzx rdx, dbi_BY_COLIST
 		xor rcx, rcx
-    call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
+		call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 		mov qword ptr sqp_this[rsp], rax
 
 		vpxor ymm0, ymm0, ymm0
@@ -73,7 +73,7 @@ sqp_this = 40
 	Ende:
 		mov rax, qword ptr sqp_this[rsp]
 		add rsp, s_ShadowRegister
-    ret
+		ret
 ?COListV@System@RePag@@YQPEAVCOList@12@_N@Z ENDP
 _Text ENDS
 ;----------------------------------------------------------------------------
@@ -87,9 +87,9 @@ sqp_this = 40
 		mov byte ptr sbi_ThreadSicher[rsp], cl
 		mov dword ptr sdi_SpinCount[rsp], edx
 
-    movzx rdx, dbi_BY_COLIST
+		movzx rdx, dbi_BY_COLIST
 		xor rcx, rcx
-    call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
+		call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 		mov qword ptr sqp_this[rsp], rax
 
 		vpxor ymm0, ymm0, ymm0
@@ -122,8 +122,8 @@ sqp_this = 40
 		mov qword ptr sqi_Speicher[rsp], rcx
 		mov byte ptr sbi_ThreadSicher[rsp], dl
 
-    movzx rdx, dbi_BY_COLIST
-    call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
+		movzx rdx, dbi_BY_COLIST
+		call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 		mov qword ptr sqp_this[rsp], rax
 
 		vpxor ymm0, ymm0, ymm0
@@ -161,8 +161,8 @@ sqp_this = 40
 		mov byte ptr sbi_ThreadSicher[rsp], dl
 		mov dword ptr sdi_SpinCount[rsp], r8d
 
-    movzx rdx, dbi_BY_COLIST
-    call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
+		movzx rdx, dbi_BY_COLIST
+		call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 		mov qword ptr sqp_this[rsp], rax
 
 		vpxor ymm0, ymm0, ymm0
@@ -177,14 +177,14 @@ sqp_this = 40
 		test dl, dl
 		je short Ende
 
-	  mov edx, dword ptr sdi_SpinCount[rsp]
+		mov edx, dword ptr sdi_SpinCount[rsp]
 		lea rcx, COList_csIterator[rax]
 		call qword ptr __imp_InitializeCriticalSectionAndSpinCount ; InitializeCriticalSectionAndSpinCount(&csIterator, ulSpinCount)
 
 	Ende:
 		mov rax, qword ptr sqp_this[rsp]
 		add rsp, s_ShadowRegister
-    ret
+		ret
 ?COListV@System@RePag@@YQPEAVCOList@12@PEBX_NK@Z ENDP
 _Text ENDS
 ;----------------------------------------------------------------------------
@@ -205,7 +205,7 @@ _Text ENDS
 
 	Ende:
 		add rsp, s_ShadowRegister
-    ret
+		ret
 ??0COList@System@RePag@@QEAA@_N@Z ENDP
 ;----------------------------------------------------------------------------
 ??0COList@System@RePag@@QEAA@_NK@Z PROC ; COList::COList(bThreadSicher, ulSpinCount)
@@ -224,7 +224,7 @@ _Text ENDS
 		call qword ptr __imp_InitializeCriticalSectionAndSpinCount ; InitializeCriticalSectionAndSpinCount(&csIterator, ulSpinCount)
 
 	Ende:
-    add rsp, s_ShadowRegister
+		add rsp, s_ShadowRegister
 		ret
 ??0COList@System@RePag@@QEAA@_NK@Z ENDP
 ;----------------------------------------------------------------------------
@@ -245,7 +245,7 @@ _Text ENDS
 
 	Ende:
 		add rsp, s_ShadowRegister
-    ret
+		ret
 ??0COList@System@RePag@@QEAA@PEBX_N@Z ENDP
 ;----------------------------------------------------------------------------
 ??0COList@System@RePag@@QEAA@PEBX_NK@Z PROC ; COList::COList(vmSpeicher, bThreadSicher, ulSpinCount)
@@ -265,7 +265,7 @@ _Text ENDS
 
 	Ende:
 		add rsp, s_ShadowRegister
-    ret
+		ret
 ??0COList@System@RePag@@QEAA@PEBX_NK@Z ENDP
 ;----------------------------------------------------------------------------
 _Text SEGMENT
@@ -332,8 +332,10 @@ sqp_this = 40 + s_push
 		je short Ende
 		lea rcx, COList_csIterator[rcx]
 		call qword ptr __imp_DeleteCriticalSection ; DeleteCrticalSection(&csIterator)
+		mov rcx, qword ptr sqp_this[rsp]
 		
 	Ende:
+		mov rax, qword ptr COList_vmSpeicher[rcx]
 		add rsp, s_ShadowRegister
 		pop rbx
 		ret
@@ -383,7 +385,7 @@ sqp_this = 40 + s_push
 		jmp short Kopf_Anfang
 		
 	Ende:
-	  mov rcx, qword ptr sqp_this[rsp]
+		mov rcx, qword ptr sqp_this[rsp]
 		xor rax, rax
 		mov dword ptr COList_ulAnzahl[rcx], eax
 		mov qword ptr COList_pstLetzer[rcx], rax
@@ -440,7 +442,7 @@ sqp_this = 40 + s_push
 		jmp short Kopf_Anfang
 		
 	Ende:
-	  mov rcx, qword ptr sqp_this[rsp]
+		mov rcx, qword ptr sqp_this[rsp]
 		xor rax, rax
 		mov dword ptr COList_ulAnzahl[rcx], eax
 		mov qword ptr COList_pstLetzer[rcx], rax
@@ -504,7 +506,7 @@ sqp_this = 40 + s_push
 		jmp short Kopf_Anfang
 		
 	Ende:
-	  mov rcx, qword ptr sqp_this[rsp]
+		mov rcx, qword ptr sqp_this[rsp]
 
 		xor rax, rax
 		mov dword ptr COList_ulAnzahl[rcx], eax
@@ -572,7 +574,7 @@ sqp_this = 40 + s_push
 		jmp short Kopf_Anfang
 		
 	Ende:
-	  mov rcx, qword ptr sqp_this[rsp]
+		mov rcx, qword ptr sqp_this[rsp]
 
 		xor rax, rax
 		mov dword ptr COList_ulAnzahl[rcx], eax
@@ -600,8 +602,8 @@ sqp_this = 40
 		mov qword ptr sqp_Daten[rsp], rdx
 
 		mov rdx, 16
-    mov rcx, qword ptr COList_vmSpeicher[rcx]
-    call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
+		mov rcx, qword ptr COList_vmSpeicher[rcx]
+		call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 
 		mov rdx, qword ptr sqp_Daten[rsp]
 		mov qword ptr COList_pvDaten[rax], rdx
@@ -632,8 +634,8 @@ sqp_this = 40
 		mov qword ptr sqp_Daten[rsp], rdx
 
 		mov rdx, 16
-    mov rcx, qword ptr COList_vmSpeicher[rcx]
-    call ?VMBlockS@System@RePag@@YQPEADPEBXK@Z ; VMBlockS(vmSpeicher, ulBytes)
+		mov rcx, qword ptr COList_vmSpeicher[rcx]
+		call ?VMBlockS@System@RePag@@YQPEADPEBXK@Z ; VMBlockS(vmSpeicher, ulBytes)
 
 		mov rdx, qword ptr sqp_Daten[rsp]
 		mov qword ptr COList_pvDaten[rax], rdx
@@ -665,8 +667,8 @@ sqp_this = 40
 		mov qword ptr sqp_Daten[rsp], rdx
 
 		mov rdx, 16
-    mov rcx, qword ptr COList_vmSpeicher[rcx]
-    call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
+		mov rcx, qword ptr COList_vmSpeicher[rcx]
+		call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 		mov qword ptr sqp_Element[rsp], rax
 
 		mov rdx, qword ptr sqp_Daten[rsp]
@@ -710,8 +712,8 @@ sqp_this = 40
 		mov qword ptr sqp_Daten[rsp], rdx
 
 		mov rdx, 16
-    mov rcx, qword ptr COList_vmSpeicher[rcx]
-    call ?VMBlockS@System@RePag@@YQPEADPEBXK@Z ; VMBlockS(vmSpeicher, ulBytes)
+		mov rcx, qword ptr COList_vmSpeicher[rcx]
+		call ?VMBlockS@System@RePag@@YQPEADPEBXK@Z ; VMBlockS(vmSpeicher, ulBytes)
 		mov qword ptr sqp_Element[rsp], rax
 
 		mov rdx, qword ptr sqp_Daten[rsp]
@@ -754,8 +756,8 @@ sqp_this = 40
 		mov qword ptr sqp_Daten[rsp], rdx 
 
 		mov rdx, 16
-    mov rcx, qword ptr COList_vmSpeicher[rcx]
-    call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
+		mov rcx, qword ptr COList_vmSpeicher[rcx]
+		call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 
 		mov rdx, qword ptr sqp_Daten[rsp]
 		mov qword ptr COList_pvDaten[rax], rdx
@@ -791,8 +793,8 @@ sqp_this = 40
 		mov qword ptr sqp_Daten[rsp], rdx 
 
 		mov rdx, 16
-    mov rcx, qword ptr COList_vmSpeicher[rcx]
-    call ?VMBlockS@System@RePag@@YQPEADPEBXK@Z ; VMBlockS(vmSpeicher, ulBytes)
+		mov rcx, qword ptr COList_vmSpeicher[rcx]
+		call ?VMBlockS@System@RePag@@YQPEADPEBXK@Z ; VMBlockS(vmSpeicher, ulBytes)
 
 		mov rdx, qword ptr sqp_Daten[rsp]
 		mov qword ptr COList_pvDaten[rax], rdx
@@ -829,8 +831,8 @@ sqp_this = 40
 		mov qword ptr sqp_Daten[rsp], rdx
 
 		mov rdx, 16
-    mov rcx, qword ptr COList_vmSpeicher[rcx]
-    call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
+		mov rcx, qword ptr COList_vmSpeicher[rcx]
+		call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 		mov qword ptr sqp_Element[rsp], rax
 
 		mov rdx, qword ptr sqp_Daten[rsp]
@@ -841,8 +843,8 @@ sqp_this = 40
 		call qword ptr __imp_EnterCriticalSection ; EnterCriticalSection(&csIterator)
 
 		mov rax, qword ptr sqp_Element[rsp]
-
 		mov rcx, qword ptr sqp_this[rsp]
+
 		xor rdx, rdx
 		mov qword ptr [rax], rdx
 		mov rdx, COList_pstLetzer[rcx]
@@ -879,8 +881,8 @@ sqp_this = 40
 		mov qword ptr sqp_Daten[rsp], rdx
 
 		mov rdx, 16
-    mov rcx, qword ptr COList_vmSpeicher[rcx]
-    call ?VMBlockS@System@RePag@@YQPEADPEBXK@Z ; VMBlockS(vmSpeicher, ulBytes)
+		mov rcx, qword ptr COList_vmSpeicher[rcx]
+		call ?VMBlockS@System@RePag@@YQPEADPEBXK@Z ; VMBlockS(vmSpeicher, ulBytes)
 		mov qword ptr sqp_Element[rsp], rax
 
 		mov rdx, qword ptr sqp_Daten[rsp]
@@ -1088,7 +1090,7 @@ sqp_Knoten_1 = 40 + s_push
 		je short AllesNull
 
 		mov rdx, qword ptr COList_pstErster[rbp]
-	  mov rdx, qword ptr COList_pvDaten[rdx]
+		mov rdx, qword ptr COList_pvDaten[rdx]
 		mov rcx, qword ptr COList_vmSpeicher[rbp]
 		call ?VMFrei@System@RePag@@YQXPEBXPEAX@Z ; VMFrei(vmSpeicher, vbAdresse)
 
@@ -1213,7 +1215,7 @@ sqp_Knoten_1 = 40 + s_push
 		je short AllesNull
 
 		mov rdx, qword ptr COList_pstErster[rbp]
-	  mov rdx, qword ptr COList_pvDaten[rdx]
+		mov rdx, qword ptr COList_pvDaten[rdx]
 		mov rcx, qword ptr COList_vmSpeicher[rbp]
 		call ?VMFreiS@System@RePag@@YQXPEBXPEAX@Z ; VMFreiS(vmSpeicher, vbAdresse)
 
@@ -1332,16 +1334,15 @@ sqp_Knoten_1 = 40 + s_push
 		call ?VMFrei@System@RePag@@YQXPEBXPEAX@Z ; VMFrei(vmSpeicher, vbAdresse)
 
 	Losch_Null:
-		mov rdx, qword ptr COList_pstErster[rbp]
-		mov rcx, qword ptr COList_vmSpeicher[rbp]
-		call ?VMFrei@System@RePag@@YQXPEBXPEAX@Z ; VMFrei(vmSpeicher, vbAdresse)
-
 		xor rax, rax
-		mov qword ptr COList_pstErster[rbp], rax
 		mov qword ptr COList_pstLetzer[rbp], rax
-
 		mov rdx, qword ptr sqp_Knoten_1[rsp] ; pstKnoten
 		mov qword ptr [rdx], rax
+
+		mov rdx, qword ptr COList_pstErster[rbp]
+		mov qword ptr COList_pstErster[rbp], rax
+		mov rcx, qword ptr COList_vmSpeicher[rbp]
+		call ?VMFrei@System@RePag@@YQXPEBXPEAX@Z ; VMFrei(vmSpeicher, vbAdresse)
 		jmp short Ende
 
 	Nachstes:
@@ -1398,16 +1399,15 @@ sqp_Knoten_1 = 40 + s_push
 		call ?VMFreiS@System@RePag@@YQXPEBXPEAX@Z ; VMFreiS(vmSpeicher, vbAdresse)
 
 	Losch_Null:
-		mov rdx, qword ptr COList_pstErster[rbp]
-		mov rcx, qword ptr COList_vmSpeicher[rbp]
-		call ?VMFreiS@System@RePag@@YQXPEBXPEAX@Z ; VMFreiS(vmSpeicher, vbAdresse)
-
 		xor rax, rax
-		mov qword ptr COList_pstErster[rbp], rax
 		mov qword ptr COList_pstLetzer[rbp], rax
-
 		mov rdx, qword ptr sqp_Knoten_1[rsp] ; pstKnoten
 		mov qword ptr [rdx], rax
+
+		mov rdx, qword ptr COList_pstErster[rbp]
+		mov qword ptr COList_pstErster[rbp], rax
+		mov rcx, qword ptr COList_vmSpeicher[rbp]
+		call ?VMFreiS@System@RePag@@YQXPEBXPEAX@Z ; VMFreiS(vmSpeicher, vbAdresse)
 		jmp short Ende
 
 	Nachstes:
@@ -1656,8 +1656,8 @@ sqp_this = 40
 		mov qword ptr sqp_Daten[rsp], r9
 
 		mov rdx, 16
-    mov rcx, qword ptr COList_vmSpeicher[rcx]
-    call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
+		mov rcx, qword ptr COList_vmSpeicher[rcx]
+		call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 
 		mov r9, qword ptr sqp_Daten[rsp]
 		mov qword ptr COList_pvDaten[rax], r9
@@ -1704,8 +1704,8 @@ sqp_this = 40
 		mov qword ptr sqp_Daten[rsp], r9
 
 		mov rdx, 16
-    mov rcx, qword ptr COList_vmSpeicher[rcx]
-    call ?VMBlockS@System@RePag@@YQPEADPEBXK@Z ; VMBlockS(vmSpeicher, ulBytes)
+		mov rcx, qword ptr COList_vmSpeicher[rcx]
+		call ?VMBlockS@System@RePag@@YQPEADPEBXK@Z ; VMBlockS(vmSpeicher, ulBytes)
 
 		mov r9, qword ptr sqp_Daten[rsp]
 		mov qword ptr COList_pvDaten[rax], r9

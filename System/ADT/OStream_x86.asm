@@ -364,6 +364,8 @@ _Text ENDS
 		test ebx, ebx
 		je short Kopf_Ende
 		mov edx, dword ptr COStream_COList_pvDaten[ebx]
+		add edx, 04h
+		mov edx, dword ptr [edx]
 
 		mov ecx, edi
 		call ?VMFrei@System@RePag@@YQXPBXPAX@Z ; VMFrei(vmSpeicher, vbAdresse)
@@ -372,6 +374,9 @@ _Text ENDS
 		mov edx, ebx
 		mov ecx, esi
 		call ?DeleteFirstElementS@COList@System@RePag@@QAQXAAPAX_N@Z ; COList::DeleteFirstElementS(*&pstKnoten, bDatenLoschen)
+		mov eax, COStream_COList_pstErster[ebp]
+		test eax, eax ; if rbx => pstKnoten VirtualFree
+		je short Kopf_Ende
 		mov ebx, dword ptr [ebx]
 		jmp short Kopf_Anfang
 
@@ -406,6 +411,8 @@ _Text ENDS
 		test ebx, ebx
 		je short Kopf_Ende
 		mov edx, dword ptr COStream_COList_pvDaten[ebx]
+		add edx, 04h
+		mov edx, dword ptr [edx]
 
 		mov ecx, edi
 		call ?VMFrei@System@RePag@@YQXPBXPAX@Z ; VMFrei(vmSpeicher, vbAdresse)
@@ -414,6 +421,9 @@ _Text ENDS
 		mov edx, ebx
 		mov ecx, esi
 		call ?DeleteFirstElementS@COList@System@RePag@@QAQXAAPAX_N@Z ; COList::DeleteFirstElementS(*&pstKnoten, bDatenLoschen)
+		mov eax, COStream_COList_pstErster[ebp]
+		test eax, eax ; if rbx => pstKnoten VirtualFree
+		je short Kopf_Ende
 		mov ebx, dword ptr [ebx]
 		jmp short Kopf_Anfang
 
@@ -3319,7 +3329,8 @@ _Text ENDS
 		test ebx, ebx
 		je short Ende
 		mov edx, dword ptr COStream_COList_pvDaten[ebx]
-		add edx, 8
+		add edx, 04h
+		mov edx, dword ptr [edx]
 
 		mov ecx, edi
 		call ?VMFrei@System@RePag@@YQXPBXPAX@Z ; VMFrei(vmSpeicher, vbAdresse)
@@ -3361,7 +3372,8 @@ _Text ENDS
 		test ebx, ebx
 		je short Ende
 		mov edx, dword ptr COStream_COList_pvDaten[ebx]
-		add edx, 8
+		add edx, 04h
+		mov edx, dword ptr [edx]
 
 		mov ecx, edi
 		call ?VMFrei@System@RePag@@YQXPBXPAX@Z ; VMFrei(vmSpeicher, vbAdresse)

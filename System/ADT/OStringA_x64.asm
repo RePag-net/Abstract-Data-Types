@@ -1,5 +1,5 @@
 ;****************************************************************************
-;  OStringA_x64.asm
+;  OStraingA_x64.asm
 ;  For more information see https://github.com/RePag-net/Core
 ;****************************************************************************
 ;
@@ -831,7 +831,7 @@ _Text ENDS
 		;mov edx, dword ptr COStringA_ulLange[rsi]
 		;add rdx, rbx
 		add rdx, rax
-		add edx, 1
+		add rdx, 1
     mov rcx, qword ptr COStringA_vmSpeicher[rsi]
     call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 
@@ -2023,8 +2023,6 @@ sqp_pcString = 40 + s_push
 
 		test rdx, rdx
 		je Ende
-		test r8, r8
-		je Ende
 		mov qword ptr sqi_ulPosition[rsp], r8
 
 		mov qword ptr sqp_pcString[rsp], rdx
@@ -2143,13 +2141,7 @@ sqi_ulPosition = 40 + s_push
 		mov rbx, rdx
 		test rdx, rdx
 		je Ende
-		test r8, r8
-		je Ende
 		mov qword ptr sqi_ulPosition[rsp], r8
-
-		;xor rax, rax
-		;cmp qword ptr sqi_ulPosition[rsp], rax
-		;jl Ende
 
 		mov edx, dword ptr COStringA_ulLange[rbx]
 		add edx, dword ptr COStringA_ulLange[rbp]
