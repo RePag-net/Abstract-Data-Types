@@ -1,6 +1,6 @@
 ;****************************************************************************
 ;  OStream_x64.asm
-;  For more information see https://github.com/RePag-net/Core
+;  For more information see https://github.com/RePag-net/Abstract-Data-Types
 ;****************************************************************************
 ;
 ;****************************************************************************
@@ -78,9 +78,9 @@ sqp_this = 40
 
 		mov byte ptr sbi_bThreadSicher[rsp], cl
 
-    movzx rdx, dbi_BY_COSTREAM
+		movzx rdx, dbi_BY_COSTREAM
 		xor rcx, rcx
-    call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
+		call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 		mov qword ptr sqp_this[rsp], rax
 
 		vpxor ymm5, ymm5, ymm5
@@ -101,7 +101,7 @@ sqp_this = 40
 	Ende:
 		mov rax, qword ptr sqp_this[rsp]
 		add rsp, s_ShadowRegister
-    ret
+		ret
 ?COStreamV@System@RePag@@YQPEAVCOStream@12@_N@Z ENDP
 _Text ENDS
 ;----------------------------------------------------------------------------
@@ -115,9 +115,9 @@ sqp_this = 40
 		mov byte ptr sbi_bThreadSicher[rsp], cl
 		mov dword ptr sdi_ulSpinCount[rsp], edx
 
-    movzx rdx, dbi_BY_COSTREAM
+		movzx rdx, dbi_BY_COSTREAM
 		xor rcx, rcx
-    call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
+		call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 		mov qword ptr sqp_this[rsp], rax
 
 		vpxor ymm5, ymm5, ymm5
@@ -138,7 +138,7 @@ sqp_this = 40
 	Ende:
 		mov rax, qword ptr sqp_this[rsp]
 		add rsp, s_ShadowRegister
-    ret
+		ret
 ?COStreamV@System@RePag@@YQPEAVCOStream@12@_NK@Z ENDP
 _Text ENDS
 ;----------------------------------------------------------------------------
@@ -152,8 +152,8 @@ sqp_this = 40
 		mov qword ptr sqp_vmSpeicher[rsp], rcx
 		mov byte ptr sbi_bThreadSicher[rsp], dl
 
-    movzx rdx, dbi_BY_COSTREAM
-    call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
+		movzx rdx, dbi_BY_COSTREAM
+		call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 		mov qword ptr sqp_this[rsp], rax
 
 		vpxor ymm5, ymm5, ymm5
@@ -179,7 +179,7 @@ sqp_this = 40
 	Ende:
 		mov rax, qword ptr sqp_this[rsp]
 		add rsp, s_ShadowRegister
-    ret
+		ret
 ?COStreamV@System@RePag@@YQPEAVCOStream@12@PEBX_N@Z ENDP
 _Text ENDS
 ;----------------------------------------------------------------------------
@@ -195,8 +195,8 @@ sqp_this = 40
 		mov byte ptr sbi_bThreadSicher[rsp], dl
 		mov dword ptr sdi_ulSpinCount[rsp], r8d
 
-    movzx rdx, dbi_BY_COSTREAM
-    call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
+		movzx rdx, dbi_BY_COSTREAM
+		call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 		mov qword ptr sqp_this[rsp], rax
 
 		vpxor ymm5, ymm5, ymm5
@@ -222,7 +222,7 @@ sqp_this = 40
 	Ende:
 		mov rax, qword ptr sqp_this[rsp]
 		add rsp, s_ShadowRegister
-    ret
+		ret
 ?COStreamV@System@RePag@@YQPEAVCOStream@12@PEBX_NK@Z ENDP
 _Text ENDS
 ;----------------------------------------------------------------------------
@@ -243,7 +243,7 @@ _Text ENDS
 		call qword ptr __imp_InitializeCriticalSectionAndSpinCount ; InitializeCriticalSectionAndSpinCount(&csStream, ulSpinCount)
 
 	Ende:
-    ret
+		ret
 ??0COStream@System@RePag@@QEAA@_N@Z ENDP
 ;----------------------------------------------------------------------------
 ??0COStream@System@RePag@@QEAA@_NK@Z PROC ; COStream::COStream(bThreadSicher, ulSpinCount)
@@ -263,7 +263,7 @@ _Text ENDS
 		call qword ptr __imp_InitializeCriticalSectionAndSpinCount ; InitializeCriticalSectionAndSpinCount(&csStream, ulSpinCount)
 
 	Ende:
-    ret
+		ret
 ??0COStream@System@RePag@@QEAA@_NK@Z ENDP
 ;----------------------------------------------------------------------------
 ??0COStream@System@RePag@@QEAA@PEBX_N@Z PROC ; COStream::COStream(vmSpeicher, bThreadSicher)
@@ -286,7 +286,7 @@ _Text ENDS
 		call qword ptr __imp_InitializeCriticalSectionAndSpinCount ; InitializeCriticalSectionAndSpinCount(&csStream, ulSpinCount)
 
 	Ende:
-    ret
+		ret
 ??0COStream@System@RePag@@QEAA@PEBX_N@Z ENDP
 ;----------------------------------------------------------------------------
 ??0COStream@System@RePag@@QEAA@PEBX_NK@Z PROC ; COStream::COStream(vmSpeicher, bThreadSicher, ulSpinCount)
@@ -309,7 +309,7 @@ _Text ENDS
 		call qword ptr __imp_InitializeCriticalSectionAndSpinCount ; InitializeCriticalSectionAndSpinCount(&csStream, ulSpinCount)
 
 	Ende:
-    ret
+		ret
 ??0COStream@System@RePag@@QEAA@PEBX_NK@Z ENDP
 ;----------------------------------------------------------------------------
 _Text SEGMENT
@@ -356,9 +356,9 @@ sqp_this = 40 + s_push
 		call qword ptr __imp_DeleteCriticalSection ; DeleteCrticalSection(&csIterator)
 
 	Ende:
-	  add rsp, s_ShadowRegister
+		add rsp, s_ShadowRegister
 		pop rsi
-	  pop rdi
+		pop rdi
 		pop rbx
 		ret 
 ??1COStream@System@RePag@@QEAA@XZ ENDP
@@ -374,7 +374,7 @@ sqp_this = 40 + s_push
 		sub rsp, s_ShadowRegister
 
 		mov qword ptr sqp_this[rsp], rcx
-		mov rbx, COStream_COList_pstErster[rcx]
+		mov rbx, qword ptr COStream_COList_pstErster[rcx]
 		mov rdi, qword ptr COStream_vmSpeicher[rcx]
 		lea rsi, COStream_COList[rcx]
 
@@ -386,14 +386,14 @@ sqp_this = 40 + s_push
 		mov rdx, qword ptr [rdx]
 
 		mov rcx, rdi
-		call ?VMFrei@System@RePag@@YQXPEBXPEAX@Z ; VMFrei(vmSpeicher, vbAdresse)
+		call ?VMFreiS@System@RePag@@YQXPEBXPEAX@Z ; VMFreiS(vmSpeicher, vbAdresse)
 
 		mov r8b, 1
 		mov rdx, rbx
 		mov rcx, rsi
 		call ?DeleteFirstElementS@COList@System@RePag@@QEAQXAEAPEAX_N@Z ; COList::DeleteFirstElementS(*&pstKnoten, bDatenLoschen)
 		mov rcx, qword ptr sqp_this[rsp]
-		mov rax, COStream_COList_pstErster[rcx]
+		mov rax, qword ptr COStream_COList_pstErster[rcx]
 		test rax, rax ; if rbx => pstKnoten VirtualFree
 		je short Kopf_Ende
 		mov rbx, qword ptr [rbx]
@@ -410,9 +410,9 @@ sqp_this = 40 + s_push
 
 	Ende:
 		mov rax, qword ptr COStream_vmSpeicher[rcx]
-	  add rsp, s_ShadowRegister
+		add rsp, s_ShadowRegister
 		pop rsi
-	  pop rdi
+		pop rdi
 		pop rbx
 		ret
 ?COFreiV@COStream@System@RePag@@QEAQPEBXXZ ENDP
@@ -435,7 +435,7 @@ sqp_this = 40
 
 		mov rdx, 12
 		mov rcx, qword ptr COStream_vmSpeicher[rcx]
-    call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
+		call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 
 		mov edx, dword ptr sdi_ulBytes[rsp]
 		mov dword ptr [rax], edx
@@ -443,7 +443,7 @@ sqp_this = 40
 
 		mov rcx, qword ptr sqp_this[rsp]
 		mov rcx, qword ptr COStream_vmSpeicher[rcx]
-    call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
+		call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 
 		mov rcx, qword ptr sqp_vbElement[rsp]
 		mov qword ptr [rcx + 4], rax
@@ -464,7 +464,7 @@ sqp_this = 40
 		add dword ptr COStream_ulPosition[rcx], eax
 
 	Ende:
-	  add rsp, s_ShadowRegister
+		add rsp, s_ShadowRegister
 		ret
 ?Write@COStream@System@RePag@@QEAQXPEAXK@Z ENDP
 _Text ENDS
@@ -486,7 +486,7 @@ sqp_this = 40
 
 		mov rdx, 12
 		mov rcx, qword ptr COStream_vmSpeicher[rcx]
-    call ?VMBlockS@System@RePag@@YQPEADPEBXK@Z ; VMBlockS(vmSpeicher, ulBytes)
+		call ?VMBlockS@System@RePag@@YQPEADPEBXK@Z ; VMBlockS(vmSpeicher, ulBytes)
 
 		mov edx, dword ptr sdi_ulBytes[rsp]
 		mov dword ptr [rax], edx
@@ -494,7 +494,7 @@ sqp_this = 40
 
 		mov rcx, qword ptr sqp_this[rsp]
 		mov rcx, qword ptr COStream_vmSpeicher[rcx]
-    call ?VMBlockS@System@RePag@@YQPEADPEBXK@Z ; VMBlockS(vmSpeicher, ulBytes)
+		call ?VMBlockS@System@RePag@@YQPEADPEBXK@Z ; VMBlockS(vmSpeicher, ulBytes)
 
 		mov rcx, qword ptr sqp_vbElement[rsp]
 		mov qword ptr [rcx + 4], rax
@@ -515,7 +515,7 @@ sqp_this = 40
 		add dword ptr COStream_ulPosition[rcx], eax
 
 	Ende:
-	  add rsp, s_ShadowRegister
+		add rsp, s_ShadowRegister
 		ret
 ?WriteS@COStream@System@RePag@@QEAQXPEAXK@Z ENDP
 _Text ENDS
@@ -537,7 +537,7 @@ sqp_this = 40
 
 		mov rdx, 12
 		mov rcx, qword ptr COStream_vmSpeicher[rcx]
-    call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
+		call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 
 		mov edx, dword ptr sdi_ulBytes[rsp]
 		mov dword ptr [rax], edx
@@ -545,7 +545,7 @@ sqp_this = 40
 
 		mov rcx, qword ptr sqp_this[rsp]
 		mov rcx, qword ptr COStream_vmSpeicher[rcx]
-    call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
+		call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 
 		mov rcx, qword ptr sqp_vbElement[rsp]
 		mov qword ptr [rcx + 4], rax
@@ -573,7 +573,7 @@ sqp_this = 40
 		call qword ptr __imp_LeaveCriticalSection ; LeaveCriticalSection(&csStream)
 
 	Ende:
-	  add rsp, s_ShadowRegister
+		add rsp, s_ShadowRegister
 		ret
 ?ThWrite@COStream@System@RePag@@QEAQXPEAXK@Z ENDP
 _Text ENDS
@@ -595,7 +595,7 @@ sqp_this = 40
 
 		mov rdx, 12
 		mov rcx, qword ptr COStream_vmSpeicher[rcx]
-    call ?VMBlockS@System@RePag@@YQPEADPEBXK@Z ; VMBlockS(vmSpeicher, ulBytes)
+		call ?VMBlockS@System@RePag@@YQPEADPEBXK@Z ; VMBlockS(vmSpeicher, ulBytes)
 
 		mov r8d, dword ptr sdi_ulBytes[rsp]
 		mov dword ptr [rax], r8d
@@ -603,7 +603,7 @@ sqp_this = 40
 
 		mov rcx, qword ptr sqp_this[rsp]
 		mov rcx, qword ptr COStream_vmSpeicher[rcx]
-    call ?VMBlockS@System@RePag@@YQPEADPEBXK@Z ; VMBlockS(vmSpeicher, ulBytes)
+		call ?VMBlockS@System@RePag@@YQPEADPEBXK@Z ; VMBlockS(vmSpeicher, ulBytes)
 
 		mov rcx, qword ptr sqp_vbElement[rsp]
 		mov qword ptr [rcx + 4], rax
@@ -631,7 +631,7 @@ sqp_this = 40
 		call qword ptr __imp_LeaveCriticalSection ; LeaveCriticalSection(&csStream)
 
 	Ende:
-	  add rsp, s_ShadowRegister
+		add rsp, s_ShadowRegister
 		ret
 ?ThWriteS@COStream@System@RePag@@QEAQXPEAXK@Z ENDP
 _Text ENDS
@@ -677,8 +677,8 @@ sqp_this = 40 + s_push
 	Kopf_Anfang:
 		test rbx, rbx
 		je Ende
-		mov rdi, qword ptr COList_pvDaten[rbx] ; rdi -> ulElementLange
-		mov edi, dword ptr [rdi]
+		mov rdi, qword ptr COStream_COList_pvDaten[rbx]  
+		mov edi, dword ptr [rdi] ;edi -> ulElementLange
 		add dword ptr sdi_ulEndPosition[rsp], edi
 
 		mov rax, qword ptr sqp_this[rsp]
@@ -695,7 +695,7 @@ sqp_this = 40 + s_push
 		sub rcx, rsi
 
 		mov r8d, dword ptr sdi_ulByte[rsp]
-		mov rdx, qword ptr COList_pvDaten[rbx]
+		mov rdx, qword ptr COStream_COList_pvDaten[rbx]
 		mov rdx, qword ptr [rdx + 4]
 		add rdx, rcx
 		mov rcx, qword ptr sqp_pvDaten[rsp]
@@ -709,7 +709,7 @@ sqp_this = 40 + s_push
 		sub rcx, rsi
 
 		mov r8, rsi
-		mov rdx, qword ptr COList_pvDaten[rbx]
+		mov rdx, qword ptr COStream_COList_pvDaten[rbx]
 		mov rdx, qword ptr [rdx + 4]
 		add rdx, rcx
 		mov rcx, qword ptr sqp_pvDaten[rsp]
@@ -718,7 +718,7 @@ sqp_this = 40 + s_push
 	Fuss_Anfang:
 		mov rbx, qword ptr [rbx]
 
-		mov rdi, qword ptr COList_pvDaten[rbx]
+		mov rdi, qword ptr COStream_COList_pvDaten[rbx]
 		mov edi, dword ptr [rdi]
 
 		mov rcx, rsi
@@ -729,7 +729,7 @@ sqp_this = 40 + s_push
 		mov eax, dword ptr sdi_ulByte[rsp]
 		sub rax, rsi
 		mov r8, rax
-		mov rdx, qword ptr COList_pvDaten[rbx]
+		mov rdx, qword ptr COStream_COList_pvDaten[rbx]
 		mov rdx, qword ptr [rdx + 4]
 		mov rcx, qword ptr sqp_pvDaten[rsp]
 		add rcx, rsi
@@ -738,7 +738,7 @@ sqp_this = 40 + s_push
 
 	Copy_ElementLange:
 		mov r8, rdi
-		mov rdx, qword ptr COList_pvDaten[rbx]
+		mov rdx, qword ptr COStream_COList_pvDaten[rbx]
 		mov rdx, qword ptr [rdx + 4]
 		mov rcx, qword ptr sqp_pvDaten[rsp]
 		add rcx, rsi
@@ -751,7 +751,7 @@ sqp_this = 40 + s_push
 		jmp short Add_Position
 
 	Next_Element:
-	 	mov rbx, qword ptr [rbx]
+		mov rbx, qword ptr [rbx]
 		jmp Kopf_Anfang
 
 	Add_Position:
@@ -814,7 +814,7 @@ sqp_this = 40 + s_push
 	Kopf_Anfang:
 		test rbx, rbx
 		je Thread_Ende
-		mov rdi, qword ptr COList_pvDaten[rbx] ; rdi -> ulElementLange
+		mov rdi, qword ptr COStream_COList_pvDaten[rbx] ; rdi -> ulElementLange
 		mov edi, dword ptr [rdi]
 		add dword ptr sdi_ulEndPosition[rsp], edi
 
@@ -832,7 +832,7 @@ sqp_this = 40 + s_push
 		sub rcx, rsi
 
 		mov r8d, dword ptr sdi_ulByte[rsp]
-		mov rdx, qword ptr COList_pvDaten[rbx]
+		mov rdx, qword ptr COStream_COList_pvDaten[rbx]
 		mov rdx, qword ptr [rdx + 4]
 		add rdx, rcx
 		mov rcx, qword ptr sqp_pvDaten[rsp]
@@ -846,7 +846,7 @@ sqp_this = 40 + s_push
 		sub rcx, rsi
 
 		mov r8, rsi
-		mov rdx, qword ptr COList_pvDaten[rbx]
+		mov rdx, qword ptr COStream_COList_pvDaten[rbx]
 		mov rdx, qword ptr [rdx + 4]
 		add rdx, rcx
 		mov rcx, qword ptr sqp_pvDaten[rsp]
@@ -855,7 +855,7 @@ sqp_this = 40 + s_push
 	Fuss_Anfang:
 		mov rbx, qword ptr [rbx]
 
-		mov rdi, qword ptr COList_pvDaten[rbx]
+		mov rdi, qword ptr COStream_COList_pvDaten[rbx]
 		mov rdi, qword ptr [rdi]
 
 		mov rcx, rsi
@@ -866,7 +866,7 @@ sqp_this = 40 + s_push
 		mov eax, dword ptr sdi_ulByte[rsp]
 		sub rax, rsi
 		mov r8, rax
-		mov rdx, qword ptr COList_pvDaten[rbx]
+		mov rdx, qword ptr COStream_COList_pvDaten[rbx]
 		mov rdx, qword ptr [rdx + 4]
 		mov rcx, qword ptr sqp_pvDaten[rsp]
 		add rcx, rsi
@@ -875,7 +875,7 @@ sqp_this = 40 + s_push
 
 	Copy_ElementLange:
 		mov r8, rdi
-		mov rdx, qword ptr COList_pvDaten[rbx]
+		mov rdx, qword ptr COStream_COList_pvDaten[rbx]
 		mov rdx, qword ptr [rdx + 4]
 		mov rcx, qword ptr sqp_pvDaten[rsp]
 		add rcx, rsi
@@ -888,7 +888,7 @@ sqp_this = 40 + s_push
 		jmp short Add_Position
 
 	Next_Element:
-	 	mov rbx, qword ptr [rbx]
+		mov rbx, qword ptr [rbx]
 		jmp Kopf_Anfang
 
 	Add_Position:
@@ -931,14 +931,14 @@ sqp_pvDaten = 40 + s_push
 
 		mov rdx, 12
 		mov rcx, qword ptr COStream_vmSpeicher[rbp]
-    call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
+		call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 
 		mov edx, dword ptr sdi_ulByte[rsp]
 		mov qword ptr [rax], rdx
 		mov qword ptr sqp_vbElement[rsp], rax
 
 		mov rcx, qword ptr COStream_vmSpeicher[rbp]
-    call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
+		call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 
 		mov rcx, qword ptr sqp_vbElement[rsp]
 		mov qword ptr [rcx + 4], rax
@@ -984,14 +984,14 @@ sqp_pvDaten = 40 + s_push
 
 		mov rdx, 12
 		mov rcx, qword ptr COStream_vmSpeicher[rbp]
-    call ?VMBlockS@System@RePag@@YQPEADPEBXK@Z ; VMBlockS(vmSpeicher, ulBytes)
+		call ?VMBlockS@System@RePag@@YQPEADPEBXK@Z ; VMBlockS(vmSpeicher, ulBytes)
 
 		mov edx, dword ptr sdi_ulByte[rsp]
 		mov qword ptr [rax], rdx
 		mov qword ptr sqp_vbElement[rsp], rax
 
 		mov rcx, qword ptr COStream_vmSpeicher[rbp]
-    call ?VMBlockS@System@RePag@@YQPEADPEBXK@Z ; VMBlockS(vmSpeicher, ulBytes)
+		call ?VMBlockS@System@RePag@@YQPEADPEBXK@Z ; VMBlockS(vmSpeicher, ulBytes)
 
 		mov rcx, qword ptr sqp_vbElement[rsp]
 		mov qword ptr [rcx + 4], rax
@@ -1037,14 +1037,14 @@ sqp_pvDaten = 40 + s_push
 
 		mov rdx, 12
 		mov rcx, qword ptr COStream_vmSpeicher[rbp]
-    call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
+		call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 
 		mov edx, dword ptr sdi_ulByte[rsp]
 		mov qword ptr [rax], rdx
 		mov qword ptr sqp_vbElement[rsp], rax
 
 		mov rcx, qword ptr COStream_vmSpeicher[rbp]
-    call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
+		call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 
 		mov rcx, qword ptr sqp_vbElement[rsp]
 		mov qword ptr [rcx + 4], rax
@@ -1097,14 +1097,14 @@ sqp_pvDaten = 40 + s_push
 
 		mov rdx, 12
 		mov rcx, qword ptr COStream_vmSpeicher[rbp]
-    call ?VMBlockS@System@RePag@@YQPEADPEBXK@Z ; VMBlockS(vmSpeicher, ulBytes)
+		call ?VMBlockS@System@RePag@@YQPEADPEBXK@Z ; VMBlockS(vmSpeicher, ulBytes)
 
 		mov edx, dword ptr sdi_ulByte[rsp]
 		mov qword ptr [rax], rdx
 		mov qword ptr sqp_vbElement[rsp], rax
 
 		mov rcx, qword ptr COStream_vmSpeicher[rbp]
-    call ?VMBlockS@System@RePag@@YQPEADPEBXK@Z ; VMBlockS(vmSpeicher, ulBytes)
+		call ?VMBlockS@System@RePag@@YQPEADPEBXK@Z ; VMBlockS(vmSpeicher, ulBytes)
 
 		mov rcx, qword ptr sqp_vbElement[rsp]
 		mov qword ptr [rcx + 4], rax
@@ -1178,7 +1178,7 @@ sqp_pvDaten = 40 + s_push
 	Kopf_Anfang:
 		test rbx, rbx
 		je Ende
-		mov rdi, qword ptr COList_pvDaten[rbx] ; rdi -> ulElementLange
+		mov rdi, qword ptr COStream_COList_pvDaten[rbx] ; rdi -> ulElementLange
 		mov edi, dword ptr [rdi]
 		add dword ptr sdi_ulEndPosition[rsp], edi
 
@@ -1199,7 +1199,7 @@ sqp_pvDaten = 40 + s_push
 		sub rcx, rsi
 
 		mov r8d, dword ptr sdi_ulByte[rsp]
-		mov rdx, qword ptr COList_pvDaten[rbx]
+		mov rdx, qword ptr COStream_COList_pvDaten[rbx]
 		mov rdx, qword ptr [rdx + 4]
 		add rdx, rcx
 		mov rcx, qword ptr sqp_pvDaten[rsp]
@@ -1213,7 +1213,7 @@ sqp_pvDaten = 40 + s_push
 		sub rcx, rsi
 
 		mov r8, rsi
-		mov rdx, qword ptr COList_pvDaten[rbx]
+		mov rdx, qword ptr COStream_COList_pvDaten[rbx]
 		mov rdx, qword ptr [rdx + 4]
 		add rdx, rcx
 		mov rcx, qword ptr sqp_pvDaten[rsp]
@@ -1222,7 +1222,7 @@ sqp_pvDaten = 40 + s_push
 	Fuss_Anfang:
 		mov rbx, qword ptr [rbx]
 
- 		mov rdi, qword ptr COList_pvDaten[rbx]
+		mov rdi, qword ptr COStream_COList_pvDaten[rbx]
 		mov edi, dword ptr [rdi]
 
 		mov rcx, rsi
@@ -1232,7 +1232,7 @@ sqp_pvDaten = 40 + s_push
 
 		mov r8d, dword ptr sdi_ulByte[rsp]
 		sub r8, rsi
-		mov rdx, qword ptr COList_pvDaten[rbx]
+		mov rdx, qword ptr COStream_COList_pvDaten[rbx]
 		mov rdx, qword ptr [rdx + 4]
 		mov rcx, qword ptr sqp_pvDaten[rsp]
 		add rcx, rsi
@@ -1254,7 +1254,7 @@ sqp_pvDaten = 40 + s_push
 		jmp short Add_Position
 
 	Next_Element:
-	 	mov rbx, qword ptr [rbx]
+		mov rbx, qword ptr [rbx]
 		jmp Kopf_Anfang
 
 	Add_Position:
@@ -1323,7 +1323,7 @@ sqp_this = 0 + s_ShadowRegister
 	Kopf_Anfang:
 		test rbx, rbx
 		je Thread_Ende
-		mov rdi, qword ptr COList_pvDaten[rbx] ; rdi -> ulElementLange
+		mov rdi, qword ptr COStream_COList_pvDaten[rbx] ; rdi -> ulElementLange
 		mov edi, dword ptr [rdi]
 		add dword ptr sdi_ulEndPosition[rsp], edi
 
@@ -1344,7 +1344,7 @@ sqp_this = 0 + s_ShadowRegister
 		sub rcx, rsi
 
 		mov r8d, dword ptr sdi_ulByte[rsp]
-		mov rdx, qword ptr COList_pvDaten[rbx]
+		mov rdx, qword ptr COStream_COList_pvDaten[rbx]
 		mov rdx, qword ptr [rdx + 4]
 		add rdx, rcx
 		mov rcx, qword ptr sqp_pvDaten[rsp]
@@ -1358,7 +1358,7 @@ sqp_this = 0 + s_ShadowRegister
 		sub rcx, rsi
 
 		mov r8, rsi
-		mov rdx, qword ptr COList_pvDaten[rbx]
+		mov rdx, qword ptr COStream_COList_pvDaten[rbx]
 		mov rdx, qword ptr [rdx + 4]
 		add rdx, rcx
 		mov rcx, qword ptr sqp_pvDaten[rsp]
@@ -1367,7 +1367,7 @@ sqp_this = 0 + s_ShadowRegister
 	Fuss_Anfang:
 		mov rbx, qword ptr [rbx]
 
- 		mov rdi, qword ptr COList_pvDaten[rbx]
+		mov rdi, qword ptr COStream_COList_pvDaten[rbx]
 		mov edi, dword ptr [rdi]
 
 		mov rcx, rsi
@@ -1377,7 +1377,7 @@ sqp_this = 0 + s_ShadowRegister
 
 		mov r8d, dword ptr sdi_ulByte[rsp]
 		sub r8, rsi
-		mov rdx, qword ptr COList_pvDaten[rbx]
+		mov rdx, qword ptr COStream_COList_pvDaten[rbx]
 		mov rdx, qword ptr [rdx + 4]
 		mov rcx, qword ptr sqp_pvDaten[rsp]
 		add rcx, rsi
@@ -1386,7 +1386,7 @@ sqp_this = 0 + s_ShadowRegister
 
 	Copy_ElementLange:
 		mov r8, rdi
-		mov rdx, qword ptr COList_pvDaten[rbx]
+		mov rdx, qword ptr COStream_COList_pvDaten[rbx]
 		mov rdx, qword ptr [rdx + 4]
 		mov rcx, qword ptr sqp_pvDaten[rsp]
 		add rcx, rsi
@@ -1399,7 +1399,7 @@ sqp_this = 0 + s_ShadowRegister
 		jmp short Add_Position
 
 	Next_Element:
-	 	mov rbx, qword ptr [rbx]
+		mov rbx, qword ptr [rbx]
 		jmp Kopf_Anfang
 
 	Add_Position:
@@ -1696,7 +1696,7 @@ sqp_this = 40
 
 		cmp r8b, FT_SHORTSTR
 		jne short MemoStr
-    mov r8, 1
+		mov r8, 1
 		lea rdx, sdi_Byte[rsp]
 		call ?Read@COStream@System@RePag@@QEAQPEAXPEAXK@Z ; COStream::Read(pvDaten, ulByte)
 
@@ -1772,7 +1772,7 @@ sqp_this = 40
 		mov r8b, byte ptr sbi_ucStringTyp[rsp]
 		cmp r8b, FT_SHORTSTR
 		jne short MemoStr
-    mov r8, 1
+		mov r8, 1
 		lea rdx, sdi_Byte[rsp]
 		call ?Read@COStream@System@RePag@@QEAQPEAXPEAXK@Z ; COStream::Read(pvDaten, ulByte)
 
@@ -1972,13 +1972,13 @@ sqp_this = 40
 
 		cmp r8b, FT_SHORTSTR
 		jne short MemoStr
-    mov r8, 1
+		mov r8, 1
 		lea rdx, sdi_Byte[rsp]
 		call ?Read@COStream@System@RePag@@QEAQPEAXPEAXK@Z ; COStream::Read(pvDaten, ulByte)
 
 		movzx rdx, byte ptr sdi_Byte[rsp]
 		xor rcx, rcx
-    call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
+		call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 		mov rcx, qword ptr sqp_vbString[rsp]
 		mov qword ptr [rcx], rax
 
@@ -1997,7 +1997,7 @@ sqp_this = 40
 
 		movzx rdx, word ptr sdi_Byte[rsp] 
 		xor rcx, rcx
-    call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
+		call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 		mov rcx, qword ptr sqp_vbString[rsp]
 		mov qword ptr [rcx], rax
 
@@ -2014,7 +2014,7 @@ sqp_this = 40
 
 		mov edx, dword ptr sdi_Byte[rsp] 
 		xor rcx, rcx
-    call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
+		call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 		mov rcx, qword ptr sqp_vbString[rsp]
 		mov qword ptr [rcx], rax
 
@@ -2047,13 +2047,13 @@ sqp_this = 40
 		movzx r8, byte ptr sbi_ucStringTyp[rsp]
 		cmp r8b, FT_SHORTSTR
 		jne short MemoStr
-    mov r8, 1
+		mov r8, 1
 		lea rdx, sdi_Byte[rsp]
 		call ?Read@COStream@System@RePag@@QEAQPEAXPEAXK@Z ; COStream::Read(pvDaten, ulByte)
 
 		movzx rdx, byte ptr sdi_Byte[rsp]
 		xor rcx, rcx
-    call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
+		call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 		mov rcx, qword ptr sqp_vbString[rsp]
 		mov qword ptr [rcx], rax
 
@@ -2072,7 +2072,7 @@ sqp_this = 40
 
 		movzx rdx, word ptr sdi_Byte[rsp] 
 		xor rcx, rcx
-    call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
+		call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 		mov rcx, qword ptr sqp_vbString[rsp]
 		mov qword ptr [rcx], rax
 
@@ -2089,7 +2089,7 @@ sqp_this = 40
 
 		mov edx, dword ptr sdi_Byte[rsp] 
 		xor rcx, rcx
-    call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
+		call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 		mov rcx, qword ptr sqp_vbString[rsp]
 		mov qword ptr [rcx], rax
 
@@ -2121,7 +2121,7 @@ sqp_this = 40 + s_push
 		mov qword ptr sqp_vbString[rsp], rdx
 
 		xor al, al
-    mov rdi, rdx
+		mov rdi, rdx
 		mov rcx, -1
 		cld
 		repnz scasb
@@ -2184,7 +2184,7 @@ sqp_this = 40 + s_push
 		call qword ptr __imp_EnterCriticalSection ; EnterCriticalSection(&csStream)
 
 		xor al, al
-    mov rdi, rdx
+		mov rdi, rdx
 		mov rcx, -1
 		cld
 		repnz scasb
@@ -2282,14 +2282,14 @@ aqp_pOverlapped = 0 + s_ShadowRegister
 
 		mov rdx, 12
 		mov rcx, qword ptr COStream_vmSpeicher[rbp]
-    call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
+		call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 
 		mov rdx, qword ptr sqi_llFileSize[rsp]
 		mov dword ptr [rax], edx
 		mov qword ptr sqp_vstElement[rsp], rax
 
 		mov rcx, qword ptr COStream_vmSpeicher[rbp]
-    call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
+		call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 
 		mov rcx, qword ptr sqp_vstElement[rsp]
 		mov qword ptr [rcx + 4], rax
@@ -2298,7 +2298,7 @@ aqp_pOverlapped = 0 + s_ShadowRegister
 		mov r8, qword ptr sqi_llFileSize[rsp]
 		mov rdx, rax
 		mov rcx, qword ptr sqp_hDatei[rsp]
- 		call qword ptr __imp_ReadFile ; ReadFile(hDatei, vbDaten, dwBytes, &dwBytes_Gelesen, pOverlapped)
+		call qword ptr __imp_ReadFile ; ReadFile(hDatei, vbDaten, dwBytes, &dwBytes_Gelesen, pOverlapped)
 		test rax, rax
 		jne short Liste
 
@@ -2330,11 +2330,11 @@ aqp_pOverlapped = 0 + s_ShadowRegister
 
 		mov rdx, qword ptr sqp_vstElement[rsp]
 		mov rdx, qword ptr [rdx + 4]
-    mov rcx, qword ptr COStream_vmSpeicher[rbp]
+		mov rcx, qword ptr COStream_vmSpeicher[rbp]
 		call ?VMFrei@System@RePag@@YQXPEBXPEAX@Z ; VMFrei(vmSpeicher, vbAdresse)
 
 		mov rdx, qword ptr sqp_vstElement[rsp]
-    mov rcx, qword ptr COStream_vmSpeicher[rbp]
+		mov rcx, qword ptr COStream_vmSpeicher[rbp]
 		call ?VMFrei@System@RePag@@YQXPEBXPEAX@Z ; VMFrei(vmSpeicher, vbAdresse)
 
 	Ende:
@@ -2393,14 +2393,14 @@ aqp_pOverlapped = 0 + s_ShadowRegister
 
 		mov rdx, 12
 		mov rcx, qword ptr COStream_vmSpeicher[rbp]
-    call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
+		call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 
 		mov rdx, qword ptr sqi_llFileSize[rsp]
 		mov dword ptr [rax], edx
 		mov qword ptr sqp_vstElement[rsp], rax
 
 		mov rcx, qword ptr COStream_vmSpeicher[rbp]
-    call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
+		call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 
 		mov rcx, qword ptr sqp_vstElement[rsp]
 		mov qword ptr [rcx + 4], rax
@@ -2409,7 +2409,7 @@ aqp_pOverlapped = 0 + s_ShadowRegister
 		mov r8, qword ptr sqi_llFileSize[rsp]
 		mov rdx, rax
 		mov rcx, qword ptr sqp_hDatei[rsp]
- 		call qword ptr __imp_ReadFile ; ReadFile(hDatei, vbDaten, dwBytes, &dwBytes_Gelesen, pOverlapped)
+		call qword ptr __imp_ReadFile ; ReadFile(hDatei, vbDaten, dwBytes, &dwBytes_Gelesen, pOverlapped)
 		test rax, rax
 		jne short Liste
 
@@ -2447,11 +2447,11 @@ aqp_pOverlapped = 0 + s_ShadowRegister
 
 		mov rdx, qword ptr sqp_vstElement[rsp]
 		mov rdx, qword ptr [rdx + 4]
-    mov rcx, qword ptr COStream_vmSpeicher[rbp]
+		mov rcx, qword ptr COStream_vmSpeicher[rbp]
 		call ?VMFrei@System@RePag@@YQXPEBXPEAX@Z ; VMFrei(vmSpeicher, vbAdresse)
 
 		mov rdx, qword ptr sqp_vstElement[rsp]
-    mov rcx, qword ptr COStream_vmSpeicher[rbp]
+		mov rcx, qword ptr COStream_vmSpeicher[rbp]
 		call ?VMFrei@System@RePag@@YQXPEBXPEAX@Z ; VMFrei(vmSpeicher, vbAdresse)
 
 	Ende:
@@ -2513,14 +2513,14 @@ qqp_pOverlapped = 0 + s_ShadowRegister
 
 		mov rdx, 12
 		mov rcx, qword ptr COStream_vmSpeicher[rbp]
-    call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
+		call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 
 		mov rdx, qword ptr sqi_llFileSize[rsp]
 		mov dword ptr [rax], edx
 		mov qword ptr sqp_vstElement[rsp], rax
 
 		mov rcx, qword ptr COStream_vmSpeicher[rbp]
-    call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
+		call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 
 		mov rcx, qword ptr sqp_vstElement[rsp]
 		mov qword ptr [rcx + 4], rax
@@ -2544,7 +2544,7 @@ qqp_pOverlapped = 0 + s_ShadowRegister
 		xor rdx, rdx
 		xor rcx, rcx
 		call qword ptr __imp_CreateEventA ; CreateEvent(NULL, false, false, NULL);
-	  vpxor ymm5, ymm5, ymm5
+		vpxor ymm5, ymm5, ymm5
 		vmovdqu ymmword ptr so32_stOverlapped[rsp], ymm5
 		mov qword ptr so32_stOverlapped[rsp + 24], rax
 
@@ -2596,11 +2596,11 @@ qqp_pOverlapped = 0 + s_ShadowRegister
 
 		mov rdx, qword ptr sqp_vstElement[rsp]
 		mov rdx, qword ptr [rdx + 4]
-    mov rcx, qword ptr COStream_vmSpeicher[rbp]
+		mov rcx, qword ptr COStream_vmSpeicher[rbp]
 		call ?VMFrei@System@RePag@@YQXPEBXPEAX@Z ; VMFrei(vmSpeicher, vbAdresse)
 
 		mov rdx, qword ptr sqp_vstElement[rsp]
-    mov rcx, qword ptr COStream_vmSpeicher[rbp]
+		mov rcx, qword ptr COStream_vmSpeicher[rbp]
 		call ?VMFrei@System@RePag@@YQXPEBXPEAX@Z ; VMFrei(vmSpeicher, vbAdresse)
 
 	Ende:
@@ -2662,14 +2662,14 @@ qqp_pOverlapped = 0 + s_ShadowRegister
 
 		mov rdx, 12
 		mov rcx, qword ptr COStream_vmSpeicher[rbp]
-    call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
+		call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 
 		mov rdx, qword ptr sqi_llFileSize[rsp]
 		mov dword ptr [rax], edx
 		mov qword ptr sqp_vstElement[rsp], rax
 
 		mov rcx, qword ptr COStream_vmSpeicher[rbp]
-    call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
+		call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 
 		mov rcx, qword ptr sqp_vstElement[rsp]
 		mov qword ptr [rcx + 4], rax
@@ -2751,11 +2751,11 @@ qqp_pOverlapped = 0 + s_ShadowRegister
 
 		mov rdx, qword ptr sqp_vstElement[rsp]
 		mov rdx, qword ptr [rdx + 4]
-    mov rcx, qword ptr COStream_vmSpeicher[rbp]
+		mov rcx, qword ptr COStream_vmSpeicher[rbp]
 		call ?VMFrei@System@RePag@@YQXPEBXPEAX@Z ; VMFrei(vmSpeicher, vbAdresse)
 
 		mov rdx, qword ptr sqp_vstElement[rsp]
-    mov rcx, qword ptr COStream_vmSpeicher[rbp]
+		mov rcx, qword ptr COStream_vmSpeicher[rbp]
 		call ?VMFrei@System@RePag@@YQXPEBXPEAX@Z ; VMFrei(vmSpeicher, vbAdresse)
 
 	Ende:
@@ -2823,7 +2823,7 @@ aqp_pOverlapped = 0 + s_ShadowRegister
 
 	Ende:
 		mov rdx, qword ptr sqp_vbDaten[rsp]
-    mov rcx, qword ptr COStream_vmSpeicher[rbp]
+		mov rcx, qword ptr COStream_vmSpeicher[rbp]
 		call ?VMFrei@System@RePag@@YQXPEBXPEAX@Z ; VMFrei(vmSpeicher, vbAdresse)
 
 		mov eax, dword ptr sdi_dwLastError[rsp]
@@ -2897,7 +2897,7 @@ aqp_pOverlapped = 0 + s_ShadowRegister
 		call qword ptr __imp_LeaveCriticalSection ; LeaveCriticalSection(&csStream)
 
 		mov rdx, qword ptr sqp_vbDaten[rsp]
-    mov rcx, qword ptr COStream_vmSpeicher[rbp]
+		mov rcx, qword ptr COStream_vmSpeicher[rbp]
 		call ?VMFrei@System@RePag@@YQXPEBXPEAX@Z ; VMFrei(vmSpeicher, vbAdresse)
 
 		mov eax, dword ptr sdi_dwLastError[rsp]
@@ -2996,7 +2996,7 @@ aqp_pOverlapped = 0 + s_ShadowRegister
 
 	Ende:
 		mov rdx, qword ptr sqp_vbDaten[rsp]
-    mov rcx, qword ptr COStream_vmSpeicher[rbp]
+		mov rcx, qword ptr COStream_vmSpeicher[rbp]
 		call ?VMFrei@System@RePag@@YQXPEBXPEAX@Z ; VMFrei(vmSpeicher, vbAdresse)
 
 		mov eax, dword ptr sdi_dwLastError[rsp]
@@ -3102,7 +3102,7 @@ aqp_pOverlapped = 0 + s_ShadowRegister
 		call qword ptr __imp_LeaveCriticalSection ; LeaveCriticalSection(&csStream)
 
 		mov rdx, qword ptr sqp_vbDaten[rsp]
-    mov rcx, qword ptr COStream_vmSpeicher[rbp]
+		mov rcx, qword ptr COStream_vmSpeicher[rbp]
 		call ?VMFrei@System@RePag@@YQXPEBXPEAX@Z ; VMFrei(vmSpeicher, vbAdresse)
 
 		mov eax, dword ptr sdi_dwLastError[rsp]
@@ -3130,7 +3130,7 @@ sqp_this = 40 + s_push
 
 		mov edx, COStream_ulBytes[rcx]
 		mov rcx, qword ptr COStream_vmSpeicher[rcx]
-    call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
+		call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 		mov qword ptr [rsi], rax
 
 		mov rcx, qword ptr sqp_this[rsp]
@@ -3187,7 +3187,7 @@ sqp_this = 40 + s_push
 
 		mov edx, COStream_ulBytes[rcx]
 		mov rcx, qword ptr COStream_vmSpeicher[rcx]
-    call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
+		call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 		mov qword ptr [rsi], rax
 
 		mov rcx, qword ptr sqp_this[rsp]

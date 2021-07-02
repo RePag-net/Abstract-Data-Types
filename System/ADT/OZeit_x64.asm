@@ -1,6 +1,6 @@
 ;****************************************************************************
 ;  OZeit_x64.asm
-;  For more information see https://github.com/RePag-net/Core
+;  For more information see https://github.com/RePag-net/Abstract-Data-Types
 ;****************************************************************************
 ;
 ;****************************************************************************

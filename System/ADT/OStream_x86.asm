@@ -1,6 +1,6 @@
 ;****************************************************************************
 ;  OStream_x86.asm
-;  For more information see https://github.com/RePag-net/Core
+;  For more information see https://github.com/RePag-net/Abstract-Data-Types
 ;****************************************************************************
 ;
 ;****************************************************************************
@@ -76,9 +76,9 @@ s_this = 0
 
 		mov byte ptr s_bThreadSicher[esp], cl
 
-    movzx edx, ucBY_COSTREAM
+		movzx edx, ucBY_COSTREAM
 		xor ecx, ecx
-    call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
+		call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 		mov dword ptr s_this[esp], eax
 
 		pxor xmm7, xmm7
@@ -102,7 +102,7 @@ s_this = 0
 	Ende:
 		mov eax, dword ptr s_this[esp]
 		add esp, esp_Bytes
-    ret 0
+		ret 0
 ?COStreamV@System@RePag@@YQPAVCOStream@12@_N@Z ENDP
 _Text ENDS
 ;----------------------------------------------------------------------------
@@ -117,9 +117,9 @@ s_this = 0
 		mov byte ptr s_bThreadSicher[esp], cl
 		mov dword ptr s_ulSpinCount[esp], edx
 
-    movzx edx, ucBY_COSTREAM
+		movzx edx, ucBY_COSTREAM
 		xor ecx, ecx
-    call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
+		call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 		mov dword ptr s_this[esp], eax
 
 		pxor xmm7, xmm7
@@ -143,7 +143,7 @@ s_this = 0
 	Ende:
 		mov eax, dword ptr s_this[esp]
 		add esp, esp_Bytes
-    ret 0
+		ret 0
 ?COStreamV@System@RePag@@YQPAVCOStream@12@_NK@Z ENDP
 _Text ENDS
 ;----------------------------------------------------------------------------
@@ -158,8 +158,8 @@ s_this = 0
 		mov byte ptr s_bThreadSicher[esp], dl
 		mov dword ptr s_vmSpeicher[esp], ecx
 
-    movzx edx, ucBY_COSTREAM
-    call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
+		movzx edx, ucBY_COSTREAM
+		call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 		mov dword ptr s_this[esp], eax
 
 		pxor xmm7, xmm7
@@ -186,7 +186,7 @@ s_this = 0
 	Ende:
 		mov eax, dword ptr s_this[esp]
 		add esp, esp_Bytes
-    ret 0
+		ret 0
 ?COStreamV@System@RePag@@YQPAVCOStream@12@PBX_N@Z ENDP
 _Text ENDS
 ;----------------------------------------------------------------------------
@@ -202,8 +202,8 @@ a_ulSpinCount = esp_Bytes + 4
 		mov byte ptr s_bThreadSicher[esp], dl
 		mov dword ptr s_vmSpeicher[esp], ecx
 
-    movzx edx, ucBY_COSTREAM
-    call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
+		movzx edx, ucBY_COSTREAM
+		call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 		mov dword ptr s_this[esp], eax
 
 		pxor xmm7, xmm7
@@ -230,7 +230,7 @@ a_ulSpinCount = esp_Bytes + 4
 	Ende:
 		mov eax, dword ptr s_this[esp]
 		add esp, esp_Bytes
-    ret 4
+		ret 4
 ?COStreamV@System@RePag@@YQPAVCOStream@12@PBX_NK@Z ENDP
 _Text ENDS
 ;----------------------------------------------------------------------------
@@ -256,7 +256,7 @@ a_bThreadSicher = 4
 		call dword ptr __imp__InitializeCriticalSectionAndSpinCount@8 ; InitializeCriticalSectionAndSpinCount(&csStream, ulSpinCount)
 
 	Ende:
-    ret 4
+		ret 4
 ??0COStream@System@RePag@@QAE@_N@Z ENDP
 _Text ENDS
 ;----------------------------------------------------------------------------
@@ -283,7 +283,7 @@ a_ulSpinCount = 8
 		call dword ptr __imp__InitializeCriticalSectionAndSpinCount@8 ; InitializeCriticalSectionAndSpinCount(&csStream, ulSpinCount)
 
 	Ende:
-    ret 8
+		ret 8
 ??0COStream@System@RePag@@QAE@_NK@Z ENDP
 _Text ENDS
 ;----------------------------------------------------------------------------
@@ -313,7 +313,7 @@ a_bThreadSicher = 8
 		call dword ptr __imp__InitializeCriticalSectionAndSpinCount@8 ; InitializeCriticalSectionAndSpinCount(&csStream, ulSpinCount)
 
 	Ende:
-    ret 8
+		ret 8
 ??0COStream@System@RePag@@QAE@PBX_N@Z ENDP
 _Text ENDS
 ;----------------------------------------------------------------------------
@@ -345,7 +345,7 @@ a_ulSpinCount = 12
 		call dword ptr __imp__InitializeCriticalSectionAndSpinCount@8 ; InitializeCriticalSectionAndSpinCount(&csStream, ulSpinCount)
 
 	Ende:
-    ret 12
+		ret 12
 ??0COStream@System@RePag@@QAE@PBX_NK@Z ENDP
 _Text ENDS
 ;----------------------------------------------------------------------------
@@ -462,14 +462,14 @@ a_ulByte = esp_Bytes + 8
 
 		mov edx, 8
 		mov ecx, dword ptr COStream_vmSpeicher[ebp]
-    call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
+		call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 
 		mov edx, dword ptr a_ulByte[esp]
 		mov dword ptr [eax], edx
 		mov dword ptr s_vbElement[esp], eax
 
 		mov ecx, dword ptr COStream_vmSpeicher[ebp]
-    call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
+		call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 
 		mov ecx, dword ptr s_vbElement[esp]
 		mov dword ptr [ecx + 4], eax
@@ -512,14 +512,14 @@ a_ulByte = esp_Bytes + 8
 
 		mov edx, 8
 		mov ecx, dword ptr COStream_vmSpeicher[ebp]
-    call ?VMBlockS@System@RePag@@YQPADPBXK@Z ; VMBlockS(vmSpeicher, ulBytes)
+		call ?VMBlockS@System@RePag@@YQPADPBXK@Z ; VMBlockS(vmSpeicher, ulBytes)
 
 		mov edx, dword ptr a_ulByte[esp]
 		mov dword ptr [eax], edx
 		mov dword ptr s_vbElement[esp], eax
 
 		mov ecx, dword ptr COStream_vmSpeicher[ebp]
-    call ?VMBlockS@System@RePag@@YQPADPBXK@Z ; VMBlockS(vmSpeicher, ulBytes)
+		call ?VMBlockS@System@RePag@@YQPADPBXK@Z ; VMBlockS(vmSpeicher, ulBytes)
 
 		mov ecx, dword ptr s_vbElement[esp]
 		mov dword ptr [ecx + 4], eax
@@ -562,14 +562,14 @@ a_ulByte = esp_Bytes + 8
 
 		mov edx, 8
 		mov ecx, dword ptr COStream_vmSpeicher[ebp]
-    call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
+		call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 
 		mov edx, dword ptr a_ulByte[esp]
 		mov dword ptr [eax], edx
 		mov dword ptr s_vbElement[esp], eax
 
 		mov ecx, dword ptr COStream_vmSpeicher[ebp]
-    call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
+		call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 
 		mov ecx, dword ptr s_vbElement[esp]
 		mov dword ptr [ecx + 4], eax
@@ -620,14 +620,14 @@ a_ulByte = esp_Bytes + 8
 
 		mov edx, 8
 		mov ecx, dword ptr COStream_vmSpeicher[ebp]
-    call ?VMBlockS@System@RePag@@YQPADPBXK@Z ; VMBlockS(vmSpeicher, ulBytes)
+		call ?VMBlockS@System@RePag@@YQPADPBXK@Z ; VMBlockS(vmSpeicher, ulBytes)
 
 		mov edx, dword ptr a_ulByte[esp]
 		mov dword ptr [eax], edx
 		mov dword ptr s_vbElement[esp], eax
 
 		mov ecx, dword ptr COStream_vmSpeicher[ebp]
-    call ?VMBlockS@System@RePag@@YQPADPBXK@Z ; VMBlockS(vmSpeicher, ulBytes)
+		call ?VMBlockS@System@RePag@@YQPADPBXK@Z ; VMBlockS(vmSpeicher, ulBytes)
 
 		mov ecx, dword ptr s_vbElement[esp]
 		mov dword ptr [ecx + 4], eax
@@ -701,7 +701,7 @@ a_ulByte = esp_Bytes + 20
 	Kopf_Anfang:
 		test ebx, ebx
 		je Ende
-		mov edi, dword ptr COList_pvDaten[ebx] ; edi -> ulElementLange
+		mov edi, dword ptr COStream_COList_pvDaten[ebx] ; edi -> ulElementLange
 		mov edi, dword ptr [edi]
 		add dword ptr s_ulEndPosition[esp], edi
 
@@ -717,7 +717,7 @@ a_ulByte = esp_Bytes + 20
 		mov ecx, edi
 		sub ecx, esi
 
-		mov edx, dword ptr COList_pvDaten[ebx]
+		mov edx, dword ptr COStream_COList_pvDaten[ebx]
 		mov edx, dword ptr [edx + 4]
 		add edx, ecx
 		push dword ptr a_ulByte[esp]
@@ -731,7 +731,7 @@ a_ulByte = esp_Bytes + 20
 		mov ecx, edi
 		sub ecx, esi
 
-		mov edx, dword ptr COList_pvDaten[ebx]
+		mov edx, dword ptr COStream_COList_pvDaten[ebx]
 		mov edx, dword ptr [edx + 4]
 		add edx, ecx
 		push esi
@@ -741,7 +741,7 @@ a_ulByte = esp_Bytes + 20
 	Fuss_Anfang:
 		mov ebx, dword ptr [ebx]
 
-		mov edi, dword ptr COList_pvDaten[ebx]
+		mov edi, dword ptr COStream_COList_pvDaten[ebx]
 		mov edi, dword ptr [edi]
 
 		mov ecx, esi
@@ -752,7 +752,7 @@ a_ulByte = esp_Bytes + 20
 		mov eax, dword ptr a_ulByte[esp]
 		sub eax, esi
 		push eax
-		mov edx, dword ptr COList_pvDaten[ebx]
+		mov edx, dword ptr COStream_COList_pvDaten[ebx]
 		mov edx, dword ptr [edx + 4]
 		mov ecx, dword ptr s_pvDaten[esp + 4]
 		add ecx, esi
@@ -761,7 +761,7 @@ a_ulByte = esp_Bytes + 20
 
 	Copy_ElementLange:
 		push edi
-		mov edx, dword ptr COList_pvDaten[ebx]
+		mov edx, dword ptr COStream_COList_pvDaten[ebx]
 		mov edx, dword ptr [edx + 4]
 		mov ecx, dword ptr s_pvDaten[esp + 4]
 		add ecx, esi
@@ -774,7 +774,7 @@ a_ulByte = esp_Bytes + 20
 		jmp short Add_Position
 
 	Next_Element:
-	 	mov ebx, dword ptr [ebx]
+		mov ebx, dword ptr [ebx]
 		jmp Kopf_Anfang
 
 	Add_Position:
@@ -837,7 +837,7 @@ a_ulByte = esp_Bytes + 20
 	Kopf_Anfang:
 		test ebx, ebx
 		je Thread_Ende
-		mov edi, dword ptr COList_pvDaten[ebx] ; edi -> ulElementLange
+		mov edi, dword ptr COStream_COList_pvDaten[ebx] ; edi -> ulElementLange
 		mov edi, dword ptr [edi]
 		add dword ptr s_ulEndPosition[esp], edi
 
@@ -853,7 +853,7 @@ a_ulByte = esp_Bytes + 20
 		mov ecx, edi
 		sub ecx, esi
 
-		mov edx, dword ptr COList_pvDaten[ebx]
+		mov edx, dword ptr COStream_COList_pvDaten[ebx]
 		mov edx, dword ptr [edx + 4]
 		add edx, ecx
 		push dword ptr a_ulByte[esp]
@@ -867,7 +867,7 @@ a_ulByte = esp_Bytes + 20
 		mov ecx, edi
 		sub ecx, esi
 
-		mov edx, dword ptr COList_pvDaten[ebx]
+		mov edx, dword ptr COStream_COList_pvDaten[ebx]
 		mov edx, dword ptr [edx + 4]
 		add edx, ecx
 		push esi
@@ -877,7 +877,7 @@ a_ulByte = esp_Bytes + 20
 	Fuss_Anfang:
 		mov ebx, dword ptr [ebx]
 
-		mov edi, dword ptr COList_pvDaten[ebx]
+		mov edi, dword ptr COStream_COList_pvDaten[ebx]
 		mov edi, dword ptr [edi]
 
 		mov ecx, esi
@@ -888,7 +888,7 @@ a_ulByte = esp_Bytes + 20
 		mov eax, dword ptr a_ulByte[esp]
 		sub eax, esi
 		push eax
-		mov edx, dword ptr COList_pvDaten[ebx]
+		mov edx, dword ptr COStream_COList_pvDaten[ebx]
 		mov edx, dword ptr [edx + 4]
 		mov ecx, dword ptr s_pvDaten[esp + 4]
 		add ecx, esi
@@ -897,7 +897,7 @@ a_ulByte = esp_Bytes + 20
 
 	Copy_ElementLange:
 		push edi
-		mov edx, dword ptr COList_pvDaten[ebx]
+		mov edx, dword ptr COStream_COList_pvDaten[ebx]
 		mov edx, dword ptr [edx + 4]
 		mov ecx, dword ptr s_pvDaten[esp + 4]
 		add ecx, esi
@@ -910,7 +910,7 @@ a_ulByte = esp_Bytes + 20
 		jmp short Add_Position
 
 	Next_Element:
-	 	mov ebx, dword ptr [ebx]
+		mov ebx, dword ptr [ebx]
 		jmp Kopf_Anfang
 
 	Add_Position:
@@ -952,14 +952,14 @@ a_ulByte = esp_Bytes + 8
 
 		mov edx, 8
 		mov ecx, dword ptr COStream_vmSpeicher[ebp]
-    call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
+		call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 
 		mov edx, dword ptr a_ulByte[esp]
 		mov dword ptr [eax], edx
 		mov dword ptr s_vbElement[esp], eax
 
 		mov ecx, dword ptr COStream_vmSpeicher[ebp]
-    call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
+		call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 
 		mov ecx, dword ptr s_vbElement[esp]
 		mov dword ptr [ecx + 4], eax
@@ -1004,14 +1004,14 @@ a_ulByte = esp_Bytes + 8
 
 		mov edx, 8
 		mov ecx, dword ptr COStream_vmSpeicher[ebp]
-    call ?VMBlockS@System@RePag@@YQPADPBXK@Z ; VMBlockS(vmSpeicher, ulBytes)
+		call ?VMBlockS@System@RePag@@YQPADPBXK@Z ; VMBlockS(vmSpeicher, ulBytes)
 
 		mov edx, dword ptr a_ulByte[esp]
 		mov dword ptr [eax], edx
 		mov dword ptr s_vbElement[esp], eax
 
 		mov ecx, dword ptr COStream_vmSpeicher[ebp]
-    call ?VMBlockS@System@RePag@@YQPADPBXK@Z ; VMBlockS(vmSpeicher, ulBytes)
+		call ?VMBlockS@System@RePag@@YQPADPBXK@Z ; VMBlockS(vmSpeicher, ulBytes)
 
 		mov ecx, dword ptr s_vbElement[esp]
 		mov dword ptr [ecx + 4], eax
@@ -1056,14 +1056,14 @@ a_ulByte = esp_Bytes + 8
 
 		mov edx, 8
 		mov ecx, dword ptr COStream_vmSpeicher[ebp]
-    call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
+		call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 
 		mov edx, dword ptr a_ulByte[esp]
 		mov dword ptr [eax], edx
 		mov dword ptr s_vbElement[esp], eax
 
 		mov ecx, dword ptr COStream_vmSpeicher[ebp]
-    call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
+		call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 
 		mov ecx, dword ptr s_vbElement[esp]
 		mov dword ptr [ecx + 4], eax
@@ -1116,14 +1116,14 @@ a_ulByte = esp_Bytes + 8
 
 		mov edx, 8
 		mov ecx, dword ptr COStream_vmSpeicher[ebp]
-    call ?VMBlockS@System@RePag@@YQPADPBXK@Z ; VMBlockS(vmSpeicher, ulBytes)
+		call ?VMBlockS@System@RePag@@YQPADPBXK@Z ; VMBlockS(vmSpeicher, ulBytes)
 
 		mov edx, dword ptr a_ulByte[esp]
 		mov dword ptr [eax], edx
 		mov dword ptr s_vbElement[esp], eax
 
 		mov ecx, dword ptr COStream_vmSpeicher[ebp]
-    call ?VMBlockS@System@RePag@@YQPADPBXK@Z ; VMBlockS(vmSpeicher, ulBytes)
+		call ?VMBlockS@System@RePag@@YQPADPBXK@Z ; VMBlockS(vmSpeicher, ulBytes)
 
 		mov ecx, dword ptr s_vbElement[esp]
 		mov dword ptr [ecx + 4], eax
@@ -1200,7 +1200,7 @@ a_ulByte = esp_Bytes + 20
 	Kopf_Anfang:
 		test ebx, ebx
 		je Ende
-		mov edi, dword ptr COList_pvDaten[ebx] ; edi -> ulElementLange
+		mov edi, dword ptr COStream_COList_pvDaten[ebx] ; edi -> ulElementLange
 		mov edi, dword ptr [edi]
 		add dword ptr s_ulEndPosition[esp], edi
 
@@ -1220,7 +1220,7 @@ a_ulByte = esp_Bytes + 20
 		mov ecx, edi
 		sub ecx, esi
 
-		mov edx, dword ptr COList_pvDaten[ebx]
+		mov edx, dword ptr COStream_COList_pvDaten[ebx]
 		mov edx, dword ptr [edx + 4]
 		add edx, ecx
 		push dword ptr a_ulByte[esp]
@@ -1234,7 +1234,7 @@ a_ulByte = esp_Bytes + 20
 		mov ecx, edi
 		sub ecx, esi
 
-		mov edx, dword ptr COList_pvDaten[ebx]
+		mov edx, dword ptr COStream_COList_pvDaten[ebx]
 		mov edx, dword ptr [edx + 4]
 		add edx, ecx
 		push esi
@@ -1244,7 +1244,7 @@ a_ulByte = esp_Bytes + 20
 	Fuss_Anfang:
 		mov ebx, dword ptr [ebx]
 
-		mov edi, dword ptr COList_pvDaten[ebx]
+		mov edi, dword ptr COStream_COList_pvDaten[ebx]
 		mov edi, dword ptr [edi]
 
 		mov ecx, esi
@@ -1255,7 +1255,7 @@ a_ulByte = esp_Bytes + 20
 		mov eax, dword ptr a_ulByte[esp]
 		sub eax, esi
 		push eax
-		mov edx, dword ptr COList_pvDaten[ebx]
+		mov edx, dword ptr COStream_COList_pvDaten[ebx]
 		mov edx, dword ptr [edx + 4]
 		mov ecx, dword ptr s_pvDaten[esp + 4]
 		add ecx, esi
@@ -1264,7 +1264,7 @@ a_ulByte = esp_Bytes + 20
 
 	Copy_ElementLange:
 		push edi
-		mov edx, dword ptr COList_pvDaten[ebx]
+		mov edx, dword ptr COStream_COList_pvDaten[ebx]
 		mov edx, dword ptr [edx + 4]
 		mov ecx, dword ptr s_pvDaten[esp + 4]
 		add ecx, esi
@@ -1277,7 +1277,7 @@ a_ulByte = esp_Bytes + 20
 		jmp short Add_Position
 
 	Next_Element:
-	 	mov ebx, dword ptr [ebx]
+		mov ebx, dword ptr [ebx]
 		jmp Kopf_Anfang
 
 	Add_Position:
@@ -1343,7 +1343,7 @@ a_ulByte = esp_Bytes + 20
 	Kopf_Anfang:
 		test ebx, ebx
 		je Thread_Ende
-		mov edi, dword ptr COList_pvDaten[ebx] ; edi -> ulElementLange
+		mov edi, dword ptr COStream_COList_pvDaten[ebx] ; edi -> ulElementLange
 		mov edi, dword ptr [edi]
 		add dword ptr s_ulEndPosition[esp], edi
 
@@ -1363,7 +1363,7 @@ a_ulByte = esp_Bytes + 20
 		mov ecx, edi
 		sub ecx, esi
 
-		mov edx, dword ptr COList_pvDaten[ebx]
+		mov edx, dword ptr COStream_COList_pvDaten[ebx]
 		mov edx, dword ptr [edx + 4]
 		add edx, ecx
 		push dword ptr a_ulByte[esp]
@@ -1377,7 +1377,7 @@ a_ulByte = esp_Bytes + 20
 		mov ecx, edi
 		sub ecx, esi
 
-		mov edx, dword ptr COList_pvDaten[ebx]
+		mov edx, dword ptr COStream_COList_pvDaten[ebx]
 		mov edx, dword ptr [edx + 4]
 		add edx, ecx
 		push esi
@@ -1387,7 +1387,7 @@ a_ulByte = esp_Bytes + 20
 	Fuss_Anfang:
 		mov ebx, dword ptr [ebx]
 
-		mov edi, dword ptr COList_pvDaten[ebx]
+		mov edi, dword ptr COStream_COList_pvDaten[ebx]
 		mov edi, dword ptr [edi]
 
 		mov ecx, esi
@@ -1398,7 +1398,7 @@ a_ulByte = esp_Bytes + 20
 		mov eax, dword ptr a_ulByte[esp]
 		sub eax, esi
 		push eax
-		mov edx, dword ptr COList_pvDaten[ebx]
+		mov edx, dword ptr COStream_COList_pvDaten[ebx]
 		mov edx, dword ptr [edx + 4]
 		mov ecx, dword ptr s_pvDaten[esp + 4]
 		add ecx, esi
@@ -1407,7 +1407,7 @@ a_ulByte = esp_Bytes + 20
 
 	Copy_ElementLange:
 		push edi
-		mov edx, dword ptr COList_pvDaten[ebx]
+		mov edx, dword ptr COStream_COList_pvDaten[ebx]
 		mov edx, dword ptr [edx + 4]
 		mov ecx, dword ptr s_pvDaten[esp + 4]
 		add ecx, esi
@@ -1420,7 +1420,7 @@ a_ulByte = esp_Bytes + 20
 		jmp short Add_Position
 
 	Next_Element:
-	 	mov ebx, dword ptr [ebx]
+		mov ebx, dword ptr [ebx]
 		jmp Kopf_Anfang
 
 	Add_Position:
@@ -1733,7 +1733,7 @@ a_ucStringtyp = esp_Bytes + 4
 		movzx eax, byte ptr a_ucStringtyp[esp]
 		cmp al, FT_SHORTSTR
 		jne short MemoStr
-    push 1
+		push 1
 		lea edx, s_Byte[esp + 4]
 		call ?Read@COStream@System@RePag@@QAQPAXPAXK@Z ; COStream::Read(pvDaten, ulByte)
 
@@ -1809,7 +1809,7 @@ a_ucStringtyp = esp_Bytes + 4
 		movzx eax, byte ptr a_ucStringtyp[esp]
 		cmp al, FT_SHORTSTR
 		jne short MemoStr
-    push 1
+		push 1
 		lea edx, s_Byte[esp + 4]
 		mov ecx, dword ptr s_this[esp + 4]
 		call ?Read@COStream@System@RePag@@QAQPAXPAXK@Z ; COStream::Read(pvDaten, ulByte)
@@ -2027,13 +2027,13 @@ a_ucStringtyp = esp_Bytes + 4
 		movzx eax, byte ptr a_ucStringtyp[esp]
 		cmp al, FT_SHORTSTR
 		jne short MemoStr
-    push 1
+		push 1
 		lea edx, s_Byte[esp + 4]
 		call ?Read@COStream@System@RePag@@QAQPAXPAXK@Z ; COStream::Read(pvDaten, ulByte)
 
 		movzx edx, byte ptr s_Byte[esp]
 		xor ecx, ecx
-    call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
+		call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 		mov ecx, dword ptr s_vbString$[esp]
 		mov dword ptr [ecx], eax
 
@@ -2053,7 +2053,7 @@ a_ucStringtyp = esp_Bytes + 4
 
 		movzx edx, word ptr s_Byte[esp] 
 		xor ecx, ecx
-    call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
+		call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 		mov ecx, dword ptr s_vbString$[esp]
 		mov dword ptr [ecx], eax
 
@@ -2071,7 +2071,7 @@ a_ucStringtyp = esp_Bytes + 4
 
 		mov edx, dword ptr s_Byte[esp] 
 		xor ecx, ecx
-    call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
+		call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 		mov ecx, dword ptr s_vbString$[esp]
 		mov dword ptr [ecx], eax
 
@@ -2106,14 +2106,14 @@ a_ucStringtyp = esp_Bytes + 4
 		movzx eax, byte ptr a_ucStringtyp[esp]
 		cmp al, FT_SHORTSTR
 		jne short MemoStr
-    push 1
+		push 1
 		lea edx, s_Byte[esp + 4]
 		mov ecx, dword ptr s_this[esp + 4]
 		call ?Read@COStream@System@RePag@@QAQPAXPAXK@Z ; COStream::Read(pvDaten, ulByte)
 
 		movzx edx, byte ptr s_Byte[esp]
 		xor ecx, ecx
-    call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
+		call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 		mov ecx, dword ptr s_vbString$[esp]
 		mov dword ptr [ecx], eax
 
@@ -2134,7 +2134,7 @@ a_ucStringtyp = esp_Bytes + 4
 
 		movzx edx, word ptr s_Byte[esp] 
 		xor ecx, ecx
-    call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
+		call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 		mov ecx, dword ptr s_vbString$[esp]
 		mov dword ptr [ecx], eax
 
@@ -2153,7 +2153,7 @@ a_ucStringtyp = esp_Bytes + 4
 
 		mov edx, dword ptr s_Byte[esp] 
 		xor ecx, ecx
-    call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
+		call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 		mov ecx, dword ptr s_vbString$[esp]
 		mov dword ptr [ecx], eax
 
@@ -2187,7 +2187,7 @@ a_ucStringtyp = esp_Bytes + 8
 		mov dword ptr s_vbString[esp], edx
 
 		xor al, al
-    mov edi, edx
+		mov edi, edx
 		mov ecx, -1
 		cld
 		repnz scasb
@@ -2252,7 +2252,7 @@ a_ucStringtyp = esp_Bytes + 8
 		call dword ptr __imp__EnterCriticalSection@4 ; EnterCriticalSection(&csStream)
 
 		xor al, al
-    mov edi, dword ptr s_vbString[esp]
+		mov edi, dword ptr s_vbString[esp]
 		mov ecx, -1
 		cld
 		repnz scasb
@@ -2346,14 +2346,14 @@ a_pOverlapped = esp_Bytes + 8
 
 		mov edx, 8
 		mov ecx, dword ptr COStream_vmSpeicher[ebp]
-    call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
+		call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 
 		mov edx, dword ptr s_liFileSize[esp]
 		mov dword ptr [eax], edx
 		mov dword ptr s_vstElement[esp], eax
 
 		mov ecx, dword ptr COStream_vmSpeicher[ebp]
-    call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
+		call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 
 		mov ecx, dword ptr s_vstElement[esp]
 		mov dword ptr [ecx + 4], eax
@@ -2413,11 +2413,11 @@ a_pOverlapped = esp_Bytes + 8
 
 		mov edx, dword ptr s_vstElement[esp]
 		mov edx, dword ptr [edx + 4]
-    mov ecx, dword ptr COStream_vmSpeicher[ebp]
+		mov ecx, dword ptr COStream_vmSpeicher[ebp]
 		call ?VMFrei@System@RePag@@YQXPBXPAX@Z ; VMFrei(vmSpeicher, vbAdresse)
 
 		mov edx, dword ptr s_vstElement[esp]
-    mov ecx, dword ptr COStream_vmSpeicher[ebp]
+		mov ecx, dword ptr COStream_vmSpeicher[ebp]
 		call ?VMFrei@System@RePag@@YQXPBXPAX@Z ; VMFrei(vmSpeicher, vbAdresse)
 
 	Ende:
@@ -2470,14 +2470,14 @@ a_pOverlapped = esp_Bytes + 8
 
 		mov edx, 8
 		mov ecx, dword ptr COStream_vmSpeicher[ebp]
-    call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
+		call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 
 		mov edx, dword ptr s_liFileSize[esp]
 		mov dword ptr [eax], edx
 		mov dword ptr s_vstElement[esp], eax
 
 		mov ecx, dword ptr COStream_vmSpeicher[ebp]
-    call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
+		call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 
 		mov ecx, dword ptr s_vstElement[esp]
 		mov dword ptr [ecx + 4], eax
@@ -2545,11 +2545,11 @@ a_pOverlapped = esp_Bytes + 8
 
 		mov edx, dword ptr s_vstElement[esp]
 		mov edx, dword ptr [edx + 4]
-    mov ecx, dword ptr COStream_vmSpeicher[ebp]
+		mov ecx, dword ptr COStream_vmSpeicher[ebp]
 		call ?VMFrei@System@RePag@@YQXPBXPAX@Z ; VMFrei(vmSpeicher, vbAdresse)
 
 		mov edx, dword ptr s_vstElement[esp]
-    mov ecx, dword ptr COStream_vmSpeicher[ebp]
+		mov ecx, dword ptr COStream_vmSpeicher[ebp]
 		call ?VMFrei@System@RePag@@YQXPBXPAX@Z ; VMFrei(vmSpeicher, vbAdresse)
 
 	Ende:
@@ -2602,14 +2602,14 @@ a_bAsynchronous = esp_Bytes + 8
 
 		mov edx, 8
 		mov ecx, dword ptr COStream_vmSpeicher[ebp]
-    call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
+		call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 
 		mov edx, dword ptr s_liFileSize[esp]
 		mov dword ptr [eax], edx
 		mov dword ptr s_vstElement[esp], eax
 
 		mov ecx, dword ptr COStream_vmSpeicher[ebp]
-    call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
+		call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 
 		mov ecx, dword ptr s_vstElement[esp]
 		mov dword ptr [ecx + 4], eax
@@ -2689,11 +2689,11 @@ a_bAsynchronous = esp_Bytes + 8
 
 		mov edx, dword ptr s_vstElement[esp]
 		mov edx, dword ptr [edx + 4]
-    mov ecx, dword ptr COStream_vmSpeicher[ebp]
+		mov ecx, dword ptr COStream_vmSpeicher[ebp]
 		call ?VMFrei@System@RePag@@YQXPBXPAX@Z ; VMFrei(vmSpeicher, vbAdresse)
 
 		mov edx, dword ptr s_vstElement[esp]
-    mov ecx, dword ptr COStream_vmSpeicher[ebp]
+		mov ecx, dword ptr COStream_vmSpeicher[ebp]
 		call ?VMFrei@System@RePag@@YQXPBXPAX@Z ; VMFrei(vmSpeicher, vbAdresse)
 
 	Ende:
@@ -2740,14 +2740,14 @@ a_bAsynchronous = esp_Bytes + 8
 	Block:
 		mov edx, 8
 		mov ecx, dword ptr COStream_vmSpeicher[ebp]
-    call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
+		call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 
 		mov edx, dword ptr s_liFileSize[esp]
 		mov dword ptr [eax], edx
 		mov dword ptr s_vstElement[esp], eax
 
 		mov ecx, dword ptr COStream_vmSpeicher[ebp]
-    call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
+		call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 
 		mov ecx, dword ptr s_vstElement[esp]
 		mov dword ptr [ecx + 4], eax
@@ -2835,11 +2835,11 @@ a_bAsynchronous = esp_Bytes + 8
 
 		mov edx, dword ptr s_vstElement[esp]
 		mov edx, dword ptr [edx + 4]
-    mov ecx, dword ptr COStream_vmSpeicher[ebp]
+		mov ecx, dword ptr COStream_vmSpeicher[ebp]
 		call ?VMFrei@System@RePag@@YQXPBXPAX@Z ; VMFrei(vmSpeicher, vbAdresse)
 
 		mov edx, dword ptr s_vstElement[esp]
-    mov ecx, dword ptr COStream_vmSpeicher[ebp]
+		mov ecx, dword ptr COStream_vmSpeicher[ebp]
 		call ?VMFrei@System@RePag@@YQXPBXPAX@Z ; VMFrei(vmSpeicher, vbAdresse)
 
 	Ende:
@@ -2920,7 +2920,7 @@ a_pOverlapped = esp_Bytes + 8
 
 	Ende:
 		mov edx, dword ptr s_vbDaten[esp]
-    mov ecx, dword ptr COStream_vmSpeicher[ebp]
+		mov ecx, dword ptr COStream_vmSpeicher[ebp]
 		call ?VMFrei@System@RePag@@YQXPBXPAX@Z ; VMFrei(vmSpeicher, vbAdresse)
 
 		mov eax, dword ptr s_dwLastError[esp]
@@ -3006,7 +3006,7 @@ a_pOverlapped = esp_Bytes + 8
 		call dword ptr __imp__LeaveCriticalSection@4 ; LeaveCriticalSection(&csStream)
 
 		mov edx, dword ptr s_vbDaten[esp]
-    mov ecx, dword ptr COStream_vmSpeicher[ebp]
+		mov ecx, dword ptr COStream_vmSpeicher[ebp]
 		call ?VMFrei@System@RePag@@YQXPBXPAX@Z ; VMFrei(vmSpeicher, vbAdresse)
 
 		mov eax, dword ptr s_dwLastError[esp]
@@ -3102,7 +3102,7 @@ a_bAsynchronous = esp_Bytes + 8
 
 	Ende:
 		mov edx, dword ptr s_vbDaten[esp]
-    mov ecx, dword ptr COStream_vmSpeicher[ebp]
+		mov ecx, dword ptr COStream_vmSpeicher[ebp]
 		call ?VMFrei@System@RePag@@YQXPBXPAX@Z ; VMFrei(vmSpeicher, vbAdresse)
 
 		mov eax, dword ptr s_dwLastError[esp]
@@ -3202,7 +3202,7 @@ a_bAsynchronous = esp_Bytes + 8
 		call dword ptr __imp__LeaveCriticalSection@4 ; LeaveCriticalSection(&csStream)
 
 		mov edx, dword ptr s_vbDaten[esp]
-    mov ecx, dword ptr COStream_vmSpeicher[ebp]
+		mov ecx, dword ptr COStream_vmSpeicher[ebp]
 		call ?VMFrei@System@RePag@@YQXPBXPAX@Z ; VMFrei(vmSpeicher, vbAdresse)
 
 		mov eax, dword ptr s_dwLastError[esp]
@@ -3227,7 +3227,7 @@ _Text ENDS
 
 		mov edx, COStream_ulBytes[ebp]
 		mov ecx, dword ptr COStream_vmSpeicher[ebp]
-    call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
+		call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 		mov dword ptr [esi], eax
 
 		xor edi, edi
@@ -3278,7 +3278,7 @@ _Text ENDS
 
 		mov edx, COStream_ulBytes[ebp]
 		mov ecx, dword ptr COStream_vmSpeicher[ebp]
-    call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
+		call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 		mov dword ptr [esi], eax
 
 		xor edi, edi

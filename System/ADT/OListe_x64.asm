@@ -1,6 +1,6 @@
 ;****************************************************************************
 ;  OListe_x64.asm
-;  For more information see https://github.com/RePag-net/Core
+;  For more information see https://github.com/RePag-net/Abstract-Data-Types
 ;****************************************************************************
 ;
 ;****************************************************************************
@@ -765,7 +765,7 @@ sqp_this = 40
 		mov rcx, qword ptr sqp_this[rsp]
 		xor rdx, rdx
 		mov qword ptr [rax], rdx
-		mov rdx, COList_pstLetzer[rcx]
+		mov rdx, qword ptr COList_pstLetzer[rcx]
 		test rdx, rdx
 		jne Nachster_Neu
 		mov qword ptr COList_pstErster[rcx], rax
@@ -802,7 +802,7 @@ sqp_this = 40
 		mov rcx, qword ptr sqp_this[rsp]
 		xor rdx, rdx
 		mov qword ptr [rax], rdx
-		mov rdx, COList_pstLetzer[rcx]
+		mov rdx, qword ptr COList_pstLetzer[rcx]
 		test rdx, rdx
 		jne Nachster_Neu
 		mov qword ptr COList_pstErster[rcx], rax
@@ -847,7 +847,7 @@ sqp_this = 40
 
 		xor rdx, rdx
 		mov qword ptr [rax], rdx
-		mov rdx, COList_pstLetzer[rcx]
+		mov rdx, qword ptr COList_pstLetzer[rcx]
 		test rdx, rdx
 		jne Nachster_Neu
 		mov qword ptr COList_pstErster[rcx], rax
@@ -897,7 +897,7 @@ sqp_this = 40
 		mov rcx, qword ptr sqp_this[rsp]
 		xor rdx, rdx
 		mov qword ptr [rax], rdx
-		mov rdx, COList_pstLetzer[rcx]
+		mov rdx, qword ptr COList_pstLetzer[rcx]
 		test rdx, rdx
 		jne Nachster_Neu
 		mov qword ptr COList_pstErster[rcx], rax
@@ -1095,19 +1095,17 @@ sqp_Knoten_1 = 40 + s_push
 		call ?VMFrei@System@RePag@@YQXPEBXPEAX@Z ; VMFrei(vmSpeicher, vbAdresse)
 
 	AllesNull:
-		mov rdx, qword ptr COList_pstErster[rbp]
-		mov rcx, qword ptr COList_vmSpeicher[rbp]
-		call ?VMFrei@System@RePag@@YQXPEBXPEAX@Z ; VMFrei(vmSpeicher, vbAdresse)
-
-		mov rdx, qword ptr sqp_Knoten_1[rsp] ; pstKnoten
-
 		xor rcx, rcx
-		mov qword ptr COList_pstErster[rbp], rcx
 		mov qword ptr COList_pstLetzer[rbp], rcx
-		mov rdx, qword ptr [rdx]
+		mov rdx, qword ptr sqp_Knoten_1[rsp] ; pstKnoten
 		mov qword ptr [rdx], rcx
 		mov rax, qword ptr sqp_Loschen[rsp]
 		mov qword ptr [rax], rcx
+
+		mov rdx, qword ptr COList_pstErster[rbp]
+		mov qword ptr COList_pstErster[rbp], rcx
+		mov rcx, qword ptr COList_vmSpeicher[rbp]
+		call ?VMFrei@System@RePag@@YQXPEBXPEAX@Z ; VMFrei(vmSpeicher, vbAdresse)
 		jmp Ende
 
 	Nachster:
@@ -1220,19 +1218,17 @@ sqp_Knoten_1 = 40 + s_push
 		call ?VMFreiS@System@RePag@@YQXPEBXPEAX@Z ; VMFreiS(vmSpeicher, vbAdresse)
 
 	AllesNull:
-		mov rdx, qword ptr COList_pstErster[rbp]
-		mov rcx, qword ptr COList_vmSpeicher[rbp]
-		call ?VMFreiS@System@RePag@@YQXPEBXPEAX@Z ; VMFreiS(vmSpeicher, vbAdresse)
-
-		mov rdx, qword ptr sqp_Knoten_1[rsp] ; pstKnoten
-
 		xor rcx, rcx
-		mov qword ptr COList_pstErster[rbp], rcx
 		mov qword ptr COList_pstLetzer[rbp], rcx
-		mov rdx, qword ptr [rdx]
+		mov rdx, qword ptr sqp_Knoten_1[rsp] ; pstKnoten
 		mov qword ptr [rdx], rcx
 		mov rax, qword ptr sqp_Loschen[rsp]
 		mov qword ptr [rax], rcx
+
+		mov rdx, qword ptr COList_pstErster[rbp]
+		mov qword ptr COList_pstErster[rbp], rcx
+		mov rcx, qword ptr COList_vmSpeicher[rbp]
+		call ?VMFreiS@System@RePag@@YQXPEBXPEAX@Z ; VMFreiS(vmSpeicher, vbAdresse)
 		jmp Ende
 
 	Nachster:
@@ -1319,6 +1315,8 @@ sqp_Knoten_1 = 40 + s_push
 		sub rsp, s_ShadowRegister
 
 		mov rbp, rcx
+		test rdx, rdx
+		je short Ende
 		mov qword ptr sqp_Knoten_1[rsp], rdx ; pstKnoten
 
 		mov rdx, qword ptr COList_pstErster[rcx]
@@ -1343,7 +1341,7 @@ sqp_Knoten_1 = 40 + s_push
 		mov qword ptr COList_pstErster[rbp], rax
 		mov rcx, qword ptr COList_vmSpeicher[rbp]
 		call ?VMFrei@System@RePag@@YQXPEBXPEAX@Z ; VMFrei(vmSpeicher, vbAdresse)
-		jmp short Ende
+		jmp short Ende_Sub
 
 	Nachstes:
 		mov qword ptr COList_pstErster[rbp], rax
@@ -1367,8 +1365,9 @@ sqp_Knoten_1 = 40 + s_push
 		mov rax, qword ptr COList_pstErster[rbp]
 		mov qword ptr [rdx], rax
 
-	Ende:
+	Ende_Sub:
 		sub dword ptr COList_ulAnzahl[rbp], 1
+	Ende:
 		add rsp, s_ShadowRegister
 		pop rbp
 		ret
@@ -1384,6 +1383,8 @@ sqp_Knoten_1 = 40 + s_push
 		sub rsp, s_ShadowRegister
 
 		mov rbp, rcx
+		test rdx, rdx
+		je short Ende
 		mov qword ptr sqp_Knoten_1[rsp], rdx ; pstKnoten
 
 		mov rdx, qword ptr COList_pstErster[rcx]
@@ -1408,7 +1409,7 @@ sqp_Knoten_1 = 40 + s_push
 		mov qword ptr COList_pstErster[rbp], rax
 		mov rcx, qword ptr COList_vmSpeicher[rbp]
 		call ?VMFreiS@System@RePag@@YQXPEBXPEAX@Z ; VMFreiS(vmSpeicher, vbAdresse)
-		jmp short Ende
+		jmp short Ende_Sub
 
 	Nachstes:
 		mov qword ptr COList_pstErster[rbp], rax
@@ -1432,8 +1433,9 @@ sqp_Knoten_1 = 40 + s_push
 		mov rax, qword ptr COList_pstErster[rbp]
 		mov qword ptr [rdx], rax
 
-	Ende:
+	Ende_Sub:
 		sub dword ptr COList_ulAnzahl[rbp], 1
+	Ende:
 		add rsp, s_ShadowRegister
 		pop rbp
 		ret

@@ -1,6 +1,6 @@
 ;****************************************************************************
-;  OStrangA_x86.asm
-;  For more information see https://github.com/RePag-net/Core
+;  OStringA_x86.asm
+;  For more information see https://github.com/RePag-net/Abstract-Data-Types
 ;****************************************************************************
 ;
 ;****************************************************************************
