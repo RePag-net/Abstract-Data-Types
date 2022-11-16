@@ -1,12 +1,12 @@
 ;****************************************************************************
-;  OListe_x86.asm
+;  OKomma4_x86.asm
 ;  For more information see https://github.com/RePag-net/Abstract-Data-Types
 ;****************************************************************************
 ;
 ;****************************************************************************
 ;  The MIT License(MIT)
 ;
-;  Copyright(c) 2021 René Pagel
+;  Copyright(c) 2022 René Pagel
 ;
 ;  Permission is hereby granted, free of charge, to any person obtaining a copy
 ;  of this softwareand associated documentation files(the "Software"), to deal
@@ -56,9 +56,9 @@ s_this = 0
 
 		mov byte ptr s_bThreadSicher[esp], cl
 
-		movzx edx, ucBY_COLIST
+    movzx edx, ucBY_COLIST
 		xor ecx, ecx
-		call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
+    call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 		mov dword ptr s_this[esp], eax
 
 		pxor xmm7, xmm7
@@ -77,7 +77,7 @@ s_this = 0
 	Ende:
 		mov eax, dword ptr s_this[esp]
 		add esp, esp_Bytes
-		ret 0
+    ret 0
 ?COListV@System@RePag@@YQPAVCOList@12@_N@Z	ENDP
 _Text ENDS
 ;----------------------------------------------------------------------------
@@ -92,9 +92,9 @@ s_this = 0
 		mov byte ptr s_bThreadSicher[esp], cl
 		mov dword ptr s_ulSpinCount[esp], edx
 
-		movzx edx, ucBY_COLIST
+    movzx edx, ucBY_COLIST
 		xor ecx, ecx
-		call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
+    call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 		mov dword ptr s_this[esp], eax
 
 		pxor xmm7, xmm7
@@ -113,7 +113,7 @@ s_this = 0
 	Ende:
 		mov eax, dword ptr s_this[esp]
 		add esp, esp_Bytes
-		ret 0
+    ret 0
 ?COListV@System@RePag@@YQPAVCOList@12@_NK@Z ENDP
 _Text ENDS
 ;----------------------------------------------------------------------------
@@ -128,8 +128,8 @@ s_this = 0
 		mov dword ptr s_vmSpeicher[esp], ecx
 		mov byte ptr s_bThreadSicher[esp], dl
 
-		movzx edx, ucBY_COLIST
-		call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
+    movzx edx, ucBY_COLIST
+    call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 		mov dword ptr s_this[esp], eax
 
 		xor ecx, ecx
@@ -153,7 +153,7 @@ s_this = 0
 	Ende:
 		mov eax, dword ptr s_this[esp]
 		add esp, esp_Bytes
-		ret 0
+    ret 0
 ?COListV@System@RePag@@YQPAVCOList@12@PBX_N@Z ENDP
 _Text ENDS
 ;----------------------------------------------------------------------------
@@ -169,8 +169,8 @@ a_ulSpinCount = esp_Bytes + 8
 		mov dword ptr s_vmSpeicher[esp], ecx
 		mov byte ptr s_bThreadSicher[esp], dl
 
-		movzx edx, ucBY_COLIST
-		call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
+    movzx edx, ucBY_COLIST
+    call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 		mov dword ptr s_this[esp], eax
 
 		xor ecx, ecx
@@ -194,7 +194,7 @@ a_ulSpinCount = esp_Bytes + 8
 	Ende:
 		mov eax, dword ptr s_this[esp]
 		add esp, esp_Bytes
-		ret 4
+    ret 4
 ?COListV@System@RePag@@YQPAVCOList@12@PBX_NK@Z ENDP
 _Text ENDS
 ;----------------------------------------------------------------------------
@@ -216,7 +216,7 @@ a_bTheardSicher = 4
 		call dword ptr __imp__InitializeCriticalSectionAndSpinCount@8 ; InitializeCriticalSectionAndSpinCount(&csIterator, ulSpinCount)
 
 	Ende:
-		ret 4
+    ret 4
 ??0COList@System@RePag@@QAE@_N@Z ENDP
 _Text ENDS
 ;----------------------------------------------------------------------------
@@ -238,7 +238,7 @@ a_ulSpinCount = 8
 		call dword ptr __imp__InitializeCriticalSectionAndSpinCount@8 ; InitializeCriticalSectionAndSpinCount(&csIterator, ulSpinCount)
 
 	Ende:
-		ret 8
+    ret 8
 ??0COList@System@RePag@@QAE@_NK@Z ENDP
 _Text ENDS
 ;----------------------------------------------------------------------------
@@ -263,7 +263,7 @@ a_bThreadSicher = 8
 		call dword ptr __imp__InitializeCriticalSectionAndSpinCount@8 ; InitializeCriticalSectionAndSpinCount(&csIterator, ulSpinCount)
 
 	Ende:
-		ret 8
+    ret 8
 ??0COList@System@RePag@@QAE@PBX_N@Z ENDP
 _Text ENDS
 ;----------------------------------------------------------------------------
@@ -289,7 +289,7 @@ a_ulSpinCount = 12
 		call dword ptr __imp__InitializeCriticalSectionAndSpinCount@8 ; InitializeCriticalSectionAndSpinCount(&csIterator, ulSpinCount)
 
 	Ende:
-		ret 12
+    ret 12
 ??0COList@System@RePag@@QAE@PBX_NK@Z ENDP
 _Text ENDS
 ;----------------------------------------------------------------------------
@@ -432,7 +432,7 @@ _Text ENDS
 		mov ebx, dword ptr [ebx]
 		push edx
 
-		mov edx, dword ptr COList_pvDaten[edx]
+	  mov edx, dword ptr COList_pvDaten[edx]
 		mov ecx, edi
 		call ?VMFreiS@System@RePag@@YQXPBXPAX@Z ; VMFreiS(vmSpeicher, vbAdresse)
 
@@ -594,8 +594,8 @@ s_this = 0
 		mov dword ptr s_pvDaten[esp], edx
 
 		mov edx, 8
-		mov ecx, dword ptr COList_vmSpeicher[ecx]
-		call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
+    mov ecx, dword ptr COList_vmSpeicher[ecx]
+    call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 
 		;pop edx ; pvDaten
 		mov edx, dword ptr s_pvDaten[esp]
@@ -628,8 +628,8 @@ s_this = 0
 		mov dword ptr s_pvDaten[esp], edx
 
 		mov edx, 8
-		mov ecx, dword ptr COList_vmSpeicher[ecx]
-		call ?VMBlockS@System@RePag@@YQPADPBXK@Z ; VMBlockS(vmSpeicher, ulBytes)
+    mov ecx, dword ptr COList_vmSpeicher[ecx]
+    call ?VMBlockS@System@RePag@@YQPADPBXK@Z ; VMBlockS(vmSpeicher, ulBytes)
 
 		mov edx, dword ptr s_pvDaten[esp]
 		mov dword ptr COList_pvDaten[eax], edx
@@ -662,8 +662,8 @@ s_Temp_Daten = 0
 		mov dword ptr s_Temp_Daten[esp], edx ; pvDaten
 
 		mov edx, 8
-		mov ecx, dword ptr COList_vmSpeicher[ebp]
-		call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
+    mov ecx, dword ptr COList_vmSpeicher[ebp]
+    call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 		mov ebx, eax
 
 		mov edx, dword ptr s_Temp_Daten[esp] ; pvDaten
@@ -708,8 +708,8 @@ _Text ENDS
 		push edx ; pvDaten
 
 		mov edx, 8
-		mov ecx, dword ptr COList_vmSpeicher[ebp]
-		call ?VMBlockS@System@RePag@@YQPADPBXK@Z ; VMBlockS(vmSpeicher, ulBytes)
+    mov ecx, dword ptr COList_vmSpeicher[ebp]
+    call ?VMBlockS@System@RePag@@YQPADPBXK@Z ; VMBlockS(vmSpeicher, ulBytes)
 		mov ebx, eax
 
 		pop edx ; pvDaten
@@ -747,8 +747,8 @@ _Text ENDS
 		push edx ; pvDaten
 
 		mov edx, 8
-		mov ecx, dword ptr COList_vmSpeicher[ebp]
-		call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
+    mov ecx, dword ptr COList_vmSpeicher[ebp]
+    call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 
 		pop edx ; pvDaten
 		mov dword ptr COList_pvDaten[eax], edx
@@ -779,8 +779,8 @@ _Text ENDS
 		push edx ; pvDaten
 
 		mov edx, 8
-		mov ecx, dword ptr COList_vmSpeicher[ebp]
-		call ?VMBlockS@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
+    mov ecx, dword ptr COList_vmSpeicher[ebp]
+    call ?VMBlockS@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 
 		pop edx ; pvDaten
 		mov dword ptr COList_pvDaten[eax], edx
@@ -813,8 +813,8 @@ _Text ENDS
 		push edx ; pvDaten
 
 		mov edx, 8
-		mov ecx, dword ptr COList_vmSpeicher[ebp]
-		call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
+    mov ecx, dword ptr COList_vmSpeicher[ebp]
+    call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 		mov ebx, eax
 
 		pop edx ; pvDaten
@@ -859,8 +859,8 @@ _Text ENDS
 		push edx ; pvDaten
 
 		mov edx, 8
-		mov ecx, dword ptr COList_vmSpeicher[ebp]
-		call ?VMBlockS@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
+    mov ecx, dword ptr COList_vmSpeicher[ebp]
+    call ?VMBlockS@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 		mov ebx, eax
 
 		pop edx ; pvDaten
@@ -1064,7 +1064,7 @@ a_bDatenLoschen = esp_Bytes + 12
 		je short AllesNull
 
 		mov edx, dword ptr COList_pstErster[ebp]
-		mov edx, dword ptr COList_pvDaten[edx]
+	  mov edx, dword ptr COList_pvDaten[edx]
 		mov ecx, dword ptr COList_vmSpeicher[ebp]
 		call ?VMFrei@System@RePag@@YQXPBXPAX@Z ; VMFrei(vmSpeicher, vbAdresse)
 
@@ -1148,6 +1148,7 @@ a_bDatenLoschen = esp_Bytes + 12
 
 		mov ecx, dword ptr a_pstLoschen[esp]
 		mov ecx, dword ptr [ecx]
+		mov ecx, dword ptr [ecx]
 		mov dword ptr [edx], ecx
 
 	Ende:
@@ -1190,7 +1191,7 @@ a_bDatenLoschen = esp_Bytes + 12
 		je short AllesNull
 
 		mov edx, dword ptr COList_pstErster[ebp]
-		mov edx, dword ptr COList_pvDaten[edx]
+	  mov edx, dword ptr COList_pvDaten[edx]
 		mov ecx, dword ptr COList_vmSpeicher[ebp]
 		call ?VMFreiS@System@RePag@@YQXPBXPAX@Z ; VMFreiS(vmSpeicher, vbAdresse)
 
@@ -1277,6 +1278,7 @@ a_bDatenLoschen = esp_Bytes + 12
 		mov edx, dword ptr s_pstKnoten_1[esp]
 
 		mov ecx, dword ptr a_pstLoschen[esp]
+		mov ecx, dword ptr [ecx]
 		mov ecx, dword ptr [ecx]
 		mov dword ptr [edx], ecx
 
@@ -1471,7 +1473,7 @@ a_bDatenLoschen = esp_Bytes + 20
 		jmp short For_Anfang
 
 	Loschen:
-		mov eax, dword ptr a_bDatenLoschen[esp]
+	  mov eax, dword ptr a_bDatenLoschen[esp]
 		push dword ptr a_bDatenLoschen[esp]
 		push esi
 		mov ecx, ebp
@@ -1672,8 +1674,8 @@ a_pvDaten = 12
 		push edx ; pstKnotenAktuell
 
 		mov edx, 8
-		mov ecx, dword ptr COList_vmSpeicher[ebp]
-		call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
+    mov ecx, dword ptr COList_vmSpeicher[ebp]
+    call ?VMBlock@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 
 		mov ecx, dword ptr a_pvDaten[esp+4]
 		mov dword ptr COList_pvDaten[eax], ecx
@@ -1715,8 +1717,8 @@ a_pvDaten = 12
 		push edx ; pstKnotenAktuell
 
 		mov edx, 8
-		mov ecx, dword ptr COList_vmSpeicher[ebp]
-		call ?VMBlockS@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
+    mov ecx, dword ptr COList_vmSpeicher[ebp]
+    call ?VMBlockS@System@RePag@@YQPADPBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 
 		mov ecx, dword ptr a_pvDaten[esp+4]
 		mov dword ptr COList_pvDaten[eax], ecx

@@ -1,12 +1,12 @@
 ;****************************************************************************
-;  OStringA_x86.asm
+;  OKomma4_x86.asm
 ;  For more information see https://github.com/RePag-net/Abstract-Data-Types
 ;****************************************************************************
 ;
 ;****************************************************************************
 ;  The MIT License(MIT)
 ;
-;  Copyright(c) 2021 René Pagel
+;  Copyright(c) 2022 René Pagel
 ;
 ;  Permission is hereby granted, free of charge, to any person obtaining a copy
 ;  of this softwareand associated documentation files(the "Software"), to deal
@@ -734,6 +734,7 @@ _Text ENDS
 		mov dword ptr COStringA_ulLange_A[esi], ecx
 		mov eax, dword ptr COStringA_vbInhalt[esi]
 		mov dword ptr COStringA_vbInhalt_A[esi], eax
+		jmp short Ende
 
 	Lange_Null:
 		xor eax, eax

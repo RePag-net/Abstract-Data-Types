@@ -1,12 +1,12 @@
 ;****************************************************************************
-;  OListe_x64.asm
+;  OKomma4_x86.asm
 ;  For more information see https://github.com/RePag-net/Abstract-Data-Types
 ;****************************************************************************
 ;
 ;****************************************************************************
 ;  The MIT License(MIT)
 ;
-;  Copyright(c) 2021 René Pagel
+;  Copyright(c) 2022 René Pagel
 ;
 ;  Permission is hereby granted, free of charge, to any person obtaining a copy
 ;  of this softwareand associated documentation files(the "Software"), to deal
@@ -286,7 +286,7 @@ sqp_this = 40 + s_push
 		mov r9, qword ptr [r9]
 
 		mov rcx, rbx
-		call ?VMFrei@System@RePag@@YQXPEBXPEAX@Z ; VMFrei(vmSpeicher, vbAdresse)
+		call ?VMFrei@System@RePag@@YQXPEBXPEAX@Z ; VMFreiS(vmSpeicher, vbAdresse)
 		jmp short Kopf_Anfang
 
 	Kopf_Ende:
@@ -322,7 +322,7 @@ sqp_this = 40 + s_push
 		mov r9, qword ptr [r9]
 
 		mov rcx, rbx
-		call ?VMFrei@System@RePag@@YQXPEBXPEAX@Z ; VMFrei(vmSpeicher, vbAdresse)
+		call ?VMFrei@System@RePag@@YQXPEBXPEAX@Z ; VMFreiS(vmSpeicher, vbAdresse)
 		jmp short Kopf_Anfang
 
 	Kopf_Ende:
@@ -1173,6 +1173,7 @@ sqp_Knoten_1 = 40 + s_push
 
 		mov rcx, qword ptr sqp_Loschen[rsp]
 		mov rcx, qword ptr [rcx]
+		mov rcx, qword ptr [rcx]
 		mov qword ptr [rdx], rcx
 
 	Ende:
@@ -1295,6 +1296,7 @@ sqp_Knoten_1 = 40 + s_push
 		mov rdx, qword ptr sqp_Knoten_1[rsp]
 
 		mov rcx, qword ptr sqp_Loschen[rsp]
+		mov rcx, qword ptr [rcx]
 		mov rcx, qword ptr [rcx]
 		mov qword ptr [rdx], rcx
 
