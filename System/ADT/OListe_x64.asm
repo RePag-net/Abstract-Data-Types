@@ -1,12 +1,12 @@
 ;****************************************************************************
-;  OKomma4_x86.asm
+;  OListe_x64.asm
 ;  For more information see https://github.com/RePag-net/Abstract-Data-Types
 ;****************************************************************************
 ;
 ;****************************************************************************
 ;  The MIT License(MIT)
 ;
-;  Copyright(c) 2022 René Pagel
+;  Copyright(c) 2024 René Pagel
 ;
 ;  Permission is hereby granted, free of charge, to any person obtaining a copy
 ;  of this softwareand associated documentation files(the "Software"), to deal

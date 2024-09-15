@@ -1,12 +1,12 @@
 ;****************************************************************************
-;  OKomma4_x86.asm
+;  OListe_x86.asm
 ;  For more information see https://github.com/RePag-net/Abstract-Data-Types
 ;****************************************************************************
 ;
 ;****************************************************************************
 ;  The MIT License(MIT)
 ;
-;  Copyright(c) 2022 René Pagel
+;  Copyright(c) 2024 René Pagel
 ;
 ;  Permission is hereby granted, free of charge, to any person obtaining a copy
 ;  of this softwareand associated documentation files(the "Software"), to deal
@@ -202,8 +202,8 @@ _Text SEGMENT
 a_bTheardSicher = 4
 ??0COList@System@RePag@@QAE@_N@Z PROC ; COList::COList(bThreadSicher)
 		pxor xmm7, xmm7
-		movdqu xmmword ptr [eax], xmm7
-		movdqu xmmword ptr [eax + 28], xmm7
+		movdqu xmmword ptr [ecx], xmm7
+		movdqu xmmword ptr [ecx + 28], xmm7
 		movzx edx, byte ptr a_bTheardSicher[esp]
 		mov byte ptr COList_bThread[ecx], dl
 		test dl, dl
@@ -225,8 +225,8 @@ a_bThreadSicher = 4
 a_ulSpinCount = 8
 ??0COList@System@RePag@@QAE@_NK@Z PROC ; COList::COList(bThreadSicher, ulSpinCount)
 		pxor xmm7, xmm7
-		movdqu xmmword ptr [eax], xmm7
-		movdqu xmmword ptr [eax + 28], xmm7
+		movdqu xmmword ptr [ecx], xmm7
+		movdqu xmmword ptr [ecx + 28], xmm7
 		movzx edx, byte ptr a_bThreadSicher[esp]
 		mov byte ptr COList_bThread[ecx], dl
 		test dl, dl
