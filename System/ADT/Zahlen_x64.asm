@@ -6,7 +6,7 @@
 ;****************************************************************************
 ;  The MIT License(MIT)
 ;
-;  Copyright(c) 2021 René Pagel
+;  Copyright(c) 2025 René Pagel
 ;
 ;  Permission is hereby granted, free of charge, to any person obtaining a copy
 ;  of this softwareand associated documentation files(the "Software"), to deal
@@ -370,8 +370,8 @@ _Text ENDS
 ;----------------------------------------------------------------------------
 _Text SEGMENT
 s_push = 24
-s_Bytes = 16
-so20_cVorKomma = 60 + s_push + s_Bytes
+s_Bytes = 32
+so20_cVorKomma = 0 + s_ShadowRegister
 so11_cNachKomma = 49 + s_push + s_Bytes
 sbi_ucNachKommaStellen = 48 + s_push + s_Bytes
 sdi_dwMXCSR = 44 + s_push + s_Bytes
@@ -676,12 +676,14 @@ sdi_dwMXCSR_Alt = 40 + s_push + s_Bytes
 _Text ENDS
 ;----------------------------------------------------------------------------
 _Text SEGMENT
-s_Bytes = 16
-sdi_dwMXCSR = 4
-sdi_dwMXCSR_Alt = 0
-abi_ucStellen = 40 + s_Bytes
+;s_Bytes = 16
+;sdi_dwMXCSR = 4
+;sdi_dwMXCSR_Alt = 0
+sdi_dwMXCSR = 12
+sdi_dwMXCSR_Alt = 8
+abi_ucStellen = 40 ;+ s_Bytes
 ?__DOUBLE_B10toCHAR@@YQXAEAF0NAEA_JE@Z PROC ; __DOUBLE_B10toCHAR((&sExponent, &sVorKomma, dZahl, &llNachKomma, ucStellen)
-    sub rsp, s_Bytes
+    ;sub rsp, s_Bytes
 
     mov r10, rcx
     mov r11, rdx
@@ -895,18 +897,20 @@ abi_ucStellen = 40 + s_Bytes
     vmovq qword ptr [r9], xmm3
 
     vldmxcsr dword ptr sdi_dwMXCSR_Alt[rsp]
-    add rsp, s_Bytes
+    ;add rsp, s_Bytes
     ret
 ?__DOUBLE_B10toCHAR@@YQXAEAF0NAEA_JE@Z ENDP
 _Text ENDS
 ;----------------------------------------------------------------------------
 _Text SEGMENT
-s_Bytes = 16
-sdi_dwMXCSR = 4
-sdi_dwMXCSR_Alt = 0
-abi_ucStellen = 40 + s_Bytes
+;s_Bytes = 16
+;sdi_dwMXCSR = 4
+;sdi_dwMXCSR_Alt = 0
+sdi_dwMXCSR = 12
+sdi_dwMXCSR_Alt = 8
+abi_ucStellen = 40 ;+ s_Bytes
 ?__FLOAT_B10zuCHAR@@YQXAEAF0MAEAJE@Z PROC ; __FLOAT_B10zuCHAR(&Exponent, &sVorKomma, &lNachKomma, &fZahl, &ucStellen)
-    sub rsp, s_Bytes
+    ;sub rsp, s_Bytes
 
     mov r10, rcx
     mov r11, rdx
@@ -1054,7 +1058,7 @@ abi_ucStellen = 40 + s_Bytes
     mov dword ptr [r9], edx
 
     vldmxcsr dword ptr sdi_dwMXCSR_Alt[rsp]
-    add rsp, s_Bytes
+    ;add rsp, s_Bytes
     ret
 ?__FLOAT_B10zuCHAR@@YQXAEAF0MAEAJE@Z ENDP
 _Text ENDS

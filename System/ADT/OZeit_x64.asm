@@ -6,7 +6,7 @@
 ;****************************************************************************
 ;  The MIT License(MIT)
 ;
-;  Copyright(c) 2021 René Pagel
+;  Copyright(c) 2025 René Pagel
 ;
 ;  Permission is hereby granted, free of charge, to any person obtaining a copy
 ;  of this softwareand associated documentation files(the "Software"), to deal
@@ -349,12 +349,8 @@ StringZuFILETIME PROC PRIVATE
 		mov word ptr so16_stSystemTime[rsp + wMilliseconds], 0
 
 	Ende:
-		;pop eax ; COTime
-		;push eax ; COTime
-		;push eax
 		mov rdx, qword ptr sqp_COTime[rsp]
 		lea rcx, so16_stSystemTime[rsp]
-		;push edx
 		call qword ptr __imp_SystemTimeToFileTime ; SystemTimeToFileTime(stSZeit, FZeit)
 
 		lea rcx, qword ptr so32_asZiffer[rsp]
@@ -362,7 +358,6 @@ StringZuFILETIME PROC PRIVATE
 		lea rcx, qword ptr so32_asString[rsp]
 		call ??1COStringA@System@RePag@@QEAA@XZ ; COStringA::~COStringA(void)
 
-		;pop eax ; COTime
 		mov rax, qword ptr sqp_COTime[rsp]
 		
 		add rsp, s_ShadowRegister + sl_Bytes
@@ -571,14 +566,12 @@ ucSekunde = 10;
 usMillisekunde = 12;
 ?COTimeV@System@RePag@@YQPEAVCOTime@12@AEBUSTTime@12@@Z PROC ; COTimeV(&stZeit)
 		sub rsp, s_ShadowRegister
-		;push ecx ; stZeit
 		mov qword ptr sqp_stZeit[rsp], rcx
 
     movzx rdx, dbi_BY_COZEIT
 		xor rcx, rcx
     call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 		mov qword ptr sqp_this[rsp], rax
-		;pop ecx ; stZeit
 		mov rcx, qword ptr sqp_stZeit[rsp]
 
 		xor rdx, rdx
@@ -610,7 +603,6 @@ usMillisekunde = 12;
 		lea rcx, so16_stSystemTime[rsp]
 		call qword ptr __imp_SystemTimeToFileTime ; SystemTimeToFileTime(stSZeit, FZeit)
 
-		;pop eax
 		mov rax, qword ptr sqp_this[rsp]
 
 		mov ecx, dword ptr COTime_FZeit_dwLowDateTime[rax]
@@ -685,7 +677,6 @@ usMillisekunde = 12;
 		lea rcx, so16_stSystemTime[rsp]
 		call qword ptr __imp_SystemTimeToFileTime ; SystemTimeToFileTime(stSZeit, FZeit)
 
-		;pop eax
 		mov rax, qword ptr sqp_this[rsp]
 
 		mov ecx, dword ptr COTime_FZeit_dwLowDateTime[rax]
@@ -1546,7 +1537,7 @@ adi_BufferSize = 8 + s_ShadowRegister
 aqp_DateTimeString = 0 + s_ShadowRegister
 abi_Anordnung = 72 + sa_Bytes + sl_Bytes
 sqp_vbDatum = 64 + sa_Bytes + sl_Bytes
-sqp_pcFormat_Zeit = 56 + s_ShadowRegister + sa_Bytes
+sqp_pcFormat_Zeit = 56 + sa_Bytes + sl_Bytes
 sqp_pcFormat_Datum = 48 + sa_Bytes + sl_Bytes
 sqp_vbDatumZeit = 40 + sa_Bytes + sl_Bytes
 ?VMBLOCKDateTimeFormat@COTime@System@RePag@@QEAQPEADAEAPEADPEBD1_N@Z PROC ; COTime::VMBLOCKDateTimeFormat(&vbDatumZeit, pcFormat_Datum, pcFormat_Zeit, bAnordnung_DatumZeit)

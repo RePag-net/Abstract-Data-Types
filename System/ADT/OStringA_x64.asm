@@ -1,12 +1,12 @@
 ;****************************************************************************
-;  OKomma4_x86.asm
+;  OStringA_x64.asm
 ;  For more information see https://github.com/RePag-net/Abstract-Data-Types
 ;****************************************************************************
 ;
 ;****************************************************************************
 ;  The MIT License(MIT)
 ;
-;  Copyright(c) 2022 René Pagel
+;  Copyright(c) 2025 René Pagel
 ;
 ;  Permission is hereby granted, free of charge, to any person obtaining a copy
 ;  of this softwareand associated documentation files(the "Software"), to deal
@@ -187,7 +187,6 @@ sqp_this = 40
 		mov rdx, qword ptr COStringA_vbInhalt[rcx]
     test rdx, rdx
     je short Kopie
-    ;mov rdx, qword ptr COStringA_vbInhalt[rcx]
     mov rcx, qword ptr COStringA_vmSpeicher[rcx]
 		call ?VMFrei@System@RePag@@YQXPEBXPEAX@Z ; VMFrei(vmSpeicher, vbAdresse)
     mov r8, qword ptr sqp_this[rsp]
@@ -200,7 +199,6 @@ sqp_this = 40
 		mov rdx, qword ptr COStringA_vbInhalt_A[r8]
     test rdx, rdx
     je short Ende
-    ;mov rdx, qword ptr COStringA_vbInhalt_A[r8]
     mov rcx, qword ptr COStringA_vmSpeicher[r8]
     call ?VMFrei@System@RePag@@YQXPEBXPEAX@Z ; VMFrei(vmSpeicher, vbAdresse)
 
@@ -219,7 +217,6 @@ sqp_this = 40
 		mov rdx, qword ptr COStringA_vbInhalt[rcx]
     test rdx, rdx
     je short Kopie
-    ;mov rdx, qword ptr COStringA_vbInhalt[rcx]
     mov rcx, qword ptr COStringA_vmSpeicher[rcx]
 		call ?VMFrei@System@RePag@@YQXPEBXPEAX@Z ; VMFrei(vmSpeicher, vbAdresse)
     mov r8, qword ptr sqp_this[rsp]
@@ -232,7 +229,6 @@ sqp_this = 40
 		mov rdx, qword ptr COStringA_vbInhalt_A[r8]
     test rdx, rdx
     je short Ende
-    ;mov rdx, qword ptr COStringA_vbInhalt_A[r8]
     mov rcx, qword ptr COStringA_vmSpeicher[r8]
     call ?VMFrei@System@RePag@@YQXPEBXPEAX@Z ; VMFrei(vmSpeicher, vbAdresse)
     mov r8, qword ptr sqp_this[rsp]
@@ -316,7 +312,6 @@ sqp_this = 40 + s_push
     mov dword ptr COStringA_ulLange_A[r9], edx
     mov qword ptr sqi_StringLange[rsp], rdx
 
-    ;mov rdx, rax
 		add rdx, 1
     xor rcx, rcx
     call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
@@ -383,7 +378,6 @@ sqp_this = 40 + s_push
     mov dword ptr COStringA_ulLange_A[r9], edx
     mov qword ptr sqi_StringLange[rsp], rdx
 
-    ;mov rdx, rax
 		add rdx, 1
     mov rcx, qword ptr COStringA_vmSpeicher[r9]
     call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
@@ -441,7 +435,6 @@ sqp_this = 40
 		mov dword ptr COStringA_ulLange[rax], edx
     mov qword ptr sqi_llStringLange[rsp], rdx 
 
-    ;mov rdx, qword ptr sqi_llStringLange[rsp]
 		add rdx, 1
     xor rcx, rcx
     call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
@@ -518,7 +511,6 @@ sqp_vmSpeicher = 0 + s_ShadowRegister
 		mov dword ptr COStringA_ulLange[rax], edx
     mov qword ptr sqi_llStringLange[rsp], rdx 
 
-    ;mov rdx, qword ptr sqi_llStringLange[rsp]
 		add rdx, 1
     mov rcx, r8
     call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
@@ -690,7 +682,6 @@ sqp_this = 40 + s_push
 		mov dword ptr COStringA_ulLange_A[r8], edx
     mov qword ptr sqi_StringLange[rsp], rdx
 
-		;mov rdx, rax
 		add rdx, 1
     mov rcx, qword ptr COStringA_vmSpeicher[r8]
     call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
@@ -735,7 +726,6 @@ sqi_llStringLange = 40 + s_push
 		mov rdx, qword ptr COStringA_vbInhalt[rcx]
 		test rdx, rdx
     je short Freigeben_Kopie
-    ;mov rdx, qword ptr COStringA_vbInhalt[rcx]
     mov rcx, qword ptr COStringA_vmSpeicher[rcx]
 		call ?VMFrei@System@RePag@@YQXPEBXPEAX@Z ; VMFrei(vmSpeicher, vbAdresse)
     mov rax, qword ptr COStringA_vbInhalt[rdi]
@@ -746,7 +736,6 @@ sqi_llStringLange = 40 + s_push
 	  mov rdx, qword ptr COStringA_vbInhalt_A[rdi]
     test rdx, rdx
     je short Lange
-    ;mov rdx, qword ptr COStringA_vbInhalt_A[rdi]
     mov rcx, qword ptr COStringA_vmSpeicher[rdi]
 		call ?VMFrei@System@RePag@@YQXPEBXPEAX@Z ; VMFrei(vmSpeicher, vbAdresse)
 
@@ -757,7 +746,6 @@ sqi_llStringLange = 40 + s_push
 		test rdx, rdx
 		je short Lange_Null
 
-		;mov edx, dword ptr COStringA_ulLange_A[rsi]
 		mov dword ptr COStringA_ulLange[rdi], edx
 		mov dword ptr COStringA_ulLange_A[rdi], edx
     mov qword ptr sqi_llStringLange[rsp], rdx
@@ -829,8 +817,6 @@ _Text ENDS
 		test rax, rax
 		je short Lange_Null
 
-		;mov edx, dword ptr COStringA_ulLange[rsi]
-		;add rdx, rbx
 		add rdx, rax
 		add rdx, 1
     mov rcx, qword ptr COStringA_vmSpeicher[rsi]
@@ -906,8 +892,6 @@ sqp_vbInhalt_Neu = 40 + s_push
 		test rax, rax
 		je short Lange_Null
 
-		;mov edx, dword ptr COStringA_ulLange[rbp]
-		;add edx, dword ptr COStringA_ulLange_A[rdi]
 		add rdx, rax
 		add rdx, 1
     mov rcx, qword ptr COStringA_vmSpeicher[rbp]
@@ -946,7 +930,6 @@ sqp_vbInhalt_Neu = 40 + s_push
 	  mov rdx, qword ptr COStringA_vbInhalt[rbp]
 		test rdx, rdx
     je short Freigeben_Kopie
-    ;mov rdx, qword ptr COStringA_vbInhalt[rbp]
     mov rcx, qword ptr COStringA_vmSpeicher[rbp]
 		call ?VMFrei@System@RePag@@YQXPEBXPEAX@Z ; VMFrei(vmSpeicher, vbAdresse)
     mov rax, qword ptr COStringA_vbInhalt[rbp]
@@ -957,8 +940,6 @@ sqp_vbInhalt_Neu = 40 + s_push
 		mov rdx, qword ptr COStringA_vbInhalt_A[rbp]
     test rdx, rdx
     je short Freigeben_Ende
-    ;mov rdx, qword ptr COStringA_vbInhalt_A[rbp]
-    mov rcx, qword ptr COStringA_vmSpeicher[rbp]
 		call ?VMFrei@System@RePag@@YQXPEBXPEAX@Z ; VMFrei(vmSpeicher, vbAdresse)
 	
 	Freigeben_Ende:
@@ -1020,7 +1001,6 @@ _Text ENDS
 		test rdx, rdx
 		je short Lange_Null
 
-		;mov edx, dword ptr COStringA_ulLange_A[rbp]
 		add rdx, rbx
 		add rdx, 1
     mov rcx, qword ptr COStringA_vmSpeicher[rbp]
@@ -1088,8 +1068,7 @@ _Text ENDS
 		test rdx, rdx
 		je short Lange_Null
 
-		;mov edx, dword ptr COStringA_ulLange_A[rbp]
-		add rdx, rax ;dword ptr COStringA_ulLange_A[rdi]
+		add rdx, rax
 		add edx, 1
 		mov rcx, qword ptr COStringA_vmSpeicher[rbp]
     call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
@@ -1110,7 +1089,6 @@ _Text ENDS
 		jmp short Schluss
 
 	Lange_Null:
-		;mov edx, dword ptr COStringA_ulLange_A[rdi]
 		add rdx, 1
     mov rcx, qword ptr COStringA_vmSpeicher[rbp]
     call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
@@ -1133,7 +1111,6 @@ _Text ENDS
 		mov rdx, qword ptr COStringA_vbInhalt_A[rdi]
 		cmp rdx, qword ptr COStringA_vbInhalt[rdi]
 		je short Ende
-		;mov rdx, qword ptr COStringA_vbInhalt_A[rdi]
 		mov rcx, qword ptr COStringA_vmSpeicher[rdi]
 		call ?VMFrei@System@RePag@@YQXPEBXPEAX@Z ; VMFrei(vmSpeicher, vbAdresse)
 
@@ -1175,25 +1152,16 @@ _Text ENDS
 
 		mov ecx, dword ptr COStringA_ulLange[r8]
 		cmp rcx, rdx
-		;jbe short RefKleinerGleich
-		;mov rcx, rdx
 		cmova rcx, rdx
 
-	;RefKleinerGleich:
 		xor r9, r9
 		mov rax, 1
 		mov rdi, qword ptr COStringA_vbInhalt[r8]
 		repe cmpsb
-		;jne short Ungleich
 		cmovne rax, r9
 
 		cmp edx, dword ptr COStringA_ulLange[r8]
-		;jne short Ungleich
-		;jmp short Ende
 		cmovne rax, r9
-
-	;Ungleich:
-		;xor rax, rax
 
 	Ende:
 		pop rsi
@@ -1217,28 +1185,18 @@ _Text ENDS
 		mov r10d, dword ptr COStringA_ulLange[rdx]
 		mov ecx, dword ptr COStringA_ulLange[r8]
 		cmp rcx, r10
-		;jbe short RefKleinerGleich
-		;mov ecx, dword ptr COStringA_ulLange[rdx]
 		cmova rcx, r10
 
-	;RefKleinerGleich:
 		xor r9, r9
 		mov rax, 1
 		cld
 	  mov rsi, qword ptr COStringA_vbInhalt[rdx]
 		mov rdi, qword ptr COStringA_vbInhalt[r8]
 		repe cmpsb
-		;jne short Ungleich
 		cmovne rax, r9
 
-		;mov ecx, dword ptr COStringA_ulLange[rdx]
 		cmp r10d, dword ptr COStringA_ulLange[r8]
-		;jne short Ungleich
-		;jmp short Ende
 		cmovne rax, r9
-
-	;Ungleich:
-		;xor rax, rax
 
 	Ende:
 		pop	rdi
@@ -1271,25 +1229,16 @@ _Text ENDS
 
 		mov ecx, dword ptr COStringA_ulLange[r8]
 		cmp rcx, rdx
-		;jbe short RefKleinerGleich
-		;mov rcx, rdx
 		cmova rcx, rdx
 
-	;RefKleinerGleich:
 		mov r9, 1
 		xor rax, rax
 		mov rdi, qword ptr COStringA_vbInhalt[r8]
 		repe cmpsb
-		;jne short Ungleich
 		cmovne rax, r9
 
 		cmp edx, dword ptr COStringA_ulLange[r8]
-		;jne short Ungleich
-		;jmp short Ende
 		cmovne rax, r9
-
-	;Ungleich:
-		;mov eax, 1
 
 	Ende:
 		pop	rdi
@@ -1312,28 +1261,18 @@ _Text ENDS
 		mov r10d, dword ptr COStringA_ulLange[rdx]
 		mov ecx, dword ptr COStringA_ulLange[r8]
 		cmp rcx, r10
-		;jbe short RefKleinerGleich
-		;mov ecx, dword ptr COStringA_ulLange[rdx]
 		cmova rcx, r10
 
-	;RefKleinerGleich:
 		mov r9, 1
 		xor rax, rax
 		cld
 		mov rsi, qword ptr COStringA_vbInhalt[rdx]
 		mov rdi, qword ptr COStringA_vbInhalt[r8]
 		repe cmpsb
-		;jne short Ungleich
 		cmovne rax, r9
 
-		;mov ecx, dword ptr COStringA_ulLange[rdx]
 		cmp r10d, dword ptr COStringA_ulLange[r8]
-		;jne short Ungleich
-		;jmp short Ende
 		cmovne rax, r9
-
-	;Ungleich:
-		;mov rax, 1
 
 	Ende:
 		pop	rdi
@@ -1368,21 +1307,14 @@ _Text ENDS
 		cmp rcx, rdx
 		cmova rcx, rdx
 
-	;RefKleinerGleich:
 		mov r9, 1
 		xor rax, rax		
 		mov rdi, qword ptr COStringA_vbInhalt[r8]
 		repe cmpsb
-		;ja short Ungleich
 		cmova rax, r9
 
 		cmp edx, dword ptr COStringA_ulLange[r8]
-		;ja short Ungleich
-		;jmp short Ende
 		cmova rax, r9
-
-	;Ungleich:
-		;mov rax, 1
 
 	Ende:
 		pop rsi
@@ -1405,28 +1337,18 @@ _Text ENDS
 		mov r10d, dword ptr COStringA_ulLange[rdx]
 		mov ecx, dword ptr COStringA_ulLange[r8]
 		cmp rcx, r10
-		;jbe short RefKleinerGleich
-		;mov ecx, dword ptr COStringA_ulLange[rdx]
 		cmovbe rcx, r10
 
-	;RefKleinerGleich:
 		mov r9, 1
 		xor rax, rax
 		cld
 		mov rsi, qword ptr COStringA_vbInhalt[rdx]
 		mov rdi, qword ptr COStringA_vbInhalt[r8]
 		repe cmpsb
-		;ja short Ungleich
 		cmova rax, r9
 
-		;mov ecx, dword ptr COStringA_ulLange[rdx]
 		cmp r10d, dword ptr COStringA_ulLange[r8]
-		;ja short Ungleich
-		;jmp short Ende
 		cmova rax, r9
-
-	;Ungleich:
-		;mov rax, 1
 
 	Ende:
 		pop	rdi
@@ -1461,21 +1383,14 @@ _Text ENDS
 		cmp rcx, rdx
 		cmova rcx, rdx
 
-	;RefKleinerGleich:
 		mov r9, 1
 		xor rax, rax		
 		mov rdi, qword ptr COStringA_vbInhalt[r8]
 		repe cmpsb
-		;jb short Ungleich
 		cmovb rax, r9
 
 		cmp edx, dword ptr COStringA_ulLange[r8]
-		;jb short Ungleich
-		;jmp short Ende
 		cmovb rax, r9
-
-	;Ungleich:
-		;mov rax, 1
 
 	Ende:
 		pop	rdi
@@ -1497,29 +1412,19 @@ _Text ENDS
 
 		mov r10d, dword ptr COStringA_ulLange[rdx]
 		mov ecx, dword ptr COStringA_ulLange[r8]
-		;jbe short RefKleinerGleich
-		;mov ecx, dword ptr COStringA_ulLange[rdx]
 		cmp rcx, r10
 		cmovbe rcx, r10
 
-	;RefKleinerGleich:
 		mov r9, 1
 		xor rax, rax
 		cld
 		mov rsi, qword ptr COStringA_vbInhalt[rdx]
 		mov rdi, qword ptr COStringA_vbInhalt[r8]
 		repe cmpsb
-		;jb short Ungleich
 		cmovb rax, r9
 
-		;mov ecx, dword ptr COStringA_ulLange[rdx]
 		cmp r10d, dword ptr COStringA_ulLange[r8]
-		;jb short Ungleich
-		;jmp short Ende
 		cmovb rax, r9
-
-	;Ungleich:
-		;mov rax, 1
 
 	Ende:
 		pop	rdi
@@ -1953,7 +1858,6 @@ sqp_vbInhalt = 40 + s_push
 		mov rdx, qword ptr COStringA_vbInhalt[rdi] 
 		test rdx, rdx
     je short Freigeben_Kopie
-    ;mov rdx, qword ptr COStringA_vbInhalt[rdi]
 		mov rcx, qword ptr COStringA_vmSpeicher[rdi]
 		call ?VMFrei@System@RePag@@YQXPEBXPEAX@Z ; VMFrei(vmSpeicher, vbAdresse)
     mov rax, qword ptr COStringA_vbInhalt[rdi]
@@ -1964,7 +1868,6 @@ sqp_vbInhalt = 40 + s_push
 		mov rdx, qword ptr COStringA_vbInhalt_A[rdi]
     test rdx, rdx
     je short Freigeben_Ende
-    ;mov rdx, qword ptr COStringA_vbInhalt_A[rdi]
     mov rcx, qword ptr COStringA_vmSpeicher[rdi]
 		call ?VMFrei@System@RePag@@YQXPEBXPEAX@Z ; VMFrei(vmSpeicher, vbAdresse)
 
@@ -1975,7 +1878,6 @@ sqp_vbInhalt = 40 + s_push
 
 		test rdx, rdx
 		je short Inhalt_Null
-		;mov rdx, r9
 		add rdx, 1
     mov rcx, qword ptr COStringA_vmSpeicher[rdi]
     call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
@@ -1995,7 +1897,6 @@ sqp_vbInhalt = 40 + s_push
 		jmp short Ende
 
 	Inhalt:
-		;mov r8, qword ptr sqi_ulBis[rsp]
 		mov rdx, qword ptr sqp_vbInhalt[rsp]
 		add rdx, qword ptr sqi_ulVon[rsp]
 		sub rdx, 1
@@ -2063,7 +1964,6 @@ sqp_pcString = 40 + s_push
 		jmp short Lange
 
 	Einfugen:
-		;mov r8, qword ptr sqi_ulPosition[rsp]
 		mov rdx, qword ptr COStringA_vbInhalt[rbp]
 		mov rcx, rax
     call ?MemCopy@System@RePag@@YQPEAXPEAXPEBXK@Z ; MemCopy(pvZiel, pvQuelle, ulBytes)
@@ -2100,7 +2000,6 @@ sqp_pcString = 40 + s_push
 		mov rdx, qword ptr COStringA_vbInhalt[rbp]
 		test rdx, rdx
     je short Freigeben_Kopie
-    ;mov rdx, qword ptr COStringA_vbInhalt[rbp]
     mov rcx, qword ptr COStringA_vmSpeicher[rbp]
 		call ?VMFrei@System@RePag@@YQXPEBXPEAX@Z ; VMFrei(vmSpeicher, vbAdresse)
     mov rax, qword ptr COStringA_vbInhalt[rbp]
@@ -2111,7 +2010,6 @@ sqp_pcString = 40 + s_push
 	  mov rdx, qword ptr COStringA_vbInhalt_A[rbp]
     test rdx, rdx
     je short Freigeben_Ende
-    ;mov rdx, qword ptr COStringA_vbInhalt_A[rbp]
     mov rcx, qword ptr COStringA_vmSpeicher[rbp]
 		call ?VMFrei@System@RePag@@YQXPEBXPEAX@Z ; VMFrei(vmSpeicher, vbAdresse)
 
@@ -2171,7 +2069,6 @@ sqi_ulPosition = 40 + s_push
 		jmp short Lange
 
 	Einfugen:
-		;mov r8, qword ptr sqi_ulPosition[rsp]
 		mov rdx, qword ptr COStringA_vbInhalt[rbp]
 		mov rcx, rax
     call ?MemCopy@System@RePag@@YQPEAXPEAXPEBXK@Z ; MemCopy(pvZiel, pvQuelle, ulBytes)
@@ -2208,7 +2105,6 @@ sqi_ulPosition = 40 + s_push
 		mov rdx, qword ptr COStringA_vbInhalt[rbp]
 		test rdx, rdx
     je short Freigeben_Kopie
-    ;mov rdx, qword ptr COStringA_vbInhalt[rbp]
     mov rcx, qword ptr COStringA_vmSpeicher[rbp]
 		call ?VMFrei@System@RePag@@YQXPEBXPEAX@Z ; VMFrei(vmSpeicher, vbAdresse)
     mov rax, qword ptr COStringA_vbInhalt[rbp]
@@ -2219,7 +2115,6 @@ sqi_ulPosition = 40 + s_push
 		mov rdx, qword ptr COStringA_vbInhalt_A[rbp]
     test rdx, rdx
     je short Freigeben_Ende
-    ;mov rdx, qword ptr COStringA_vbInhalt_A[rbp]
     mov rcx, qword ptr COStringA_vmSpeicher[rbp]
 		call ?VMFrei@System@RePag@@YQXPEBXPEAX@Z ; VMFrei(vmSpeicher, vbAdresse)
 
@@ -2295,7 +2190,6 @@ sqi_ulAnzahl = 40 + s_push
 		mov rdx, qword ptr COStringA_vbInhalt[rbp]
 		test rdx, rdx
     je short Freigeben_Kopie_1
-    ;mov rdx, qword ptr COStringA_vbInhalt[rbp]
     mov rcx, qword ptr COStringA_vmSpeicher[rbp]
 		call ?VMFrei@System@RePag@@YQXPEBXPEAX@Z ; VMFrei(vmSpeicher, vbAdresse)
     mov rax, qword ptr COStringA_vbInhalt[rbp]
@@ -2306,7 +2200,6 @@ sqi_ulAnzahl = 40 + s_push
 		mov rdx, qword ptr COStringA_vbInhalt_A[rbp]
     test rdx, rdx
     je short Freigeben_Ende_1
-    ;mov rdx, qword ptr COStringA_vbInhalt_A[rbp]
     mov rcx, qword ptr COStringA_vmSpeicher[rbp]
 		call ?VMFrei@System@RePag@@YQXPEBXPEAX@Z ; VMFrei(vmSpeicher, vbAdresse)
 
@@ -2334,7 +2227,6 @@ sqi_ulAnzahl = 40 + s_push
 		mov rdx, qword ptr COStringA_vbInhalt[rbp]
 		test rdx, rdx
     je short Freigeben_Kopie_2
-    ;mov rdx, qword ptr COStringA_vbInhalt[rbp]
     mov rcx, qword ptr COStringA_vmSpeicher[rbp]
 		call ?VMFrei@System@RePag@@YQXPEBXPEAX@Z ; VMFrei(vmSpeicher, vbAdresse)
     mov rax, qword ptr COStringA_vbInhalt[rbp]
@@ -2345,7 +2237,6 @@ sqi_ulAnzahl = 40 + s_push
 		mov rdx, qword ptr COStringA_vbInhalt_A[rbp]
     test rdx, rdx
     je short Freigeben_Ende_2
-    ;mov rdx, qword ptr COStringA_vbInhalt_A[rbp]
     mov rcx, qword ptr COStringA_vmSpeicher[rbp]
 		call ?VMFrei@System@RePag@@YQXPEBXPEAX@Z ; VMFrei(vmSpeicher, vbAdresse)
 
@@ -2442,12 +2333,6 @@ sqp_vbNeuerInhalt = 40 + s_push
 
 		mov rbp, rcx
 
-		;sub dword ptr COStringA_ulLange[rbp], edx
-		;mov eax, dword ptr COStringA_ulLange[rbp]
-		;mov dword ptr COStringA_ulLange_A[rbp], eax
-
-		;mov ecx, dword ptr COStringA_ulLange[rbp]
-		;test rcx, rcx
 		mov eax, dword ptr COStringA_ulLange[rbp]
 		sub rax, rdx
 		mov dword ptr COStringA_ulLange[rbp], eax
@@ -2474,7 +2359,6 @@ sqp_vbNeuerInhalt = 40 + s_push
 		mov rdx, qword ptr COStringA_vbInhalt[rbp]
 		test rdx, rdx
     je short Freigeben_Kopie
-    ;mov rdx, qword ptr COStringA_vbInhalt[rbp]
     mov rcx, qword ptr COStringA_vmSpeicher[rbp]
 		call ?VMFrei@System@RePag@@YQXPEBXPEAX@Z ; VMFrei(vmSpeicher, vbAdresse)
     mov rax, qword ptr COStringA_vbInhalt[rbp]
@@ -2485,7 +2369,6 @@ sqp_vbNeuerInhalt = 40 + s_push
 	  mov rdx, qword ptr COStringA_vbInhalt_A[rbp]
     test rdx, rdx
     je short Freigeben_Ende
-    ;mov rdx, qword ptr COStringA_vbInhalt_A[rbp]
     mov rcx, qword ptr COStringA_vmSpeicher[rbp]
 		call ?VMFrei@System@RePag@@YQXPEBXPEAX@Z ; VMFrei(vmSpeicher, vbAdresse)
 
@@ -2497,19 +2380,6 @@ sqp_vbNeuerInhalt = 40 + s_push
 
 		mov qword ptr COStringA_vbInhalt[rbp], rax
 		mov qword ptr COStringA_vbInhalt_A[rbp], rax
-
-		;mov eax, dword ptr COStringA_ulLange[rbp]
-		;test rax, rax
-		;je short Inhalt_Null
-		;mov rax, qword ptr sqp_vbNeuerInhalt[rsp]
-		;mov qword ptr COStringA_vbInhalt[rbp], rax
-		;mov qword ptr COStringA_vbInhalt_A[rbp], rax
-		;jmp short Ende
-
-	;Inhalt_Null:
-		;xor rax, rax
-		;mov qword ptr COStringA_vbInhalt[rbp], rax
-		;mov qword ptr COStringA_vbInhalt_A[rbp], rax
 
 	Ende:
 		add rsp, s_ShadowRegister
@@ -2537,12 +2407,6 @@ sqp_vbNeuerInhalt = 40 + s_push
 		mov rbp, rcx
 		mov qword ptr sqi_ulStrLange[rsp], rdx
 
-		;sub dword ptr COStringA_ulLange[rbp], edx
-		;mov eax, dword ptr COStringA_ulLange[rbp]
-		;mov dword ptr COStringA_ulLange_A[rbp], eax
-
-		;mov ecx, dword ptr COStringA_ulLange[rbp]
-		;test rcx, rcx
 		mov eax, dword ptr COStringA_ulLange[rbp]
 		sub rax, rdx
 		mov dword ptr COStringA_ulLange[rbp], eax
@@ -2550,20 +2414,16 @@ sqp_vbNeuerInhalt = 40 + s_push
 		test rax, rax
 		je short Freigeben
 
-		;push edx ; ulStrLange
-		;mov dword ptr sdi_ulStrLange[rsp], eax
 		mov rdx, rax
 		add rdx, 1
     mov rcx, qword ptr COStringA_vmSpeicher[rbp]
     call ?VMBlock@System@RePag@@YQPEADPEBXK@Z ; VMBlock(vmSpeicher, ulBytes)
 
-		;pop ecx  ; ulStrLange
 		mov r8d, dword ptr COStringA_ulLange[rbp]
 		mov rdx, qword ptr COStringA_vbInhalt[rbp]
 		add rdx, qword ptr sqi_ulStrLange[rsp]
 		mov rcx, rax
     call ?MemCopy@System@RePag@@YQPEAXPEAXPEBXK@Z ; MemCopy(pvZiel, pvQuelle, ulBytes)
-		;push eax ; vbNeuerInhalt
 		mov qword ptr sqp_vbNeuerInhalt[rsp], rax
 		mov r9d, dword ptr COStringA_ulLange[rbp]
 		add rax, r9
@@ -2574,7 +2434,6 @@ sqp_vbNeuerInhalt = 40 + s_push
 	  mov rdx, qword ptr COStringA_vbInhalt[rbp]
 		test rdx, rdx
     je short Freigeben_Kopie
-    ;mov rdx, qword ptr COStringA_vbInhalt[rbp]
     mov rcx, qword ptr COStringA_vmSpeicher[rbp]
 		call ?VMFrei@System@RePag@@YQXPEBXPEAX@Z ; VMFrei(vmSpeicher, vbAdresse)
     mov rax, qword ptr COStringA_vbInhalt[rbp]
@@ -2585,7 +2444,6 @@ sqp_vbNeuerInhalt = 40 + s_push
 	  mov rdx, qword ptr COStringA_vbInhalt_A[rbp]
     test rdx, rdx
 		je short Freigeben_Ende
-    ;mov rdx, qword ptr COStringA_vbInhalt_A[rbp]
     mov rcx, qword ptr COStringA_vmSpeicher[rbp]
 		call ?VMFrei@System@RePag@@YQXPEBXPEAX@Z ; VMFrei(vmSpeicher, vbAdresse)
 
@@ -2597,20 +2455,6 @@ sqp_vbNeuerInhalt = 40 + s_push
 
 		mov qword ptr COStringA_vbInhalt[rbp], rax
 		mov qword ptr COStringA_vbInhalt_A[rbp], rax
-
-	  ;mov eax, dword ptr COStringA_ulLange[rbp]
-		;test rax, rax
-		;je short Inhalt_Null
-		;pop eax ; vbNeuerInhalt
-		;mov rax, qword ptr sqp_vbNeuerInhalt[rsp]
-		;mov qword ptr COStringA_vbInhalt[rbp], rax
-		;mov qword ptr COStringA_vbInhalt_A[rbp], rax
-		;jmp short Ende
-
-	;Inhalt_Null:
-	  ;xor rax, rax
-		;mov qword ptr COStringA_vbInhalt[rbp], rax
-		;mov qword ptr COStringA_vbInhalt_A[rbp], rax
 
 	Ende:
 		add rsp, s_ShadowRegister
@@ -2635,12 +2479,6 @@ sqp_this = 40
 		je short Freigeben
 		mov dword ptr COStringA_ulLange_A[rcx], eax
 		
-		;mov rdx, qword ptr COStringA_vbInhalt[rcx]
-		;add rdx, rax
-		;xor r8b, r8b
-		;mov byte ptr [rdx], r8b
-		;sub rdx, rax
-		;mov qword ptr COStringA_vbInhalt_A[rcx], rdx
 		mov r8, qword ptr COStringA_vbInhalt[rcx]
 		add r8, rax
 		xor dl, dl
@@ -2653,7 +2491,6 @@ sqp_this = 40
 	  mov rdx, qword ptr COStringA_vbInhalt[rcx]
 		test rdx, rdx
     je short Freigeben_Kopie
-    ;mov rdx, qword ptr COStringA_vbInhalt[rcx]
     mov rcx, qword ptr COStringA_vmSpeicher[rcx]
 		call ?VMFrei@System@RePag@@YQXPEBXPEAX@Z ; VMFrei(vmSpeicher, vbAdresse)
 		mov rcx, qword ptr sqp_this[rsp]
@@ -2665,7 +2502,6 @@ sqp_this = 40
 	  mov rdx, qword ptr COStringA_vbInhalt_A[rcx]
     test rdx, rdx
     je short Freigeben_Ende
-    ;mov rdx, qword ptr COStringA_vbInhalt_A[rcx]
     mov rcx, qword ptr COStringA_vmSpeicher[rcx]
 		call ?VMFrei@System@RePag@@YQXPEBXPEAX@Z ; VMFrei(vmSpeicher, vbAdresse)
 
@@ -4748,8 +4584,6 @@ sqd_Zahl = 0
 		ja short FZahl_Null_1
 		sub rax, 48
 		vcvtsi2sd xmm2, xmm2, rax
-		;vmulsd xmm2, xmm2, xmm1
-		;vaddsd xmm3, xmm3, xmm2
 		vfmadd231sd xmm3, xmm2, xmm1
 		jmp short Fuss_Ende
 

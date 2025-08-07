@@ -6,7 +6,7 @@
 ;****************************************************************************
 ;  The MIT License(MIT)
 ;
-;  Copyright(c) 2021 René Pagel
+;  Copyright(c) 2025 René Pagel
 ;
 ;  Permission is hereby granted, free of charge, to any person obtaining a copy
 ;  of this softwareand associated documentation files(the "Software"), to deal
@@ -616,9 +616,9 @@ _Text ENDS
 ??0COComma4_80@System@RePag@@QEAA@XZ ENDP
 ;----------------------------------------------------------------------------
 _Text SEGMENT
-sqd_dZahl = 48
-sdi_MXCSR_Alt = 44
-sdi_MXCSR = 40
+sqd_dZahl = 16
+sdi_MXCSR_Alt = 12
+sdi_MXCSR = 8
 ??0COComma4_80@System@RePag@@QEAA@N@Z PROC ; COComma4_80::COComma4_80(dZahl)
     vstmxcsr dword ptr sdi_MXCSR_Alt[rsp]
     vstmxcsr dword ptr sdi_MXCSR[rsp]
