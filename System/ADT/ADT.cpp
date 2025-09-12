@@ -1,2 +1,0 @@
-#include "HADT.h"
-
