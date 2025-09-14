@@ -240,21 +240,22 @@ _Text ENDS
 ??0COList@System@RePag@@QEAA@PEBX_NK@Z ENDP
 ;----------------------------------------------------------------------------
 _Text SEGMENT
-s_push = 8
+s_push = 16
 sqp_this = 40 + s_push
 ??1COList@System@RePag@@QEAA@XZ PROC ; COList::~COList(void)
 		push rbx
+		push r12
 		sub rsp, s_ShadowRegister
 		
 		mov qword ptr sqp_this[rsp], rcx
-		mov r9, qword ptr COList_pstErster[rcx]
+		mov r12, qword ptr COList_pstErster[rcx]
 		mov rbx, qword ptr COList_vmSpeicher[rcx]
 
 	Kopf_Anfang:
-		test r9, r9
+		test r12, r12
 		je short Kopf_Ende
-		mov rdx, r9
-		mov r9, qword ptr [r9]
+		mov rdx, r12
+		mov r12, qword ptr [r12]
 
 		mov rcx, rbx
 		call ?VMFrei@System@RePag@@YQXPEBXPEAX@Z ; VMFreiS(vmSpeicher, vbAdresse)
@@ -270,27 +271,29 @@ sqp_this = 40 + s_push
 		
 	Ende:
 		add rsp, s_ShadowRegister
+		pop r12
 		pop rbx
 		ret
 ??1COList@System@RePag@@QEAA@XZ ENDP
 _Text ENDS
 ;----------------------------------------------------------------------------
 _Text SEGMENT
-s_push = 8
+s_push = 16
 sqp_this = 40 + s_push
 ?COFreiV@COList@System@RePag@@QEAQPEBXXZ PROC ; COList::COFreiV(void)
 		push rbx
+		push r12
 		sub rsp, s_ShadowRegister
 		
 		mov qword ptr sqp_this[rsp], rcx
-		mov r9, qword ptr COList_pstErster[rcx]
+		mov r12, qword ptr COList_pstErster[rcx]
 		mov rbx, qword ptr COList_vmSpeicher[rcx]
 
 	Kopf_Anfang:
-		test r9, r9
+		test r12, r12
 		je short Kopf_Ende
-		mov rdx, r9
-		mov r9, qword ptr [r9]
+		mov rdx, r12
+		mov r12, qword ptr [r12]
 
 		mov rcx, rbx
 		call ?VMFrei@System@RePag@@YQXPEBXPEAX@Z ; VMFreiS(vmSpeicher, vbAdresse)
@@ -308,6 +311,7 @@ sqp_this = 40 + s_push
 	Ende:
 		mov rax, qword ptr COList_vmSpeicher[rcx]
 		add rsp, s_ShadowRegister
+		pop r12
 		pop rbx
 		ret
 ?COFreiV@COList@System@RePag@@QEAQPEBXXZ ENDP
