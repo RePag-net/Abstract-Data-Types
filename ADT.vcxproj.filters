@@ -59,25 +59,7 @@
     <ClCompile Include="ListeZuString.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="OKomma4.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="OKomma4_80.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="OStream.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="OStringA.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="OZeit.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
     <ClCompile Include="ZahlZuString.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="OListe.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="HADT.cpp">

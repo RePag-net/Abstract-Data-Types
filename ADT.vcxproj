@@ -189,14 +189,6 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Preview|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="ListeZuString.cpp" />
-    <ClCompile Include="OKomma4.cpp" />
-    <ClCompile Include="OKomma4_80.cpp" />
-    <ClCompile Include="OListe.cpp" />
-    <ClCompile Include="OStream.cpp">
-      <AssemblerOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">AssemblyAndSourceCode</AssemblerOutput>
-    </ClCompile>
-    <ClCompile Include="OStringA.cpp" />
-    <ClCompile Include="OZeit.cpp" />
     <ClCompile Include="ZahlZuString.cpp" />
   </ItemGroup>
   <ItemGroup>
